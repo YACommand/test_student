@@ -7,4 +7,4 @@
 target
 *.jar
 *.war
-/src/main/resources/application.properties
+/src/main/resources/
