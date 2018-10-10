@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.pojo;
 
+import java.security.acl.Group;
 import java.util.Objects;
 
 public class Student extends User {
@@ -11,6 +12,15 @@ public class Student extends User {
         this.group = group;
     }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    //TODO узнать про поля суперкласса в equals, hashcode и toString
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,8 +34,6 @@ public class Student extends User {
         return Objects.hash(group);
     }
 
-    public Student(){}
-
     @Override
     public String toString() {
         return "Student{" +
@@ -33,11 +41,4 @@ public class Student extends User {
                 '}';
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
 }
