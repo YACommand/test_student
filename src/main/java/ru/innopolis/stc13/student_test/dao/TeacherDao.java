@@ -6,12 +6,12 @@ public interface TeacherDao {
 
     boolean add(Teacher teacher);
 
-    boolean get(Integer id);
+    Teacher get(Integer id);
 
     boolean update(Teacher teacher);
 
     boolean delete(Integer id);
 
-    boolean getAll();
+    Teacher getAll();
 
 }

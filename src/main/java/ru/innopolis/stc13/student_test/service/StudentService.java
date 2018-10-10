@@ -6,11 +6,11 @@ public interface StudentService {
 
     boolean add(Student student);
 
-    boolean get(Integer id);
+    Student get(Integer id);
 
     boolean update(Student student);
 
     boolean delete(Integer id);
 
-    boolean getAll();
+    Student getAll();
 }

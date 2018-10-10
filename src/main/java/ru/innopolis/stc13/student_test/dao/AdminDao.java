@@ -6,12 +6,12 @@ public interface AdminDao {
 
     boolean add(Admin admin);
 
-    boolean get(Integer id);
+    Admin get(Integer id);
 
     boolean update(Admin admin);
 
     boolean delete(Integer id);
 
-    boolean getAll();
+    Admin getAll();
 
 }

@@ -8,11 +8,11 @@ public interface TestService {
 
     boolean add(Test test);
 
-    Test get(String id);
+    Test get(Integer id);
 
     boolean update(Test test);
 
-    boolean delete(String id);
+    boolean delete(Integer id);
 
     List<Test> getAll();
 }
