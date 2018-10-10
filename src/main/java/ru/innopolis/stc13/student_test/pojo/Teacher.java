@@ -6,15 +6,6 @@ public class Teacher extends User {
 
     private String specialization;
 
-    public Teacher(){}
-
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "specialization='" + specialization + '\'' +
-                '}';
-    }
-
     public String getSpecialization() {
         return specialization;
     }
@@ -39,5 +30,12 @@ public class Teacher extends User {
     @Override
     public int hashCode() {
         return Objects.hash(specialization);
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "specialization='" + specialization + '\'' +
+                '}';
     }
 }
