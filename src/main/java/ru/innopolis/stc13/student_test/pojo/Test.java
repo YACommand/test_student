@@ -1,18 +1,16 @@
 package ru.innopolis.stc13.student_test.pojo;
 
+import java.security.acl.Group;
 import java.util.List;
 import java.util.Objects;
 
 public class Test {
 
-    int id;
-    String description;
-    Teacher teacher;
-    List<Question> questions;
-    List<Group> groups;
-
-    public Test() {
-    }
+    private int id;
+    private String description;
+    private Teacher teacher;
+    private List<Question> questions;
+    private List<Group> groups;
 
     public Test(int id, String description, Teacher teacher, List<Question> questions, List<Group> groups) {
         this.id = id;
