@@ -5,9 +5,9 @@ import java.util.Objects;
 
 public class Question {
 
-    int id;
-    String text;
-    Map<String, Boolean> answers;
+    private int id;
+    private String text;
+    private Map<String, Boolean> answers;
 
     public Question() {
     }
