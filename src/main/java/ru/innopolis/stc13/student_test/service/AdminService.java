@@ -4,9 +4,9 @@ import ru.innopolis.stc13.student_test.pojo.Admin;
 
 public interface AdminService {
 
-    boolean create(Admin admin);
+    boolean add(Admin admin);
 
-    boolean read(Integer id);
+    boolean get(Integer id);
 
     boolean update(Admin admin);
 
