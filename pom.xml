@@ -45,13 +45,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Tomcat embedded container-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
 		<!-- JSTL for JSP -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

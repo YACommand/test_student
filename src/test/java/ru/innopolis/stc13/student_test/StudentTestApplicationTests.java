@@ -1,4 +1,4 @@
-package ru.innopolis.stc13.student_test.student_test;
+package ru.innopolis.stc13.student_test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
