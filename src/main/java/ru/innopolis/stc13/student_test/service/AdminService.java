@@ -2,6 +2,8 @@ package ru.innopolis.stc13.student_test.service;
 
 import ru.innopolis.stc13.student_test.pojo.Admin;
 
+import java.util.List;
+
 public interface AdminService {
 
     boolean add(Admin admin);
@@ -12,5 +14,5 @@ public interface AdminService {
 
     boolean delete(Integer id);
 
-    Admin getAll();
+    List<Admin> getAll();
 }
