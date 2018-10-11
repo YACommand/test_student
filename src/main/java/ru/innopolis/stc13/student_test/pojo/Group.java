@@ -3,7 +3,6 @@ package ru.innopolis.stc13.student_test.pojo;
 import java.util.Objects;
 
 public class Group {
-
     private int id;
     private String name;
     private boolean isInternal;
