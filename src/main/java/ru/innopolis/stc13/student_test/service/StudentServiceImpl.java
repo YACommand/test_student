@@ -24,7 +24,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student get(Integer id) {
-        return null;
+        return studentDao.getOne(id);
     }
 
     @Override
@@ -34,6 +34,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean delete(Integer id) {
+        if (this.get(id) != null) {
+            studentDao.deleteById(id);
+            return true;
+        }
         return false;
     }
 
