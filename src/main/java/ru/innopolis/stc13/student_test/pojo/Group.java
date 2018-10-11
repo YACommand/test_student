@@ -1,11 +1,16 @@
 package ru.innopolis.stc13.student_test.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity(name = "groups")
 public class Group {
-
+    @Id
     private int id;
     private String name;
+    @Column(name = "internal")
     private boolean isInternal;
     private int number;
 

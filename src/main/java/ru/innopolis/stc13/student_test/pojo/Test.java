@@ -1,12 +1,15 @@
 package ru.innopolis.stc13.student_test.pojo;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+@Entity(name = "tests")
 public class Test {
-
+    @Id
     private int id;
     private String description;
+    @OneToMany(mappedBy = "teacher")
     private Teacher teacher;
     private List<Question> questions;
     private List<Group> groups;

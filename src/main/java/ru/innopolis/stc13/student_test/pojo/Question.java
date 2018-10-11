@@ -1,21 +1,30 @@
 package ru.innopolis.stc13.student_test.pojo;
 
-import java.util.Map;
-import java.util.Objects;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity(name = "questions")
 public class Question {
 
+    @Id
     private int id;
     private String text;
-    private Map<String, Boolean> answers;
+
+    @OneToMany(mappedBy="question", fetch= FetchType.LAZY)
+    private List<Answer> answers;
+
+    @ManyToOne
+    @JoinColumn(name = "test_id")
+    private Test test;
 
     public Question() {
     }
 
-    public Question(int id, String text, Map<String, Boolean> answers) {
+    public Question(int id, String text, List<Answer> answers, Test test) {
         this.id = id;
         this.text = text;
         this.answers = answers;
+        this.test = test;
     }
 
     public int getId() {
@@ -34,35 +43,19 @@ public class Question {
         this.text = text;
     }
 
-    public Map<String, Boolean> getAnswers() {
+    public List<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Map<String, Boolean> answers) {
+    public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Question question = (Question) o;
-        return id == question.id &&
-                Objects.equals(text, question.text) &&
-                Objects.equals(answers, question.answers);
+    public Test getTest() {
+        return test;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, text, answers);
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", answers=" + answers +
-                '}';
+    public void setTest(Test test) {
+        this.test = test;
     }
 }
