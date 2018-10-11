@@ -2,6 +2,8 @@ package ru.innopolis.stc13.student_test.dao;
 
 import ru.innopolis.stc13.student_test.pojo.Student;
 
+import java.util.List;
+
 public interface StudentDao {
 
     boolean add(Student student);
@@ -12,6 +14,6 @@ public interface StudentDao {
 
     boolean delete(Integer id);
 
-    Student getAll();
+    List<Student> getAll();
 
 }

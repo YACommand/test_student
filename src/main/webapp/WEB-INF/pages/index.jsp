@@ -11,11 +11,13 @@
     <title>Title</title>
 </head>
 <body>
+
 <%@include file="header.jsp" %>
 <ul>
     <li><a href="/student">Student</a></li>
     <li><a href="/teacher">Teacher</a></li>
 </ul>
 <%@include file="footer.jsp" %>
+
 </body>
 </html>

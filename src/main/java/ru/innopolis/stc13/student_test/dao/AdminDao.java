@@ -2,6 +2,8 @@ package ru.innopolis.stc13.student_test.dao;
 
 import ru.innopolis.stc13.student_test.pojo.Admin;
 
+import java.util.List;
+
 public interface AdminDao {
 
     boolean add(Admin admin);
@@ -12,6 +14,6 @@ public interface AdminDao {
 
     boolean delete(Integer id);
 
-    Admin getAll();
+    List<Admin> getAll();
 
 }
