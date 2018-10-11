@@ -2,6 +2,8 @@ package ru.innopolis.stc13.student_test.service;
 
 import ru.innopolis.stc13.student_test.pojo.Student;
 
+import java.util.List;
+
 public interface StudentService {
 
     boolean add(Student student);
@@ -12,5 +14,5 @@ public interface StudentService {
 
     boolean delete(Integer id);
 
-    Student getAll();
+    List<Student> getAll();
 }
