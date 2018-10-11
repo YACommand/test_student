@@ -14,8 +14,8 @@
 
 <%@include file="header.jsp" %>
 <ul>
-    <li><a href="/student">Student</a></li>
-    <li><a href="/teacher">Teacher</a></li>
+    <li><a href="/students">Students</a></li>
+    <li><a href="/teachers">Teachers</a></li>
 </ul>
 <%@include file="footer.jsp" %>
 
