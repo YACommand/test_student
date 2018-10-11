@@ -19,21 +19,33 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean add(Student student) {
+        if (student != null) {
+            studentDao.save(student);
+            return true;
+        }
         return false;
     }
 
     @Override
     public Student get(Integer id) {
-        return null;
+        return studentDao.getOne(id);
     }
 
     @Override
     public boolean update(Student student) {
+        if (student != null) {
+            this.add(student);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean delete(Integer id) {
+        if (this.get(id) != null) {
+            studentDao.deleteById(id);
+            return true;
+        }
         return false;
     }
 
