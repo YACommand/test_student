@@ -19,6 +19,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean add(Student student) {
+        if (student != null) {
+            studentDao.save(student);
+            return true;
+        }
         return false;
     }
 
@@ -29,6 +33,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean update(Student student) {
+        if (student != null) {
+            this.add(student);
+            return true;
+        }
         return false;
     }
 
