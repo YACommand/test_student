@@ -1,7 +1,6 @@
 language: java
 sudo: true
 install: true
-
 dist: trusty
 
 jdk:
@@ -16,18 +15,14 @@ branches:
     - develop
 
 before_install:
- - chmod +x gradlew
-
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+ - chmod +x mvnw
 
 cache:
   directories:
-    $HOME/.m2/repository
+    $HOME/.m2
     $HOME/.sonar/cache
-    $HOME/.gradle
-    .gradle
+    $HOME/.mvn
+    .mvn
 
 addons:
   sonarcloud:
@@ -36,16 +31,4 @@ addons:
       secure: $SONAR_API_KEY
 
 script:
-    - ./gradlew clean
-    - ./gradlew check
-    - ./gradlew sonarqube build
-#  - sonar-scanner
-#TODO dont forget stage task for heroku
-#deploy:
-#  provider: heroku
-#  api_key:
-#    secure: $HEROKU_API_KEY
-#  app: $HEROKU_DEVELOP_APP
-#  on:
-#    all_branches: true
-#  skip_cleanup: true
+  ./mvnw clean package sonar:sonar

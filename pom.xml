@@ -45,7 +45,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- JSTL for JSP -->
+        <!-- JSTL for JSP -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
