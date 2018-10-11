@@ -11,11 +11,11 @@ jdk:
 os:
   - linux
 
-#branches:
-#  only:
-#    - master
-#    - develop
-#    - future-adamov-00-02
+branches:
+  only:
+    - master
+    - develop
+
 
 before_install:
  - chmod +x mvnw
@@ -39,10 +39,8 @@ addons:
 
 script:
   ./mvnw clean install
-#    - ./gradlew clean
-#    - ./gradlew check
+  - sonar-scanner
 #    - ./gradlew sonarqube build
-#  - sonar-scanner
 # TODO dont forget stage task for heroku
 #deploy:
 #  provider: heroku
