@@ -12,6 +12,9 @@ public class Student extends User {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    public Student() {
+    }
+
     public Student(int id, String login, String password, String name, Group group) {
         super(id, login, password, name);
         this.group = group;
