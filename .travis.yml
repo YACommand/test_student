@@ -43,7 +43,7 @@ script:
 #    - ./gradlew check
 #    - ./gradlew sonarqube build
 #  - sonar-scanner
-#TODO dont forget stage task for heroku
+# TODO dont forget stage task for heroku
 #deploy:
 #  provider: heroku
 #  api_key:
