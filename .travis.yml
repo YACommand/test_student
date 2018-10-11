@@ -13,26 +13,28 @@ os:
 branches:
   only:
     - master
+    - develop
+    - future-adamov-00-02
 
 before_install:
-# - chmod +x gradlew
+# - chmod +x mvnw
 
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+#before_cache:
+#  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+#  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
     $HOME/.m2/repository
     $HOME/.sonar/cache
-    $HOME/.gradle
-    .gradle
+    $HOME/.mvn
+    .mvn
 
-#addons:
-#  sonarcloud:
-#    organization: "lolret-github"
-#    token:
-#      secure: $SONAR_API_KEY
+addons:
+  sonarcloud:
+    organization: "lolret-github"
+    token:
+      secure: $SONAR_API_KEY
 
 script:
 ./mvnw clean install
