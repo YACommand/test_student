@@ -1,9 +1,15 @@
 package ru.innopolis.stc13.student_test.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
+@Entity(name = "students")
 public class Student extends User {
 
+    @ManyToOne
+    @JoinColumn(name = "group_id")
     private Group group;
 
     public Student(int id, String login, String password, String name, Group group) {
