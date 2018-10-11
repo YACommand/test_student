@@ -18,7 +18,7 @@ os:
 #    - future-adamov-00-02
 
 before_install:
- - chmod +x .mvnw
+ - chmod +x mvnw
 
 #before_cache:
 #  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -43,7 +43,7 @@ script:
 #    - ./gradlew check
 #    - ./gradlew sonarqube build
 #  - sonar-scanner
-#TODO dont forget stage task for heroku
+# TODO dont forget stage task for heroku
 #deploy:
 #  provider: heroku
 #  api_key:
