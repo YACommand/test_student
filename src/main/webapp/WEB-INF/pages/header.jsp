@@ -13,7 +13,7 @@
     <title></title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <link href="/style.css" rel="stylesheet">
+    <link href="/resources/style.css" rel="stylesheet">
 </head>
 <body>
 <div class="wrapper">
