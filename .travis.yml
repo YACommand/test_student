@@ -38,7 +38,7 @@ addons:
       secure: $SONAR_API_KEY
 
 script:
-./mvnw clean install
+  ./mvnw clean install
 #    - ./gradlew clean
 #    - ./gradlew check
 #    - ./gradlew sonarqube build
