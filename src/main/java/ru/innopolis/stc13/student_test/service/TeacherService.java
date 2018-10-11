@@ -2,6 +2,8 @@ package ru.innopolis.stc13.student_test.service;
 
 import ru.innopolis.stc13.student_test.pojo.Teacher;
 
+import java.util.List;
+
 public interface TeacherService {
 
     boolean add(Teacher teacher);
@@ -12,5 +14,5 @@ public interface TeacherService {
 
     boolean delete(Integer id);
 
-    Teacher getAll();
+    List<Teacher> getAll();
 }

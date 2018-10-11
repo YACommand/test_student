@@ -10,7 +10,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <aside class="left-sidebar">
     <strong></strong>
-
 </aside><!-- .left-sidebar -->
 
 </div><!-- .middle-->
