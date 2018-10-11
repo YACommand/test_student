@@ -17,6 +17,7 @@
     <tr>
         <th>Name</th>
         <th>Group</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <c:forEach items="${students}" var="student">
@@ -26,6 +27,9 @@
             </td>
             <td>${student.group}
             </td>
+            <th>
+            <a href="<c:url value='/students/remove/${student.id}'/>">Delete</a>
+            </th>
         </tr>
     </c:forEach>
 </table>
