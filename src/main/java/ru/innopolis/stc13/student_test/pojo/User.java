@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Inheritance(strategy = InheritanceType.JOINED)
-@Entity(name = "usr")
+@Entity(name = "users")
 abstract class User {
     @Id
     private Integer id;

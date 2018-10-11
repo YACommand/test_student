@@ -1,18 +1,10 @@
 package ru.innopolis.stc13.student_test.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import ru.innopolis.stc13.student_test.pojo.Group;
 
 import java.util.List;
 
-public interface GroupDao {
-
-    boolean add(Group group);
-
-    Group getById(Integer id);
-
-    boolean update(Group group);
-
-    boolean deleteById(Integer id);
-
-    List<Group> getAll();
+public interface GroupDao extends CrudRepository<Group, Integer>{
 }

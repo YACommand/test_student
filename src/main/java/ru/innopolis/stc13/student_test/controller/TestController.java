@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.innopolis.stc13.student_test.dao.AdminDao;
+import ru.innopolis.stc13.student_test.dao.GroupDao;
 import ru.innopolis.stc13.student_test.pojo.Admin;
+import ru.innopolis.stc13.student_test.pojo.Group;
 
 import java.util.List;
 
@@ -14,11 +16,19 @@ import java.util.List;
 public class TestController {
     @Autowired
     private AdminDao adminDao;
+    @Autowired
+    private GroupDao groupDao;
 
     @RequestMapping("/testAdminDao")
     public @ResponseBody
-    List<Admin> test(Model model) {
+    Iterable<Admin> testAdmin() {
         return adminDao.findAll();
+    }
+
+    @RequestMapping("/testGroupDao")
+    public @ResponseBody
+    Iterable<Group> testGroup() {
+        return groupDao.findAll();
     }
 
     @RequestMapping("/")

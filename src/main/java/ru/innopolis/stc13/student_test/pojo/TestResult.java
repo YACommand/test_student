@@ -4,25 +4,25 @@ import java.util.Objects;
 
 public class TestResult {
 
-    private int id;
+    private Test test;
     private Student student;
-    private String grade;
+    private Integer grade;
 
     public TestResult() {
     }
 
-    public TestResult(int id, Student student, String grade) {
-        this.id = id;
+    public TestResult(Test test, Student student, Integer grade) {
+        this.test = test;
         this.student = student;
         this.grade = grade;
     }
 
-    public int getId() {
-        return id;
+    public Test getTest() {
+        return test;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTest(Test test) {
+        this.test = test;
     }
 
     public Student getStudent() {
@@ -33,21 +33,12 @@ public class TestResult {
         this.student = student;
     }
 
-    public String getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
-    }
-
-    @Override
-    public String toString() {
-        return "TestResult{" +
-                "id=" + id +
-                ", student=" + student +
-                ", grade='" + grade + '\'' +
-                '}';
     }
 
     @Override
@@ -55,13 +46,22 @@ public class TestResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestResult that = (TestResult) o;
-        return id == that.id &&
+        return Objects.equals(test, that.test) &&
                 Objects.equals(student, that.student) &&
                 Objects.equals(grade, that.grade);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, student, grade);
+        return Objects.hash(test, student, grade);
+    }
+
+    @Override
+    public String toString() {
+        return "TestResult{" +
+                "test=" + test +
+                ", student=" + student +
+                ", grade=" + grade +
+                '}';
     }
 }

@@ -1,18 +1,9 @@
 package ru.innopolis.stc13.student_test.dao;
 
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import ru.innopolis.stc13.student_test.pojo.Test;
 
-import java.util.List;
-
 public interface TestDao {
-
-    boolean add(Test test);
-
-    Test get(Integer id);
-
-    boolean update(Test test);
-
-    boolean delete(Integer id);
-
-    List<Test> getAll();
 }
