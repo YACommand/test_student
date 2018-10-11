@@ -7,8 +7,8 @@
     List<Teacher> list = (List<Teacher>) request.getAttribute("teachers");
     for (Teacher teacher : list) {%>
 <a href="/teachers?id=<%=teacher.getId()%>">
+    <%=teacher.getId()%>
     <%=teacher.getName()%>
-    <%=teacher.getSpecialization()%>
     <%=teacher.getSpecialization()%>
 </a><BR>
 <%
