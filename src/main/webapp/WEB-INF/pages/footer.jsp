@@ -10,10 +10,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <aside class="left-sidebar">
     <strong></strong>
-    <ul>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/registration">Register</a></li>
-    </ul>
 </aside><!-- .left-sidebar -->
 
 </div><!-- .middle-->
