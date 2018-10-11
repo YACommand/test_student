@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity(name = "users")
 abstract class User {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String login;
     private String password;
@@ -23,11 +24,11 @@ abstract class User {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
