@@ -28,7 +28,10 @@
             <td>${student.group}
             </td>
             <th>
-            <a href="<c:url value='/students/remove/${student.id}'/>">Delete</a>
+                <a href="<c:url value='/students/remove/${student.id}'/>">Delete</a>
+            </th>
+            <th>
+                <a href="<c:url value='/students/remove/${student.id}'/>">Delete</a>
             </th>
         </tr>
     </c:forEach>
