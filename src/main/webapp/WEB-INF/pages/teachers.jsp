@@ -10,7 +10,7 @@
         <th>Specialization</th>
     </tr>
     </thead>
-    <c:forEach items="${teacher}" var="teacher">
+    <c:forEach items="${teachers}" var="teacher">
         <jsp:useBean id="teacher" scope="page" type="ru.innopolis.stc13.student_test.pojo.Teacher"/>
         <tr>
             <td>${teacher.name}
@@ -20,6 +20,5 @@
         </tr>
     </c:forEach>
 </table>
-
 
 <%@include file="footer.jsp"%>
