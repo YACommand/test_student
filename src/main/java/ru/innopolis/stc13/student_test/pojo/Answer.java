@@ -3,18 +3,18 @@ package ru.innopolis.stc13.student_test.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-public class Answer implements Serializable {
-    @Id
+//@Entity
+public class Answer {
+    //@Id
     private Integer id;
 
     private String body;
 
-    @Column(name="correct")
+    //@Column(name="correct")
     private Boolean isCorrect;
 
-    @ManyToOne
-    @JoinColumn(name = "question_id")
+    //@ManyToOne
+   // @JoinColumn(name = "question_id")
     private Question question;
 
     public Answer() {

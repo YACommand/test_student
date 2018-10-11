@@ -1,7 +1,6 @@
-<%@ page import="ru.innopolis.stc13.student_test.pojo.Teacher" %>
-<%@ page import="java.util.List" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="header.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
