@@ -13,10 +13,9 @@ os:
 branches:
   only:
     - master
-    - develop
 
 before_install:
- - chmod +x gradlew
+# - chmod +x gradlew
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -29,16 +28,17 @@ cache:
     $HOME/.gradle
     .gradle
 
-addons:
-  sonarcloud:
-    organization: "lolret-github"
-    token:
-      secure: $SONAR_API_KEY
+#addons:
+#  sonarcloud:
+#    organization: "lolret-github"
+#    token:
+#      secure: $SONAR_API_KEY
 
 script:
-    - ./gradlew clean
-    - ./gradlew check
-    - ./gradlew sonarqube build
+./mvnw clean install
+#    - ./gradlew clean
+#    - ./gradlew check
+#    - ./gradlew sonarqube build
 #  - sonar-scanner
 #TODO dont forget stage task for heroku
 #deploy:
