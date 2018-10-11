@@ -1,9 +1,14 @@
 package ru.innopolis.stc13.student_test.pojo;
 
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@Inheritance(strategy = InheritanceType.JOINED)
+@Entity(name = "usr")
 abstract class User {
-    private int id;
+    @Id
+    private Integer id;
     private String login;
     private String password;
     private String name;
