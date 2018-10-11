@@ -11,11 +11,10 @@ jdk:
 os:
   - linux
 
-#branches:
-#  only:
-#    - master
-#    - develop
-#    - future-adamov-00-02
+branches:
+  only:
+    - master
+    - develop
 
 before_install:
  - chmod +x mvnw
@@ -38,17 +37,4 @@ addons:
       secure: $SONAR_API_KEY
 
 script:
-  ./mvnw clean install
-#    - ./gradlew clean
-#    - ./gradlew check
-#    - ./gradlew sonarqube build
-#  - sonar-scanner
-# TODO dont forget stage task for heroku
-#deploy:
-#  provider: heroku
-#  api_key:
-#    secure: $HEROKU_API_KEY
-#  app: $HEROKU_DEVELOP_APP
-#  on:
-#    all_branches: true
-#  skip_cleanup: true
+  ./mvnw clean package sonar:sonar
