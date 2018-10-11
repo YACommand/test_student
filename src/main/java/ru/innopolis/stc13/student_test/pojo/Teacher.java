@@ -1,7 +1,9 @@
 package ru.innopolis.stc13.student_test.pojo;
 
+import javax.persistence.Entity;
 import java.util.Objects;
 
+@Entity(name = "teachers")
 public class Teacher extends User {
 
     private String specialization;

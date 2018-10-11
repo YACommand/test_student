@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.TeacherDao;
 import ru.innopolis.stc13.student_test.pojo.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,6 +40,6 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public List<Teacher> getAll() {
-        return teacherDao.getAll();
+        return teacherDao.findAll();
     }
 }
