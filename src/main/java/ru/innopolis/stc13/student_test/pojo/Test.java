@@ -6,12 +6,21 @@ import java.util.Objects;
 
 @Entity(name = "tests")
 public class Test {
+
     @Id
     private int id;
+
     private String description;
-    @OneToMany(mappedBy = "teacher")
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
+    @OneToMany(mappedBy="test", fetch= FetchType.LAZY)
     private List<Question> questions;
+
+    //TODO
+    @ManyToMany
     private List<Group> groups;
 
     public Test(int id, String description, Teacher teacher, List<Question> questions, List<Group> groups) {

@@ -10,7 +10,7 @@
 <head>
     <title>Title</title>
 </head>
-<body>
+<text>
 
 <%@include file="header.jsp" %>
 <ul>
@@ -19,5 +19,5 @@
 </ul>
 <%@include file="footer.jsp" %>
 
-</body>
+</text>
 </html>

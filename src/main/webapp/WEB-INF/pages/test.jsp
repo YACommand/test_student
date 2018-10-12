@@ -7,7 +7,7 @@
 <head>
     <title>Hello jsp</title>
 </head>
-<body>
+<text>
  ${admin}
-</body>
+</text>
 </html>
