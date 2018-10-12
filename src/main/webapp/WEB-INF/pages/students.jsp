@@ -17,7 +17,9 @@
     <tr>
         <th>Name</th>
         <th>Group</th>
+        <th>Add</th>
         <th>Delete</th>
+        <th>Update</th>
     </tr>
     </thead>
     <c:forEach items="${students}" var="student">
@@ -28,20 +30,16 @@
             <td>${student.group}
             </td>
             <th>
-            <a href="<c:url value='/students/remove/${student.id}'/>">Delete</a>
+                <a href="<c:url value='/students/add/${student.id}'/>">Add</a>
+            </th>
+            <th>
+                <a href="<c:url value='/students/remove/${student.id}'/>">Delete</a>
+            </th>
+            <th>
+                <a href="<c:url value='/students/update/${student.id}'/>">Update</a>
             </th>
         </tr>
     </c:forEach>
 </table>
-<%--<%
-    List<Student> list = (List<Student>) request.getAttribute("students");
-    for (Student student : list) {%>
-<a href="/students?id=<%=student.getId()%>">
-    <%=student.getName()%>
-    <%=student.getGroup()%>
-</a><BR>
-<%
-    }
-%>--%>
 </body>
 </html>
