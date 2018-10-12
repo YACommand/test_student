@@ -8,6 +8,10 @@ public class Teacher extends User {
 
     private String specialization;
 
+    public Teacher() {
+
+    }
+
     public String getSpecialization() {
         return specialization;
     }

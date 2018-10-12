@@ -2,11 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Teachers</title>
+    <title>Title</title>
 </head>
 <body>
-<a href="<c:url value="/teachers/add"/>">Добавить</a>
-
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
@@ -26,4 +24,4 @@
     </c:forEach>
 </table>
 </body>
-
+</html>
