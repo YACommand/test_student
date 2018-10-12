@@ -29,23 +29,24 @@ public class StudentController {
 
     @GetMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") int id){
-        this.studentService.delete(id);
+        studentService.delete(id);
         return "redirect:/students";
     }
 
     @GetMapping("/add/{student}")
-    public String addStudent(@PathVariable Student student, Model model){
-        this.studentService.add(student);
+    public String addStudent(@PathVariable Student student){
+        studentService.add(student);
+        return "studentEdit";
+    }
+
+    @GetMapping("/add/student/{student}")
+    public String edit(@PathVariable Student student){
         return "redirect:/students";
     }
 
-    @PostMapping
-    public String studentSave(@ModelAttribute Student updatedStudent, Model model) {
-        Student student = studentService.get(updatedStudent.getId());
-        student.setName(updatedStudent.getName());
-        student.setGroup(updatedStudent.getGroup());
-        studentService.
-        userRepository.save(user);
-        return "redirect:/users";
+    @PostMapping("/save")
+    public String save(@ModelAttribute Student savedStudent,Model model) {
+        studentService.add(savedStudent);
+        return "redirect:/students";
     }
 }
