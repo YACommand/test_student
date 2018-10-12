@@ -9,6 +9,7 @@ public class Teacher extends User {
     private String specialization;
 
     public Teacher() {
+
     }
 
     public Teacher(Integer id, String login, String password, String name, String specialization) {
