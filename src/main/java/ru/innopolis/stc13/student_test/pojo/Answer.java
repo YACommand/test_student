@@ -3,44 +3,45 @@ package ru.innopolis.stc13.student_test.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 
-//@Entity
-public class Answer {
-    //@Id
-    private Integer id;
+@Entity(name = "answers")
+public class Answer implements Serializable {
 
-    private String body;
+    @Id
+    private int id;
 
-    //@Column(name="correct")
+    private String text;
+
+    @Column(name="correct")
     private Boolean isCorrect;
 
-    //@ManyToOne
-   // @JoinColumn(name = "question_id")
+    @ManyToOne
+    @JoinColumn(name = "question_id")
     private Question question;
 
     public Answer() {
     }
 
-    public Answer(Integer id, String body, Boolean isCorrect, Question question) {
+    public Answer(Integer id, String text, Boolean isCorrect, Question question) {
         this.id = id;
-        this.body = body;
+        this.text = text;
         this.isCorrect = isCorrect;
         this.question = question;
     }
 
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getBody() {
-        return this.body;
+    public String getText() {
+        return this.text;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Boolean getIsCorrect() {

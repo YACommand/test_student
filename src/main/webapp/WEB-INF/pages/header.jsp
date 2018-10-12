@@ -15,7 +15,7 @@
     <meta name="description" content="" />
     <link href="/resources/style.css" rel="stylesheet">
 </head>
-<body>
+<text>
 <div class="wrapper">
 
     <header class="header">
