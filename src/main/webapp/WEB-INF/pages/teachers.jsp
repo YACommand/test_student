@@ -6,7 +6,6 @@
 </head>
 <body>
 <a href="<c:url value="/teachers/add"/>">Добавить</a>
-
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
