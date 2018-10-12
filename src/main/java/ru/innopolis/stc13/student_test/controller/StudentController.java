@@ -3,9 +3,7 @@ package ru.innopolis.stc13.student_test.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc13.student_test.pojo.Student;
 import ru.innopolis.stc13.student_test.service.StudentService;
 
@@ -31,7 +29,24 @@ public class StudentController {
 
     @GetMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") int id){
-        this.studentService.delete(id);
+        studentService.delete(id);
+        return "redirect:/students";
+    }
+
+    @GetMapping("/add/{student}")
+    public String addStudent(@PathVariable Student student){
+        studentService.add(student);
+        return "studentEdit";
+    }
+
+    @GetMapping("/add/student/{student}")
+    public String edit(@PathVariable Student student){
+        return "redirect:/students";
+    }
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute Student savedStudent,Model model) {
+        studentService.add(savedStudent);
         return "redirect:/students";
     }
 }
