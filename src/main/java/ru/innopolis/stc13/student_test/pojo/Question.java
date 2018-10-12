@@ -8,6 +8,7 @@ public class Question {
 
    // @Id
     private int id;
+
     private String text;
 
    // @OneToMany(mappedBy="question", fetch= FetchType.LAZY)
