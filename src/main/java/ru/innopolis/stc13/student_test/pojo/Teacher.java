@@ -16,6 +16,9 @@ public class Teacher extends User {
         this.specialization = specialization;
     }
 
+    public Teacher() {
+
+    }
     public Teacher(int id, String login, String password, String name, String specialization) {
         super(id, login, password, name);
         this.specialization = specialization;

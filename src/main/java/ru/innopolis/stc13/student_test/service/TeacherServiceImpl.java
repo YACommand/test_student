@@ -20,22 +20,33 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public boolean add(Teacher teacher) {
-        return false;
+        if (teacher == null) {
+            return false;
+        }
+        return teacherDao.save(teacher) != null;
     }
 
     @Override
     public Teacher get(Integer id) {
-        return null;
+        if (id == null) {
+            return null;
+        }
+        return teacherDao.getOne(id);
     }
 
     @Override
     public boolean update(Teacher teacher) {
-        return false;
+        return this.add(teacher);
     }
 
     @Override
     public boolean delete(Integer id) {
-        return false;
+        if (this.get(id) != null) {
+            teacherDao.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
