@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Answer implements Serializable {
 
     @Id
-    private int id;
+    private Integer id;
 
     private String text;
 
@@ -28,11 +28,11 @@ public class Answer implements Serializable {
         this.question = question;
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
