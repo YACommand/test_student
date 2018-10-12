@@ -5,5 +5,6 @@ import ru.innopolis.stc13.student_test.pojo.TestResult;
 
 public interface TestResultDao
 //        extends JpaRepository
+
 {
 }
