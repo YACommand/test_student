@@ -1,11 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Teachers</title>
-</head>
-<body>
-<a href="<c:url value="/teachers/add"/>">Добавить</a>
+<%@ page import="ru.innopolis.stc13.student_test.pojo.Teacher" %>
+<%@ page import="java.util.List" %>
+
+<%@include file="header.jsp"%>
+
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>

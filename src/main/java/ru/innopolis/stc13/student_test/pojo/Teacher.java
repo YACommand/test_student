@@ -8,19 +8,20 @@ public class Teacher extends User {
 
     private String specialization;
 
+    public Teacher() {
+
+    }
+
+    public Teacher(Integer id, String login, String password, String name, String specialization) {
+        super(id, login, password, name);
+        this.specialization = specialization;
+    }
+
     public String getSpecialization() {
         return specialization;
     }
 
     public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
-
-    public Teacher() {
-
-    }
-    public Teacher(int id, String login, String password, String name, String specialization) {
-        super(id, login, password, name);
         this.specialization = specialization;
     }
 
