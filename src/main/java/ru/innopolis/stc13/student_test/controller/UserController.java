@@ -55,7 +55,7 @@ public class UserController {
 
 
     @GetMapping("/teachers/add")
-    public String add(Model model) {
+    public String addTeacher(Model model) {
         model.addAttribute("user", new User());
         return "editTeacher";
     }
@@ -98,7 +98,7 @@ public class UserController {
     }
 
     @GetMapping("/students/add")
-    public String add(Model model) {
+    public String addStudent(Model model) {
         model.addAttribute("user", new User());
         return "editStudent";
     }

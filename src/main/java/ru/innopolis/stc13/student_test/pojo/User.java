@@ -23,7 +23,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    User() {
+    public User() {
     }
 
     public User(String login, String password, String name, Set<Group> groups, String specialization, Set<Role> roles) {
