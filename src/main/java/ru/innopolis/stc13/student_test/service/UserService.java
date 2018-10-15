@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.service;
 
+import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.User;
 import java.util.List;
@@ -19,7 +20,5 @@ public interface UserService {
     boolean isUserExist(User user);
 
     List<User> getAllByRole(Role role);
-
-    List<User> getRoleById(Integer id);
 
 }
