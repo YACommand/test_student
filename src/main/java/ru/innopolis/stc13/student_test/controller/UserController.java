@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.User;
 import ru.innopolis.stc13.student_test.service.UserService;
-import ru.innopolis.stc13.student_test.service.UserServiceImpl;
 
 import java.util.List;
 
@@ -15,10 +14,10 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
-    public void setUserService(UserServiceImpl userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
