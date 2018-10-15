@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.service;
 
+import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.GroupDao;
 import ru.innopolis.stc13.student_test.dao.UserDao;
 import ru.innopolis.stc13.student_test.pojo.Group;
@@ -9,6 +10,7 @@ import ru.innopolis.stc13.student_test.pojo.User;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
