@@ -1,25 +1,31 @@
-<%@ page import="ru.innopolis.stc13.student_test.pojo.Teacher" %>
-<%@ page import="java.util.List" %>
-
-<%@include file="header.jsp"%>
-
-<table border="1" cellpadding="8" cellspacing="0">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Specialization</th>
-        <th colspan="2">Action</th>
-    </tr>
-    </thead>
-    <c:forEach items="${teachers}" var="teacher">
-        <jsp:useBean id="teacher" scope="page" type="ru.innopolis.stc13.student_test.pojo.Teacher"/>
+<%@include file="header-bootstrap.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!-- Begin page content -->
+<main role="main" class="container">
+    <h3>Список учителей</h3>
+    <table class="table table-hover text-left">
+        <thead>
         <tr>
-            <td>${teacher.name}</td>
-            <td>${teacher.specialization}</td>
-            <td><a href="<c:url value="/teachers/edit/${teacher.id}"/>">Редактировать</a></td>
-            <td><a href="<c:url value="/teachers/delete/${teacher.id}"/>">Удалить</a></td>
+            <th scope="col">ID</th>
+            <th scope="col">Логин</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Специализация</th>
+            <th scope="col" colspan="2" class="text-center">Действие</th>
         </tr>
-    </c:forEach>
-</table>
-</body>
-
+        </thead>
+        <c:forEach items="${teachers}" var="teacher">
+        <tbody>
+            <tr>
+                <th scope="row">${teacher.id}</th>
+                <td>${teacher.login}</td>
+                <td>${teacher.name}</td>
+                <td>${teacher.specialization}</td>
+                <td><a href="<c:url value="/teachers/edit/${teacher.id}"/>">Редактировать</a></td>
+                <td><a href="<c:url value="/teachers/delete/${teacher.id}"/>">Удалить</a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <a class="btn btn-dark m-2" href="<c:url value="/teachers/add"/>" role="button">Добавить</a>
+</main>
+<%@include file="footer-bootstrap.jsp"%>
