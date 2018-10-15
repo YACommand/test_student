@@ -13,23 +13,21 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public boolean add(Test test) {
-        if (test != null) {
-            testDao.save(test);
-            return true;
+        if (test != null && test.getId() == null) {
+            return testDao.save(test) != null;
         }
         return false;
     }
 
     @Override
     public Test get(Integer id) {
-        return testDao.getOne(id);
+        return id == null ? null : testDao.getOne(id);
     }
 
     @Override
     public boolean update(Test test) {
-        if (test != null) {
-            add(test);
-            return true;
+        if (test != null && testDao.existsById(test.getId())) {
+            return testDao.save(test) != null;
         }
         return false;
     }
