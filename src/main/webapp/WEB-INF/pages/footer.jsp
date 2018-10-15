@@ -17,8 +17,8 @@
 </div><!-- .wrapper -->
 
 <footer class="footer">
-    <strong>Footer:</strong>
+    <strong></strong>
 </footer><!-- .footer -->
 
-</body>
+</text>
 </html>

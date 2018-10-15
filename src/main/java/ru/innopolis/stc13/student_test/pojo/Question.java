@@ -3,18 +3,19 @@ package ru.innopolis.stc13.student_test.pojo;
 import javax.persistence.*;
 import java.util.List;
 
-//@Entity(name = "questions")
+@Entity(name = "questions")
 public class Question {
 
-   // @Id
-    private int id;
+    @Id
+    private Integer id;
+
     private String text;
 
-   // @OneToMany(mappedBy="question", fetch= FetchType.LAZY)
+    @OneToMany(mappedBy="question", fetch= FetchType.LAZY)
     private List<Answer> answers;
 
-    //@ManyToOne
-   // @JoinColumn(name = "test_id")
+    @ManyToOne
+    @JoinColumn(name = "test_id")
     private Test test;
 
     public Question() {
@@ -27,11 +28,11 @@ public class Question {
         this.test = test;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
