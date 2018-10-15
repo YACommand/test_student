@@ -33,20 +33,33 @@ public class StudentController {
         return "redirect:/students";
     }
 
-    @GetMapping("/add/{student}")
-    public String addStudent(@PathVariable Student student){
-        studentService.add(student);
+    @GetMapping("/add")
+    public String addStudent(Model model){
+        model.addAttribute("student", new Student());
         return "studentEdit";
     }
 
-    @GetMapping("/add/student/{student}")
+    @GetMapping("/edit/{student}")
     public String edit(@PathVariable Student student){
-        return "redirect:/students";
+        return "studentEdit";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Student savedStudent,Model model) {
-        studentService.add(savedStudent);
+    public String save(@ModelAttribute Student student,Model model) {
+        if (studentService.get(student.getId())!=null){
+            boolean isUpdate= studentService.update(student);
+            if (isUpdate){
+                model.addAttribute("error","updated_error");
+                return "studentEdit";
+            }
+            else {
+                boolean isCreated= studentService.add(student);
+                if (!isCreated){
+                    model.addAttribute("error","created_error");
+                    return "studentEdit";
+                }
+            }
+        }
         return "redirect:/students";
     }
 }
