@@ -3,6 +3,7 @@ package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity(name = "users")
@@ -14,14 +15,24 @@ public class User {
     private String password;
     private String name;
 
+
+    private Set<Group> groups;
+    private String specialization;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
     User() {
     }
 
-    User(Integer id, String login, String password, String name) {
-        this.id = id;
+    public User(String login, String password, String name, Set<Group> groups, String specialization, Set<Role> roles) {
         this.login = login;
         this.password = password;
         this.name = name;
+        this.groups = groups;
+        this.specialization = specialization;
+        this.roles = roles;
     }
 
     public Integer getId() {
@@ -56,20 +67,47 @@ public class User {
         this.name = name;
     }
 
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
+        return Objects.equals(id, user.id) &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(name, user.name);
+                Objects.equals(name, user.name) &&
+                Objects.equals(groups, user.groups) &&
+                Objects.equals(specialization, user.specialization) &&
+                Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, name);
+        return Objects.hash(id, login, password, name, groups, specialization, roles);
     }
 
     @Override
@@ -79,6 +117,9 @@ public class User {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", groups=" + groups +
+                ", specialization='" + specialization + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
