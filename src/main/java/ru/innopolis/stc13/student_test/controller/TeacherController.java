@@ -46,7 +46,8 @@ public class TeacherController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Teacher teacher, Model model) {
-        if (teacherService.get(teacher.getId()) != null) {
+        boolean isUserExist = teacherService.isUserExist(teacher);
+        if (isUserExist) {
             boolean isUpdated = teacherService.update(teacher);
             if (!isUpdated) {
                 model.addAttribute("error", "updated_error");

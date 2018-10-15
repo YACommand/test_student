@@ -19,8 +19,12 @@ public class Test {
     @OneToMany(mappedBy="test", fetch= FetchType.LAZY)
     private List<Question> questions;
 
-    //TODO
     @ManyToMany
+    @JoinTable(
+            name = "groups_tests",
+            joinColumns = { @JoinColumn(name = "test_id") },
+            inverseJoinColumns = { @JoinColumn(name = "group_id") }
+    )
     private List<Group> groups;
 
     public Test(int id, String description, Teacher teacher, List<Question> questions, List<Group> groups) {

@@ -15,4 +15,6 @@ public interface TeacherService {
     boolean delete(Integer id);
 
     List<Teacher> getAll();
+
+    boolean isUserExist(Teacher teacher);
 }
