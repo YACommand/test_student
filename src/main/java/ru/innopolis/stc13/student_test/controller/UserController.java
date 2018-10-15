@@ -96,6 +96,7 @@ public class UserController {
         return "redirect:/students";
     }
 
+
     @GetMapping("/students/add")
     public String add(Model model) {
         model.addAttribute("user", new User());
