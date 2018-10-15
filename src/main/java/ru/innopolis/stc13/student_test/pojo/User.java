@@ -6,15 +6,15 @@ import java.util.Objects;
 
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity(name = "users")
-abstract class User {
+public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String login;
     private String password;
     private String name;
 
-    User(){
+    User() {
     }
 
     User(Integer id, String login, String password, String name) {

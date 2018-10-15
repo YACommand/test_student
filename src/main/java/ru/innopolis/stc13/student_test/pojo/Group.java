@@ -3,6 +3,8 @@ package ru.innopolis.stc13.student_test.pojo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "groups")
@@ -13,6 +15,8 @@ public class Group {
     @Column(name = "internal")
     private boolean isInternal;
     private int number;
+    @ManyToMany(mappedBy = "groups")
+    private List<Test> tests;
 
     public Group() {
     }
@@ -54,6 +58,14 @@ public class Group {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public List<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(List<Test> tests) {
+        this.tests = tests;
     }
 
     @Override
