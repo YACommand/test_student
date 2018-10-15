@@ -14,7 +14,7 @@ public class Answer implements Serializable {
     @Column(name="correct")
     private Boolean isCorrect;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 
@@ -26,6 +26,11 @@ public class Answer implements Serializable {
         this.text = text;
         this.isCorrect = isCorrect;
         this.question = question;
+    }
+
+    public Answer(String text, Boolean isCorrect) {
+        this.text = text;
+        this.isCorrect = isCorrect;
     }
 
     public Integer getId() {

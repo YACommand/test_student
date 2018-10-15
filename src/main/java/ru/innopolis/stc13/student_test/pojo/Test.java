@@ -14,7 +14,7 @@ public class Test {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+    private User teacher;
 
     @OneToMany(mappedBy="test", fetch= FetchType.LAZY)
     private List<Question> questions;
@@ -27,12 +27,18 @@ public class Test {
     )
     private List<Group> groups;
 
-    public Test(int id, String description, Teacher teacher, List<Question> questions, List<Group> groups) {
+    public Test(int id, String description, User teacher, List<Question> questions, List<Group> groups) {
         this.id = id;
         this.description = description;
         this.teacher = teacher;
         this.questions = questions;
         this.groups = groups;
+    }
+
+    public Test(String description, User teacher, List<Question> questions) {
+        this.description = description;
+        this.teacher = teacher;
+        this.questions = questions;
     }
 
     public Integer getId() {
@@ -51,11 +57,11 @@ public class Test {
         this.description = description;
     }
 
-    public Teacher getTeacher() {
+    public User getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(User teacher) {
         this.teacher = teacher;
     }
 
