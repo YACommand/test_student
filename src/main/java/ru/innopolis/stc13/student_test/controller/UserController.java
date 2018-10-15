@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-
     private UserService userService;
 
     @Autowired
@@ -29,9 +28,9 @@ public class UserController {
         return "teachers";
     }
 
-    @GetMapping("/teachers/edit/{user}")
-    public String editTeacher(@PathVariable User user) {
-        return "editTeachers";
+    @GetMapping("/teachers/edit/{teacher}")
+    public String editTeacher(@PathVariable User teacher) {
+        return "editTeacher";
     }
 
     @PostMapping("/teachers/save")
@@ -55,8 +54,8 @@ public class UserController {
 
 
     @GetMapping("/teachers/add")
-    public String add(Model model) {
-        model.addAttribute("user", new User());
+    public String addTeacher(Model model) {
+        model.addAttribute("teacher", new User());
         return "editTeacher";
     }
 
@@ -98,7 +97,7 @@ public class UserController {
     }
 
     @GetMapping("/students/add")
-    public String add(Model model) {
+    public String addStudent(Model model) {
         model.addAttribute("user", new User());
         return "editStudent";
     }

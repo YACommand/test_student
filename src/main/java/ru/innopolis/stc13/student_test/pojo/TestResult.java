@@ -1,21 +1,38 @@
 package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.Entity;
-import java.util.Objects;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity(name = "results")
 public class TestResult {
-
+    @Id
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "test_id")
     private Test test;
-    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User student;
     private Integer grade;
 
     public TestResult() {
     }
 
-    public TestResult(Test test, Student student, Integer grade) {
+    public TestResult(Integer id, Test test, User student, Integer grade) {
+        this.id = id;
         this.test = test;
         this.student = student;
         this.grade = grade;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Test getTest() {
@@ -26,11 +43,11 @@ public class TestResult {
         this.test = test;
     }
 
-    public Student getStudent() {
+    public User getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(User student) {
         this.student = student;
     }
 
@@ -40,29 +57,5 @@ public class TestResult {
 
     public void setGrade(Integer grade) {
         this.grade = grade;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TestResult that = (TestResult) o;
-        return Objects.equals(test, that.test) &&
-                Objects.equals(student, that.student) &&
-                Objects.equals(grade, that.grade);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(test, student, grade);
-    }
-
-    @Override
-    public String toString() {
-        return "TestResult{" +
-                "test=" + test +
-                ", student=" + student +
-                ", grade=" + grade +
-                '}';
     }
 }

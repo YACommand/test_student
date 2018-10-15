@@ -13,7 +13,7 @@ public class Test {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id")
+    @JoinColumn(name = "user_id")
     private User teacher;
 
     @OneToMany(mappedBy="test", fetch= FetchType.LAZY)
@@ -33,12 +33,6 @@ public class Test {
         this.teacher = teacher;
         this.questions = questions;
         this.groups = groups;
-    }
-
-    public Test(String description, User teacher, List<Question> questions) {
-        this.description = description;
-        this.teacher = teacher;
-        this.questions = questions;
     }
 
     public Integer getId() {

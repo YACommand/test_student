@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
-@Inheritance(strategy = InheritanceType.JOINED)
 @Entity(name = "users")
 public class User {
     @Id
@@ -14,19 +13,25 @@ public class User {
     private String login;
     private String password;
     private String name;
-
-
+    @ManyToMany
+    @JoinTable(
+            name = "user_group",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")})
     private Set<Group> groups;
-    private String specialization;
+
+    @OneToOne
+    private Specialization specialization;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    User() {
+    public User() {
     }
 
-    public User(String login, String password, String name, Set<Group> groups, String specialization, Set<Role> roles) {
+    public User(String login, String password, String name, Set<Group> groups, Specialization specialization, Set<Role> roles) {
         this.login = login;
         this.password = password;
         this.name = name;
@@ -75,11 +80,11 @@ public class User {
         this.groups = groups;
     }
 
-    public String getSpecialization() {
+    public Specialization getSpecialization() {
         return specialization;
     }
 
-    public void setSpecialization(String specialization) {
+    public void setSpecialization(Specialization specialization) {
         this.specialization = specialization;
     }
 
