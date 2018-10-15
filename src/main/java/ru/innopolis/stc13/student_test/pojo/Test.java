@@ -4,11 +4,23 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+@Entity(name = "tests")
 public class Test {
-    private int id;
+
+    @Id
+    private Integer id;
+
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
+    @OneToMany(mappedBy="test", fetch= FetchType.LAZY)
     private List<Question> questions;
+
+    //TODO
+    @ManyToMany
     private List<Group> groups;
 
     public Test(int id, String description, Teacher teacher, List<Question> questions, List<Group> groups) {
@@ -19,11 +31,11 @@ public class Test {
         this.groups = groups;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

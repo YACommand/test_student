@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity(name = "groups")
 public class Group {
     @Id
-    private int id;
+    private Integer id;
     private String name;
     @Column(name = "internal")
     private boolean isInternal;
@@ -24,11 +24,11 @@ public class Group {
         this.number = number;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

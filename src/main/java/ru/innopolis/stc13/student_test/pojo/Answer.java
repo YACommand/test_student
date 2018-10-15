@@ -3,26 +3,27 @@ package ru.innopolis.stc13.student_test.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 
-//@Entity
-public class Answer {
-    //@Id
+@Entity(name = "answers")
+public class Answer implements Serializable {
+
+    @Id
     private Integer id;
 
-    private String body;
+    private String text;
 
-    //@Column(name="correct")
+    @Column(name="correct")
     private Boolean isCorrect;
 
-    //@ManyToOne
-   // @JoinColumn(name = "question_id")
+    @ManyToOne
+    @JoinColumn(name = "question_id")
     private Question question;
 
     public Answer() {
     }
 
-    public Answer(Integer id, String body, Boolean isCorrect, Question question) {
+    public Answer(Integer id, String text, Boolean isCorrect, Question question) {
         this.id = id;
-        this.body = body;
+        this.text = text;
         this.isCorrect = isCorrect;
         this.question = question;
     }
@@ -35,12 +36,12 @@ public class Answer {
         this.id = id;
     }
 
-    public String getBody() {
-        return this.body;
+    public String getText() {
+        return this.text;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Boolean getIsCorrect() {

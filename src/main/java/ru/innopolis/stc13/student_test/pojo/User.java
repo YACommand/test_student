@@ -17,7 +17,7 @@ abstract class User {
     User(){
     }
 
-    User(int id, String login, String password, String name) {
+    User(Integer id, String login, String password, String name) {
         this.id = id;
         this.login = login;
         this.password = password;
