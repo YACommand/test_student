@@ -3,14 +3,15 @@ package ru.innopolis.stc13.student_test.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.TeacherDao;
+import ru.innopolis.stc13.student_test.dao.UserDao;
 import ru.innopolis.stc13.student_test.pojo.Teacher;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
+    private UserDao userDao;
     private TeacherDao teacherDao;
 
     @Autowired
@@ -18,9 +19,16 @@ public class TeacherServiceImpl implements TeacherService {
         this.teacherDao = teacherDao;
     }
 
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
     @Override
     public boolean add(Teacher teacher) {
         if (teacher == null) {
+            return false;
+        } else if (userDao.getByLogin(teacher.getLogin()) != null) {
             return false;
         }
         return teacherDao.save(teacher) != null;
@@ -36,7 +44,11 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public boolean update(Teacher teacher) {
-        return this.add(teacher);
+        if (teacher == null || teacher.getId() == null) {
+            return false;
+        } else {
+            return teacherDao.save(teacher) != null;
+        }
     }
 
     @Override
@@ -52,5 +64,14 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Teacher> getAll() {
         return teacherDao.findAll();
+    }
+
+    @Override
+    public boolean isUserExist(Teacher teacher) {
+        if (teacher == null) {
+            return false;
+        } else {
+            return teacher.getId() != null && userDao.getOne(teacher.getId()) != null;
+        }
     }
 }
