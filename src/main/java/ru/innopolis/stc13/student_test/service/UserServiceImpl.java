@@ -1,17 +1,23 @@
 package ru.innopolis.stc13.student_test.service;
 
-import ru.innopolis.stc13.student_test.dao.GroupDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.UserDao;
-import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.User;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public boolean add(User user) {
@@ -65,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllByRole(Role role) {
-        List<User> list = userDao.getByRole(role);
+        List<User> list = userDao.getByRoles(role);
         return list == null ? Collections.emptyList() : list;
     }
 

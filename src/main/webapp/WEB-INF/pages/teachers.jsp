@@ -19,13 +19,13 @@
                 <th scope="row">${teacher.id}</th>
                 <td>${teacher.login}</td>
                 <td>${teacher.name}</td>
-                <td>${teacher.specialization}</td>
-                <td><a href="<c:url value="/teachers/edit/${teacher.id}"/>">Редактировать</a></td>
-                <td><a href="<c:url value="/teachers/delete/${teacher.id}"/>">Удалить</a></td>
+                <td>${teacher.specialization.name}</td>
+                <td><a href="<c:url value="/users/teachers/edit/${teacher.id}"/>">Редактировать</a></td>
+                <td><a href="<c:url value="/users/teachers/delete/${teacher.id}"/>">Удалить</a></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <a class="btn btn-dark m-2" href="<c:url value="/teachers/add"/>" role="button">Добавить</a>
+    <a class="btn btn-dark m-2" href="<c:url value="/users/teachers/add"/>" role="button">Добавить</a>
 </main>
 <%@include file="footer-bootstrap.jsp"%>

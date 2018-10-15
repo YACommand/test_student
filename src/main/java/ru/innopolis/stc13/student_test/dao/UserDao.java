@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface UserDao extends JpaRepository<User, Integer> {
     User getByLogin(String login);
-    List<User> getByRole(Role role);
-    List<User> getByGroup(Group group);
+
+    List<User> getByRoles(Role role);
+
+    List<User> getByGroups(Group group);
 }
