@@ -11,7 +11,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/teachers")
-public class TeacherController {
+public class    TeacherController {
 
     private TeacherService teacherService;
 
