@@ -11,10 +11,10 @@ public class Question {
 
     private String text;
 
-    @OneToMany(mappedBy="question", fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private List<Answer> answers;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")
     private Test test;
 
@@ -26,6 +26,11 @@ public class Question {
         this.text = text;
         this.answers = answers;
         this.test = test;
+    }
+
+    public Question(String text, List<Answer> answers) {
+        this.text = text;
+        this.answers = answers;
     }
 
     public Integer getId() {

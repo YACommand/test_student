@@ -1,51 +1,8 @@
-create table users
-(
-	id serial not null
-		constraint users_pk
-		primary key,
-	name varchar(255) not null,
-	login varchar(50) not null
-		constraint users_login_key
-		unique,
-	password varchar(100) not null
-)
-;
-
-alter table users owner to postgres
-;
-
-create table teachers
-(
-	id serial not null
-		constraint teachers_pk
-		primary key
-		constraint teachers_users_id_fk
-		references users,
-	specialization varchar(255) not null
-)
-;
-
-alter table teachers owner to postgres
-;
-
-create table admins
-(
-	id serial not null
-		constraint admins_pk
-		primary key
-		constraint admins_users_id_fk
-		references users
-)
-;
-
-alter table admins owner to postgres
-;
-
 create table groups
 (
 	id serial not null
-		constraint groups_pk
-		primary key,
+	constraint groups_pk
+	primary key,
 	name varchar(30) not null,
 	internal boolean not null,
 	number integer not null
@@ -55,47 +12,62 @@ create table groups
 alter table groups owner to postgres
 ;
 
-create table students
+create table roles
 (
 	id serial not null
-		constraint students_pk
-		primary key
-		constraint students_user_id_fk
-		references users,
-	group_id integer not null
-		constraint students_group_id_fk
-		references groups
+	constraint roles_pkey
+	primary key,
+	role varchar(30) not null
 )
 ;
 
-alter table students owner to postgres
+alter table roles owner to postgres
 ;
 
-create table teachers_groups
+create unique index roles_role_uindex
+	on roles (role)
+;
+
+create table specialization
 (
-	teacher_id integer not null
-		constraint teachers_id_fk
-		references teachers,
-	group_id integer not null
-		constraint groups_id_fk
-		references groups,
-	constraint teachers_group_pk
-	primary key (teacher_id, group_id)
+	name varchar(50) not null,
+	id serial not null
+	constraint specialization_pk
+	primary key
 )
 ;
 
-alter table teachers_groups owner to postgres
+alter table specialization owner to postgres
+;
+
+create table users
+(
+	id serial not null
+	constraint users_pk
+	primary key,
+	name varchar(255) not null,
+	login varchar(50) not null
+	constraint users_login_key
+	unique,
+	password varchar(100) not null,
+	specialization_id integer
+	constraint users_specialization_id_fk
+	references specialization
+)
+;
+
+alter table users owner to postgres
 ;
 
 create table tests
 (
 	id serial not null
-		constraint tests_pk
-		primary key,
+	constraint tests_pk
+	primary key,
 	description varchar(255) not null,
-	teacher_id integer not null
-		constraint tests_teachers_id_fk
-		references teachers
+	user_id integer not null
+	constraint tests_users_id_fk
+	references users
 )
 ;
 
@@ -105,12 +77,12 @@ alter table tests owner to postgres
 create table questions
 (
 	id serial not null
-		constraint questions_pk
-		primary key,
+	constraint questions_pk
+	primary key,
 	text varchar(255) not null,
 	test_id integer not null
-		constraint questions_test_id_fk
-		references tests
+	constraint questions_test_id_fk
+	references tests
 )
 ;
 
@@ -120,13 +92,13 @@ alter table questions owner to postgres
 create table answers
 (
 	id serial not null
-		constraint answers_pk
-		primary key,
+	constraint answers_pk
+	primary key,
 	text varchar(255) not null,
 	correct boolean not null,
 	question_id integer not null
-		constraint answers_questions_id_fk
-		references questions
+	constraint answers_questions_id_fk
+	references questions
 )
 ;
 
@@ -136,11 +108,11 @@ alter table answers owner to postgres
 create table groups_tests
 (
 	group_id integer not null
-		constraint groups_id_fk
-		references groups,
+	constraint groups_id_fk
+	references groups,
 	test_id integer not null
-		constraint tests_id_fk
-		references tests,
+	constraint tests_id_fk
+	references tests,
 	constraint groups_tests_pk
 	primary key (group_id, test_id)
 )
@@ -151,17 +123,53 @@ alter table groups_tests owner to postgres
 
 create table results
 (
-	student_id integer not null
-		constraint students_id_fk
-		references students,
+	user_id integer not null
+	constraint user_id_fk
+	references users,
 	test_id integer not null
-		constraint tests_id_fk
-		references tests,
+	constraint tests_id_fk
+	references tests,
 	grade integer not null,
 	constraint tests_results_pk
-	primary key (student_id, test_id)
+	primary key (user_id, test_id)
 )
 ;
 
 alter table results owner to postgres
+;
+
+create table user_group
+(
+	user_id integer not null
+	constraint user___fk
+	references users,
+	group_id integer not null
+	constraint group___fk
+	references groups,
+	constraint user_group_pk
+	primary key (user_id, group_id)
+)
+;
+
+alter table user_group owner to postgres
+;
+
+create table user_roles
+(
+	user_id integer not null
+	constraint user___fk
+	references users,
+	role_id integer not null
+	constraint roles___fk
+	references roles,
+	constraint user_roles_pk
+	primary key (user_id, role_id)
+)
+;
+
+alter table user_roles owner to postgres
+;
+
+create unique index specialization_name_uindex
+	on specialization (name)
 ;
