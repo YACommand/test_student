@@ -108,19 +108,27 @@ public class UserController {
     }
 
     @PostMapping("/students/save")
-    public String saveStudent(@ModelAttribute("student") User student,
-                              Model model) {
+    public String saveStudent(@ModelAttribute("student") User student, Model model) {
+        if (!userService.validate(student)) {
+            model.addAttribute("error", "validation_error");
+            model.addAttribute("roles", Role.values());
+            model.addAttribute("student", student);
+            return "editStudent";
+        }
         boolean isUserExist = userService.isUserExist(student);
         if (isUserExist) {
             boolean isUpdated = userService.update(student);
             if (!isUpdated) {
                 model.addAttribute("error", "updated_error");
+                model.addAttribute("roles", Role.values());
+                model.addAttribute("student", student);
                 return "editStudent";
             }
         } else {
             boolean isCreated = userService.add(student);
             if (!isCreated) {
                 model.addAttribute("error", "created_error");
+                model.addAttribute("roles", Role.values());
                 return "editStudent";
             }
         }
@@ -157,19 +165,27 @@ public class UserController {
     }
 
     @PostMapping("/admins/save")
-    public String saveAdmin(@ModelAttribute("admin") User admin,
-                            Model model) {
+    public String saveAdmin(@ModelAttribute("admin") User admin, Model model) {
+        if (!userService.validate(admin)) {
+            model.addAttribute("error", "validation_error");
+            model.addAttribute("roles", Role.values());
+            model.addAttribute("admin", admin);
+            return "editAdmin";
+        }
         boolean isUserExist = userService.isUserExist(admin);
         if (isUserExist) {
             boolean isUpdated = userService.update(admin);
             if (!isUpdated) {
                 model.addAttribute("error", "updated_error");
+                model.addAttribute("roles", Role.values());
+                model.addAttribute("admin", admin);
                 return "editAdmin";
             }
         } else {
             boolean isCreated = userService.add(admin);
             if (!isCreated) {
                 model.addAttribute("error", "created_error");
+                model.addAttribute("roles", Role.values());
                 return "editAdmin";
             }
         }
