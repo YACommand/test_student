@@ -2,9 +2,10 @@ package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity(name = "specialization")
-public class Specialization {
+public class Specialization implements Serializable {
     @Id
     private Integer id;
     private String name;

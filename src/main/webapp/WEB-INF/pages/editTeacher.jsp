@@ -25,7 +25,7 @@
         </div>
     </c:if>
     <div class="m-2">
-        <form:form modelAttribute="teacher" method="post" action="/teachers/save">
+        <form:form modelAttribute="teacher" method="post" action="/users/teachers/save">
             <c:if test="${teacher.id != null}">
                 <div class="form-group row">
                     <form:label path="id" class="col-sm-2 col-form-label">
@@ -65,7 +65,21 @@
                     <spring:message text="Специализация"/>
                 </form:label>
                 <div class="col-sm-5">
-                    <form:input path="specialization" class="form-control" placeholder="Введите специализацию"/>
+                    <form:select path="specialization" class="form-control">
+                        <c:forEach items="${specializations}" var="specialization">
+                            <form:option value="${specialization}" label="${specialization.name}"/>
+                        </c:forEach>
+                    </form:select>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <form:label path="roles" class="col-sm-2 col-form-label">
+                        <spring:message text="Роли"/>
+                    </form:label>
+                    <div class="input-group-text">
+                        <form:checkboxes path="roles" items="${roles}"/>
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc13.student_test.pojo.Role;
+import ru.innopolis.stc13.student_test.pojo.Specialization;
 import ru.innopolis.stc13.student_test.pojo.User;
+import ru.innopolis.stc13.student_test.service.SpecializationService;
 import ru.innopolis.stc13.student_test.service.UserService;
 
 import java.util.List;
@@ -15,10 +17,16 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
+    private SpecializationService specializationService;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setSpecializationService(SpecializationService specializationService) {
+        this.specializationService = specializationService;
     }
 
     @GetMapping("/teachers")
@@ -29,27 +37,33 @@ public class UserController {
     }
 
     @GetMapping("/teachers/edit/{teacher}")
-    public String editTeacher(@PathVariable User teacher) {
+    public String editTeacher(@PathVariable User teacher, Model model) {
+        List<Specialization> specializations = specializationService.getAll();
+        model.addAttribute("specialization", new Specialization());
+        model.addAttribute("specializations", specializations);
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("roles", Role.values());
         return "editTeacher";
     }
 
     @PostMapping("/teachers/save")
-    public String saveTeacher(@ModelAttribute User user, Model model) {
-        boolean isUserExist = userService.isUserExist(user);
+    public String saveTeacher(@ModelAttribute("teacher") User teacher,
+                              Model model) {
+        boolean isUserExist = userService.isUserExist(teacher);
         if (isUserExist) {
-            boolean isUpdated = userService.update(user);
+            boolean isUpdated = userService.update(teacher);
             if (!isUpdated) {
                 model.addAttribute("error", "updated_error");
                 return "editTeacher";
             }
         } else {
-            boolean isCreated = userService.add(user);
+            boolean isCreated = userService.add(teacher);
             if (!isCreated) {
                 model.addAttribute("error", "created_error");
                 return "editTeacher";
             }
         }
-        return "redirect:/teachers";
+        return "redirect:/users/teachers";
     }
 
     @GetMapping("/teachers/add")

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(User user) {
-        if (user == null || user.getLogin() != null) {
+        if (user == null || user.getId() == null) {
             return false;
         } else {
             return userDao.save(user) != null;
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return false;
         } else {
-            return user.getId() != null && userDao.getOne(user.getId()) != null;
+            return user.getId() != null && userDao.existsById(user.getId());
         }
     }
 
@@ -74,6 +74,4 @@ public class UserServiceImpl implements UserService {
         List<User> list = userDao.getByRoles(role);
         return list == null ? Collections.emptyList() : list;
     }
-
-
 }
