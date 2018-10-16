@@ -12,12 +12,10 @@
 </head>
 <text>
 
-<%@include file="header.jsp" %>
 <ul>
-    <li><a href="/students">Students</a></li>
-    <li><a href="/teachers">Teachers</a></li>
+    <li><a href="/users/students">Students</a></li>
+    <li><a href="/users/teachers">Teachers</a></li>
+    <li><a href="/users/admins">Admins</a></li>
 </ul>
-<%@include file="footer.jsp" %>
-
 </text>
 </html>
