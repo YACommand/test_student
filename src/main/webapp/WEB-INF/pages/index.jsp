@@ -1,21 +1,15 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admin
-  Date: 11.10.2018
-  Time: 17:54
-  To change this template use File | Settings | File Templates.
---%>
+<%@include file="header-bootstrap.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<text>
+<!-- Begin page content -->
+<main role="main" class="container">
 
-<ul>
+    <ul class="list-group-item-dark m-2">
     <li><a href="/users/students">Students</a></li>
     <li><a href="/users/teachers">Teachers</a></li>
     <li><a href="/users/admins">Admins</a></li>
+        <li><a href="/tests">Tests</a></li>
 </ul>
 </text>
 </html>
+</main>
+<%@include file="footer-bootstrap.jsp" %>

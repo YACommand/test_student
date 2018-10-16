@@ -27,6 +27,9 @@ public class Test {
     )
     private List<Group> groups;
 
+    public Test() {
+    }
+
     public Test(int id, String description, User teacher, List<Question> questions, List<Group> groups) {
         this.id = id;
         this.description = description;
