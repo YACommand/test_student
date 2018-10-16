@@ -1,27 +1,29 @@
 package ru.innopolis.stc13.student_test.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "groups")
 public class Group {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank
     private String name;
     @Column(name = "internal")
     private boolean isInternal;
-    private int number;
+    @NotNull
+    private Integer number;
     @ManyToMany(mappedBy = "groups")
     private List<Test> tests;
 
     public Group() {
     }
 
-    public Group(int id, String name, boolean isInternal, int number) {
+    public Group(Integer id, String name, boolean isInternal, Integer number) {
         this.id = id;
         this.name = name;
         this.isInternal = isInternal;
@@ -52,11 +54,11 @@ public class Group {
         isInternal = internal;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 

@@ -5,19 +5,25 @@
   Time: 17:54
   To change this template use File | Settings | File Templates.
 --%>
+<%@include file="header-bootstrap.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
 </head>
+<br>
+<br>
+<br>
 <text>
 
-<%@include file="header.jsp" %>
+
 <ul>
-    <li><a href="/students">Students</a></li>
-    <li><a href="/teachers">Teachers</a></li>
+    <li><a href="/users/students">Students</a></li>
+    <li><a href="/users/teachers">Teachers</a></li>
+    <li><a href="/groups">Groups</a></li>
 </ul>
-<%@include file="footer.jsp" %>
+
 
 </text>
 </html>
+<%@include file="footer-bootstrap.jsp" %>
