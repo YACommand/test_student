@@ -8,6 +8,7 @@ import ru.innopolis.stc13.student_test.pojo.User;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -73,5 +74,20 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllByRole(Role role) {
         List<User> list = userDao.getByRoles(role);
         return list == null ? Collections.emptyList() : list;
+    }
+
+    @Override
+    public boolean validate(User user) {
+        if (user == null) {
+            return false;
+        }
+        String name = user.getName();
+        String login = user.getLogin();
+        String password = user.getPassword();
+        Set<Role> roles = user.getRoles();
+        return name != null && !name.equals("") &&
+                login != null && !login.equals("") &&
+                password != null && !password.equals("") &&
+                roles != null && !roles.isEmpty();
     }
 }

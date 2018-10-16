@@ -8,6 +8,9 @@
     <c:if test="${teacher.id != null}">
         <h3>Редактирование учителя ${teacher.name}</h3>
     </c:if>
+    <c:if test="${teacher.id == null}">
+        <h3>Добавление нового учителя ${teacher.name}</h3>
+    </c:if>
     <c:if test="${'created_error'.equals(error)}">
         <div class="alert alert-danger" role="alert">
             Пользователь с таким логином уже существует!
@@ -24,6 +27,14 @@
             </button>
         </div>
     </c:if>
+    <c:if test="${'validation_error'.equals(error)}">
+        <div class="alert alert-danger" role="alert">
+            Ошибка валидации! Все поля должны быть заполнены!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
     <div class="m-2">
         <form:form modelAttribute="teacher" method="post" action="/users/teachers/save">
             <c:if test="${teacher.id != null}">
@@ -32,7 +43,7 @@
                         <spring:message text="ID"/>
                     </form:label>
                     <div class="col-sm-5">
-                        <form:input class="form-control" path="id" readonly="true"/>
+                        <form:input class="form-control" path="id" readonly="true" required="required"/>
                     </div>
                 </div>
             </c:if>
@@ -41,7 +52,7 @@
                     <spring:message text="Логин"/>
                 </form:label>
                 <div class="col-sm-5">
-                    <form:input class="form-control" placeholder="Введите логин" path="login"/>
+                    <form:input class="form-control" placeholder="Введите логин" path="login" required="required"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -49,7 +60,7 @@
                     <spring:message text="Пароль"/>
                 </form:label>
                 <div class="col-sm-5">
-                    <form:input path="password" class="form-control" placeholder="Введите пароль"/>
+                    <form:input path="password" class="form-control" placeholder="Введите пароль" required="required"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -57,7 +68,7 @@
                     <spring:message text="Имя"/>
                 </form:label>
                 <div class="col-sm-5">
-                    <form:input path="name" class="form-control" placeholder="Введите имя"/>
+                    <form:input path="name" class="form-control" placeholder="Введите имя" required="required"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -65,7 +76,7 @@
                     <spring:message text="Специализация"/>
                 </form:label>
                 <div class="col-sm-5">
-                    <form:select path="specialization" class="form-control">
+                    <form:select path="specialization" class="custom-select my-1 mr-sm-2" required="required">
                         <c:forEach items="${specializations}" var="specialization">
                             <form:option value="${specialization}" label="${specialization.name}"/>
                         </c:forEach>
@@ -77,7 +88,8 @@
                     <spring:message text="Роли"/>
                 </form:label>
                 <div class="form-check">
-                    <form:checkboxes class="form-check-input" path="roles" items="${roles}"/>
+                    <form:checkboxes element="div class='form-check-label'" class="form-check-input" path="roles"
+                                     items="${roles}"/>
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>

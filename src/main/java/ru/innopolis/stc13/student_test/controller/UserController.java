@@ -47,19 +47,31 @@ public class UserController {
     }
 
     @PostMapping("/teachers/save")
-    public String saveTeacher(@ModelAttribute("teacher") User teacher,
-                              Model model) {
+    public String saveTeacher(@ModelAttribute("teacher") User teacher, Model model) {
+        if (!userService.validate(teacher)) {
+            model.addAttribute("error", "validation_error");
+            model.addAttribute("roles", Role.values());
+            List<Specialization> specializations = specializationService.getAll();
+            model.addAttribute("specializations", specializations);
+            model.addAttribute("teacher", teacher);
+            return "editTeacher";
+        }
         boolean isUserExist = userService.isUserExist(teacher);
         if (isUserExist) {
             boolean isUpdated = userService.update(teacher);
             if (!isUpdated) {
                 model.addAttribute("error", "updated_error");
+                model.addAttribute("roles", Role.values());
+                List<Specialization> specializations = specializationService.getAll();
+                model.addAttribute("specializations", specializations);
+                model.addAttribute("teacher", teacher);
                 return "editTeacher";
             }
         } else {
             boolean isCreated = userService.add(teacher);
             if (!isCreated) {
                 model.addAttribute("error", "created_error");
+                model.addAttribute("roles", Role.values());
                 return "editTeacher";
             }
         }
@@ -79,7 +91,7 @@ public class UserController {
     @GetMapping("/teachers/delete/{id}")
     public String deleteTeacher(@PathVariable Integer id) {
         userService.delete(id);
-        return "redirect:/teachers";
+        return "redirect:/users/teachers";
     }
 
     @GetMapping("/students")

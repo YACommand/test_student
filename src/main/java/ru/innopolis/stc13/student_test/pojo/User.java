@@ -2,6 +2,7 @@ package ru.innopolis.stc13.student_test.pojo;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,9 +11,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank
     private String login;
+    @NotBlank
     private String password;
+    @NotBlank
     private String name;
+
     @ManyToMany
     @JoinTable(
             name = "user_group",
