@@ -57,7 +57,7 @@
                     <spring:message text="Название"/>
                 </form:label>
                 <div class="col-sm-5">
-                    <form:input class="form-control" placeholder="Введите название" path="name"/>
+                    <form:input class="form-control" placeholder="Введите название" path="name" required="required"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -65,7 +65,7 @@
                     <spring:message text="Номер"/>
                 </form:label>
                 <div class="col-sm-5">
-                    <form:input path="number" class="form-control" placeholder="Введите номер"/>
+                    <form:input path="number" class="form-control" placeholder="Введите номер" required="required"/>
                 </div>
             </div>
             <div class="input-group mb-3">

@@ -32,7 +32,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public boolean update(Group group) {
-        if (group != null || groupDao.existsById(group.getId())) {
+        if (group != null && groupDao.existsById(group.getId())) {
             return groupDao.save(group) != null;
         }
         return false;
@@ -69,15 +69,15 @@ public class GroupServiceImpl implements GroupService {
         String name = group.getName();
         Integer number = group.getNumber();
         return name != null && !name.equals("") &&
-                number != null && number>0&& number.equals(number);
+                number != null && number > 0;
     }
 
     @Override
     public boolean isNumberExist(Group group) {
-        if (group==null){
+        if (group == null) {
             return false;
-        }else{
-            return group.getNumber()!=null&& groupDao.getByNumber(group.getNumber())!=null;
+        } else {
+            return group.getNumber() != null && groupDao.getByNumber(group.getNumber()) != null;
         }
     }
 }
