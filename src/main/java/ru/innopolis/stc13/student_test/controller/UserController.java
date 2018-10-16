@@ -52,7 +52,6 @@ public class UserController {
         return "redirect:/teachers";
     }
 
-
     @GetMapping("/teachers/add")
     public String addTeacher(Model model) {
         model.addAttribute("teacher", new User());
@@ -72,13 +71,13 @@ public class UserController {
         return "students";
     }
 
-    @GetMapping("/students/edit/{user}")
-    public String editStudent(@PathVariable User user) {
+    @GetMapping("/students/edit/{student}")
+    public String editStudent(@PathVariable User student) {
         return "editStudent";
     }
 
     @PostMapping("/students/save")
-    public String save(@ModelAttribute User user, Model model) {
+    public String saveStudent(@ModelAttribute User user, Model model) {
         boolean isUserExist = userService.isUserExist(user);
         if (isUserExist) {
             boolean isUpdated = userService.update(user);
@@ -106,6 +105,49 @@ public class UserController {
     public String deleteStudent(@PathVariable Integer id) {
         userService.delete(id);
         return "redirect:/students";
+    }
+
+    @GetMapping("/admins")
+    public String getAdmins(Model model) {
+        List<User> admins = userService.getAllByRole(Role.ADMIN);
+        model.addAttribute("admins", admins);
+        return "admins";
+    }
+
+    @GetMapping("/admins/edit/{admin}")
+    public String editAdmin(@PathVariable User admin) {
+        return "editAdmins";
+    }
+
+    @PostMapping("/admins/save")
+    public String saveAdmin(@ModelAttribute User user, Model model) {
+        boolean isUserExist = userService.isUserExist(user);
+        if (isUserExist) {
+            boolean isUpdated = userService.update(user);
+            if (!isUpdated) {
+                model.addAttribute("error", "updated_error");
+                return "editAdmin";
+            }
+        } else {
+            boolean isCreated = userService.add(user);
+            if (!isCreated) {
+                model.addAttribute("error", "created_error");
+                return "editAdmin";
+            }
+        }
+        return "redirect:/admins";
+    }
+
+    @GetMapping("/admins/add")
+    public String addAdmin(Model model) {
+        model.addAttribute("user", new User());
+        return "editAdmin";
+    }
+
+    @GetMapping("/admin/delete/{id}")
+    public String deleteAdmin(@PathVariable Integer id) {
+        userService.delete(id);
+        return "redirect:/admins";
     }
 
 
