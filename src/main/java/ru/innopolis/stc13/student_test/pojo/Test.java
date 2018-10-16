@@ -16,14 +16,14 @@ public class Test {
     @JoinColumn(name = "teacher_id")
     private User teacher;
 
-    @OneToMany(mappedBy="test", fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY)
     private List<Question> questions;
 
     @ManyToMany
     @JoinTable(
             name = "groups_tests",
-            joinColumns = { @JoinColumn(name = "test_id") },
-            inverseJoinColumns = { @JoinColumn(name = "group_id") }
+            joinColumns = {@JoinColumn(name = "test_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")}
     )
     private List<Group> groups;
 
