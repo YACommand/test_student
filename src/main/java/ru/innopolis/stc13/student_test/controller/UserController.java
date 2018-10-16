@@ -69,6 +69,9 @@ public class UserController {
     @GetMapping("/teachers/add")
     public String addTeacher(Model model) {
         model.addAttribute("teacher", new User());
+        List<Specialization> specializations = specializationService.getAll();
+        model.addAttribute("specializations", specializations);
+        model.addAttribute("roles", Role.values());
         return "editTeacher";
     }
 
