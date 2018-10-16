@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.TestDao;
 import ru.innopolis.stc13.student_test.pojo.Test;
@@ -9,6 +10,7 @@ import java.util.List;
 @Service
 public class TestServiceImpl implements TestService {
 
+    @Autowired
     private TestDao testDao;
 
     @Override
@@ -21,7 +23,10 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Test get(Integer id) {
-        return id == null ? null : testDao.getOne(id);
+        if (id != null && testDao.existsById(id)) {
+            return testDao.getOne(id);
+        }
+        return null;
     }
 
     @Override

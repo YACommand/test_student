@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Test {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String description;
@@ -16,16 +17,18 @@ public class Test {
     @JoinColumn(name = "user_id")
     private User teacher;
 
-    @OneToMany(mappedBy="test", fetch= FetchType.LAZY)
+    @OneToMany(mappedBy="test", fetch= FetchType.EAGER)
     private List<Question> questions;
 
-    @ManyToMany
+    @ManyToMany(fetch= FetchType.LAZY)
     @JoinTable(
             name = "groups_tests",
             joinColumns = { @JoinColumn(name = "test_id") },
-            inverseJoinColumns = { @JoinColumn(name = "group_id") }
-    )
+            inverseJoinColumns = { @JoinColumn(name = "group_id") })
     private List<Group> groups;
+
+    public Test() {
+    }
 
     public Test(int id, String description, User teacher, List<Question> questions, List<Group> groups) {
         this.id = id;
@@ -33,6 +36,13 @@ public class Test {
         this.teacher = teacher;
         this.questions = questions;
         this.groups = groups;
+    }
+
+    public Test(Integer id, String description, User teacher, List<Question> questions) {
+        this.id = id;
+        this.description = description;
+        this.teacher = teacher;
+        this.questions = questions;
     }
 
     public Test(String description, User teacher, List<Question> questions) {
