@@ -16,4 +16,10 @@ public interface GroupService {
 
     List<Group> getAll();
 
+    boolean isGroupExist(Group group);
+
+    boolean validate(Group group);
+
+    boolean isNumberExist(Group group);
+
 }
