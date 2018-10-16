@@ -7,7 +7,7 @@
 target
 *.jar
 *.war
-
+/src/main/resources/
 !.mvn/wrapper/maven-wrapper.jar
 
 *.properties

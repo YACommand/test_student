@@ -35,6 +35,12 @@ public class Test {
         this.groups = groups;
     }
 
+    public Test(String description, User teacher, List<Question> questions) {
+        this.description = description;
+        this.teacher = teacher;
+        this.questions = questions;
+    }
+
     public Integer getId() {
         return id;
     }
