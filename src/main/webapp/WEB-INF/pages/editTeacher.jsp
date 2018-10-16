@@ -72,14 +72,12 @@
                     </form:select>
                 </div>
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <form:label path="roles" class="col-sm-2 col-form-label">
-                        <spring:message text="Роли"/>
-                    </form:label>
-                    <div class="input-group-text">
-                        <form:checkboxes path="roles" items="${roles}"/>
-                    </div>
+            <div class="form-group row">
+                <form:label path="roles" class="col-sm-2">
+                    <spring:message text="Роли"/>
+                </form:label>
+                <div class="form-check">
+                    <form:checkboxes class="form-check-input" path="roles" items="${roles}"/>
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>
