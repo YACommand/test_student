@@ -27,7 +27,7 @@
                     <a>Группа не назначена</a>
                 </c:if>
                 <c:forEach items="${teacher.groups}" var="group">
-                    ${group.name} - ${group.number}
+                    ${group.name} - ${group.number};
                 </c:forEach>
             </td>
             <td>

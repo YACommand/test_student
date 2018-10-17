@@ -9,6 +9,7 @@
             <th scope="col">ID</th>
             <th scope="col">Логин</th>
             <th scope="col">Имя</th>
+            <th scope="col">Группа</th>
             <th scope="col">Роли</th>
             <th scope="col" colspan="2" class="text-center">Действие</th>
         </tr>
@@ -19,6 +20,14 @@
             <th scope="row">${student.id}</th>
             <td>${student.login}</td>
             <td>${student.name}</td>
+            <td>
+                <c:if test="${student.groups.size() == 0}">
+                    <a>Группа не назначена</a>
+                </c:if>
+                <c:forEach items="${student.groups}" var="group">
+                    ${group.name} - ${group.number};
+                </c:forEach>
+            </td>
             <td>
                 <c:forEach items="${student.roles}" var="role">
                     ${role}
