@@ -120,6 +120,7 @@ public class UserController {
     @GetMapping("/students/edit/{student}")
     public String editStudent(@PathVariable User student, Model model) {
         model.addAttribute("student", student);
+        model.addAttribute("groups", groupService.getAll());
         model.addAttribute("roles", Role.values());
         return "editStudent";
     }
@@ -137,6 +138,7 @@ public class UserController {
             boolean isUpdated = userService.update(student);
             if (!isUpdated) {
                 model.addAttribute("error", "updated_error");
+                model.addAttribute("groups", groupService.getAll());
                 model.addAttribute("roles", Role.values());
                 model.addAttribute("student", student);
                 return "editStudent";
@@ -155,6 +157,7 @@ public class UserController {
     @GetMapping("/students/add")
     public String addStudent(Model model) {
         model.addAttribute("student", new User());
+        model.addAttribute("groups", groupService.getAll());
         model.addAttribute("roles", Role.values());
         return "editStudent";
     }

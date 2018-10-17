@@ -93,7 +93,7 @@
                             <td><input type="checkbox"
                                        name="groups"
                                 ${teacher.groups.contains(group) ? "checked" : ""}
-                                       value="${group.id}"/> ${group.name}-${group.number}<br></td>
+                                       value="${group.id}"/> ${group.name} - ${group.number}<br></td>
                         </tr>
                     </c:forEach>
                 </div>
