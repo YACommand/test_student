@@ -47,31 +47,36 @@ public class GroupController {
 
     @PostMapping("/groups/save")
     public String saveGroup(@ModelAttribute("group") Group group, Model model) {
-        boolean isNumberExist = groupService.isNumberExist(group);
-        if (isNumberExist){
-            model.addAttribute("error","number_error");
-            return "editGroup";
-        }
+
+        boolean isGroupExist = groupService.isGroupExist(group);
+
         if (!groupService.validate(group)) {
             model.addAttribute("error", "validation_error");
-            model.addAttribute("group", group);
-            model.addAttribute("number", group.getNumber());
             return "editGroup";
         }
-        boolean isGroupExist = groupService.isGroupExist(group);
+
+        boolean isNumberExist = groupService.isNumberExist(group);
         if (isGroupExist) {
-            boolean isUpdated = groupService.update(group);
-            if (!isUpdated) {
-                model.addAttribute("error", "updated_error");
-                return "editGroup";
+            boolean isNumberExist2 = groupService.isNumberExist(group);
+            if (groupService.checkAddNumber(group)) {
+                if (groupService.update(group)) {
+                    return "redirect:/groups";
+                } else if (isNumberExist2) {
+                    model.addAttribute("error", "updated_error");
+                    return "editGroup";
+                }
             }
         } else {
-            boolean isCreated = groupService.add(group);
-            if (!isCreated) {
-                model.addAttribute("error", "created_error");
+            if (isNumberExist) {
+                model.addAttribute("error", "number_error");
                 return "editGroup";
+
+            } else {
+                groupService.add(group);
+                return "redirect:/groups";
             }
         }
-        return "redirect:/groups";
+        model.addAttribute("error", "updated_error");
+        return "editGroup";
     }
 }

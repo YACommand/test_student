@@ -80,4 +80,14 @@ public class GroupServiceImpl implements GroupService {
             return group.getNumber() != null && groupDao.getByNumber(group.getNumber()) != null;
         }
     }
+
+    @Override
+    public boolean checkAddNumber(Group group) {
+        Group groupFromDB = groupDao.getByNumber(group.getNumber());
+        if (groupFromDB != null) {
+            return groupFromDB.getId().equals(group.getId());
+        } else {
+            return true;
+        }
+    }
 }
