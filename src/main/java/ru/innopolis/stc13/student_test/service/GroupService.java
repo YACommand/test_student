@@ -22,4 +22,6 @@ public interface GroupService {
 
     boolean isNumberExist(Group group);
 
+    boolean checkAddNumber(Group group);
+
 }
