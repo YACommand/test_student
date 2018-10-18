@@ -4,6 +4,31 @@
 <%@include file="header-bootstrap.jsp" %>
 <!-- Begin page content -->
 <main role="main" class="container">
-
+    <c:if test="${test.id != null}">
+        <h3>Редактирование теста ${test.description}</h3>
+    </c:if>
+    <c:if test="${test.id == null}">
+        <h3>Добавление нового теста</h3>
+    </c:if>
+    <c:forEach items="${questions}" var="question">
+        <div class="col-md-6 m-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        text ${question.text}
+                    </h5>
+                    <p class="card-text">
+                        id ${question.id} <br/>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <c:forEach items="${question.answers}" var="answer">
+                        <li class="list-group-item">${answer.content} ${answer.correct}</li>
+                    </c:forEach>
+                </ul>
+                <a class="btn btn-dark" href="<c:url value="/question/edit/${question.id}"/>" role="button">Редактировать</a>
+            </div>
+        </div>
+    </c:forEach>
 </main>
 <%@include file="footer-bootstrap.jsp" %>

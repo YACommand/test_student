@@ -17,7 +17,7 @@ public class Test {
     @JoinColumn(name = "user_id")
     private User teacher;
 
-    @OneToMany(mappedBy="test", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY)
     private List<Question> questions;
 
     @ManyToMany(fetch= FetchType.LAZY)

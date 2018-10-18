@@ -9,7 +9,7 @@
         <h3>Редактирование учителя ${teacher.name}</h3>
     </c:if>
     <c:if test="${teacher.id == null}">
-        <h3>Добавление нового учителя ${teacher.name}</h3>
+        <h3>Добавление нового учителя</h3>
     </c:if>
     <c:if test="${'created_error'.equals(error)}">
         <div class="alert alert-danger" role="alert">

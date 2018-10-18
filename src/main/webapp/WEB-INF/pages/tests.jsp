@@ -20,7 +20,7 @@
         <tbody>
         <tr>
             <th scope="row">${test.id}</th>
-            <td>${test.description}</td>
+            <td><a href="/tests/get/${test.id}"> ${test.description}</a></td>
             <td>${test.teacher.name}</td>
             <td>${test.questions.size()}</td>
             <td>
@@ -28,7 +28,7 @@
                     ${group.number}
                 </c:forEach>
             </td>
-            <td><a href="<c:url value="/tests/edit${test.id}"/>">Редактировать</a></td>
+            <td><a href="<c:url value="/tests/edit/${test.id}"/>">Редактировать</a></td>
             <td><a href="<c:url value="/tests/delete/${test.id}"/>">Удалить</a></td>
         </tr>
         </c:forEach>

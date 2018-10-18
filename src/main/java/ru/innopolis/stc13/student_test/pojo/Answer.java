@@ -9,10 +9,10 @@ public class Answer implements Serializable {
     @Id
     private Integer id;
 
-    private String text;
+    @Column(name = "text")
+    private String content;
 
-    @Column(name="correct")
-    private Boolean isCorrect;
+    private Boolean correct;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id")
@@ -21,48 +21,47 @@ public class Answer implements Serializable {
     public Answer() {
     }
 
-    public Answer(Integer id, String text, Boolean isCorrect, Question question) {
+    public Answer(String content, Boolean correct) {
+        this.content = content;
+        this.correct = correct;
+    }
+
+    public Answer(Integer id, String content, Boolean correct, Question question) {
         this.id = id;
-        this.text = text;
-        this.isCorrect = isCorrect;
+        this.content = content;
+        this.correct = correct;
         this.question = question;
     }
 
-    public Answer(String text, Boolean isCorrect) {
-        this.text = text;
-        this.isCorrect = isCorrect;
-    }
-
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getText() {
-        return this.text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Boolean getIsCorrect() {
-        return this.isCorrect;
+    public Boolean getCorrect() {
+        return correct;
     }
 
-    public void setIsCorrect(Boolean isCorrect) {
-        this.isCorrect = isCorrect;
+    public void setCorrect(Boolean correct) {
+        this.correct = correct;
     }
 
     public Question getQuestion() {
-        return this.question;
+        return question;
     }
 
     public void setQuestion(Question question) {
         this.question = question;
     }
-
 }

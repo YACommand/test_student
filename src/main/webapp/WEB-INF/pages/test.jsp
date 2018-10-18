@@ -1,13 +1,24 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-
-<html>
-<head>
-    <title>Hello jsp</title>
-</head>
-<text>
- ${admin}
-</text>
-</html>
+<%@include file="header-bootstrap.jsp" %>
+<!-- Begin page content -->
+<main role="main" class="container">
+    <h3>Тест: ${test.description}</h3>
+    <c:forEach items="${test.questions}" var="question">
+        <div class="col-md-6">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+                <div class="card-body d-flex flex-column align-items-start">
+                    id: ${question.id} <br>
+                    text: ${question.text} <br>
+                    answers:
+                    <c:forEach items="${question.answers}" var="answer">
+                        <br>${answer.text} ${answer.isCorrect}
+                    </c:forEach>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
+</main>
+<%@include file="footer-bootstrap.jsp" %>
