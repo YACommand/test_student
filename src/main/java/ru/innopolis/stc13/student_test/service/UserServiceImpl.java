@@ -22,29 +22,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean add(User user) {
-        if (user == null) {
-            return false;
-        } else if (userDao.getByLogin(user.getLogin()) != null) {
-            return false;
+        if (user != null && !userDao.existsByLogin(user.getLogin())) {
+            return userDao.save(user) != null;
         }
-        return userDao.save(user) != null;
+        return false;
     }
 
     @Override
     public User get(Integer id) {
-        if (id == null) {
-            return null;
+        if (id != null && userDao.existsById(id)) {
+            return userDao.findById(id).orElse(null);
         }
-        return userDao.getOne(id);
+        return null;
     }
 
     @Override
     public boolean update(User user) {
-        if (user == null || user.getId() == null) {
-            return false;
-        } else {
+        if (user != null && userDao.existsById(user.getId())) {
             return userDao.save(user) != null;
         }
+        return false;
     }
 
     @Override
@@ -63,11 +60,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserExist(User user) {
-        if (user == null) {
-            return false;
-        } else {
-            return user.getId() != null && userDao.existsById(user.getId());
+        if (user != null && user.getId() != null && userDao.existsById(user.getId())) {
+            return true;
         }
+        return false;
     }
 
     @Override

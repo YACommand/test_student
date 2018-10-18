@@ -13,4 +13,6 @@ public interface UserDao extends JpaRepository<User, Integer> {
     List<User> getByRoles(Role role);
 
     List<User> getByGroups(Group group);
+
+    boolean existsByLogin(String login);
 }

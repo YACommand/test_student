@@ -2,6 +2,7 @@ package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity(name = "answers")
 public class Answer implements Serializable {
@@ -11,10 +12,10 @@ public class Answer implements Serializable {
 
     private String text;
 
-    @Column(name="correct")
+    @Column(name = "correct")
     private Boolean isCorrect;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 
@@ -26,6 +27,12 @@ public class Answer implements Serializable {
         this.text = text;
         this.isCorrect = isCorrect;
         this.question = question;
+    }
+
+    public Answer(Integer id, String text, Boolean isCorrect) {
+        this.id = id;
+        this.text = text;
+        this.isCorrect = isCorrect;
     }
 
     public Answer(String text, Boolean isCorrect) {
@@ -65,4 +72,32 @@ public class Answer implements Serializable {
         this.question = question;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return Objects.equals(id, answer.id) &&
+                Objects.equals(text, answer.text) &&
+                Objects.equals(isCorrect, answer.isCorrect)
+//                && Objects.equals(question, answer.question)
+                ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, text, isCorrect
+//                , question
+        );
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", isCorrect=" + isCorrect +
+//                ", question=" + question +
+                '}';
+    }
 }
