@@ -1,6 +1,5 @@
 package ru.innopolis.stc13.student_test.pojo;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
@@ -37,6 +36,16 @@ public class User {
     }
 
     public User(String login, String password, String name, Set<Group> groups, Specialization specialization, Set<Role> roles) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.groups = groups;
+        this.specialization = specialization;
+        this.roles = roles;
+    }
+
+    public User(Integer id, String login, String password, String name, Set<Group> groups, Specialization specialization, Set<Role> roles) {
+        this.id = id;
         this.login = login;
         this.password = password;
         this.name = name;

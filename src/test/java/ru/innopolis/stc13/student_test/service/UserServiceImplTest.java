@@ -10,73 +10,74 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import ru.innopolis.stc13.student_test.pojo.User;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static ru.innopolis.stc13.student_test.TestTestData.*;
+import static ru.innopolis.stc13.student_test.UserTestData.*;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @SpringBootTest
 @Transactional
-public class TestServiceImplTest {
+public class UserServiceImplTest {
 
     @TestConfiguration
     static class TestServiceImplTestContextConfiguration {
 
         @Bean
-        public TestService testService() {
-            return new TestServiceImpl();
+        public UserService userService() {
+            return new UserServiceImpl();
         }
     }
 
     @Autowired
-    private TestService testService;
+    private UserService userService;
 
     @Test
     public void delete() {
-        testService.delete(1);
-        assertMatch(testService.getAll(), Arrays.asList(TEST2, TEST3));
+        userService.delete(1);
+        assertMatch(userService.getAll(), Arrays.asList(TEACHER2, STUDENT, ADMIN));
     }
 
     @Test
     public void deleteNotFound() {
-        assertFalse(testService.delete(5));
+        assertFalse(userService.delete(5));
     }
 
     @Test
     public void add() {
-        testService.add(TEST4);
-        assertMatch(testService.getAll(), TEST1, TEST2, TEST3, TEST4);
+        userService.add(TEACHER3);
+        assertMatch(userService.getAll(), TEACHER1, TEACHER2, STUDENT, ADMIN, TEACHER3);
     }
 
     @Test
     public void get() {
-        ru.innopolis.stc13.student_test.pojo.Test actual = testService.get(1);
-        assertMatch(actual, TEST1);
+        User actual = userService.get(1);
+        assertMatch(actual, TEACHER1);
     }
 
     @Test
     public void getNotFound() {
-        ru.innopolis.stc13.student_test.pojo.Test actual = testService.get(5);
+        User actual = userService.get(6);
         assertNull(actual);
     }
 
     @Test
     public void update() {
-        boolean updated = testService.update(TEST1_UPDATED);
-        assertMatch(testService.get(1), TEST1_UPDATED);
+        userService.update(TEACHER2_UPDATED);
+        assertMatch(userService.get(2), TEACHER2_UPDATED);
     }
 
     @Test
     public void updateNotFound() {
-        assertFalse(testService.update(TEST5));
+        assertFalse(userService.update(TEACHER4));
     }
 
     @Test
     public void getAll() {
-        assertMatch(testService.getAll(), TESTS);
+        assertMatch(userService.getAll(), USERS);
     }
 }

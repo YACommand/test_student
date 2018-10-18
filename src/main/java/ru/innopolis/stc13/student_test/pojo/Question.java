@@ -1,7 +1,8 @@
 package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "questions")
 public class Question {
@@ -11,24 +12,32 @@ public class Question {
 
     private String text;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
-    private List<Answer> answers;
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "question_id")
+    private Set<Answer> answers;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")
     private Test test;
 
     public Question() {
     }
 
-    public Question(int id, String text, List<Answer> answers, Test test) {
+    public Question(Integer id, String text, Set<Answer> answers, Test test) {
         this.id = id;
         this.text = text;
         this.answers = answers;
         this.test = test;
     }
 
-    public Question(String text, List<Answer> answers) {
+    public Question(Integer id, String text, Set<Answer> answers) {
+        this.id = id;
+        this.text = text;
+        this.answers = answers;
+    }
+
+    public Question(String text, Set<Answer> answers) {
         this.text = text;
         this.answers = answers;
     }
@@ -49,11 +58,11 @@ public class Question {
         this.text = text;
     }
 
-    public List<Answer> getAnswers() {
+    public Set<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<Answer> answers) {
+    public void setAnswers(Set<Answer> answers) {
         this.answers = answers;
     }
 
@@ -63,5 +72,34 @@ public class Question {
 
     public void setTest(Test test) {
         this.test = test;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return Objects.equals(id, question.id) &&
+                Objects.equals(text, question.text) &&
+                Objects.equals(answers, question.answers)
+//                && Objects.equals(test, question.test)
+                ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, text, answers
+//                , test
+        );
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", answers=" + answers +
+//                ", test=" + test +
+                '}';
     }
 }

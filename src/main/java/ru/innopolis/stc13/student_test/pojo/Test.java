@@ -1,8 +1,8 @@
 package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "tests")
 public class Test {
@@ -17,20 +17,31 @@ public class Test {
     @JoinColumn(name = "user_id")
     private User teacher;
 
-    @OneToMany(mappedBy="test", fetch= FetchType.EAGER)
-    private List<Question> questions;
+    @OneToMany(
+            mappedBy = "test",
+            fetch = FetchType.LAZY)
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "test_id")
+    private Set<Question> questions;
 
-    @ManyToMany(fetch= FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "groups_tests",
-            joinColumns = { @JoinColumn(name = "test_id") },
-            inverseJoinColumns = { @JoinColumn(name = "group_id") })
-    private List<Group> groups;
+            joinColumns = {@JoinColumn(name = "test_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")})
+    private Set<Group> groups;
 
     public Test() {
     }
 
-    public Test(int id, String description, User teacher, List<Question> questions, List<Group> groups) {
+    public Test(String description, User teacher, Set<Question> questions, Set<Group> groups) {
+        this.description = description;
+        this.teacher = teacher;
+        this.questions = questions;
+        this.groups = groups;
+    }
+
+    public Test(Integer id, String description, User teacher, Set<Question> questions, Set<Group> groups) {
         this.id = id;
         this.description = description;
         this.teacher = teacher;
@@ -38,14 +49,7 @@ public class Test {
         this.groups = groups;
     }
 
-    public Test(Integer id, String description, User teacher, List<Question> questions) {
-        this.id = id;
-        this.description = description;
-        this.teacher = teacher;
-        this.questions = questions;
-    }
-
-    public Test(String description, User teacher, List<Question> questions) {
+    public Test(String description, User teacher, Set<Question> questions) {
         this.description = description;
         this.teacher = teacher;
         this.questions = questions;
@@ -75,19 +79,19 @@ public class Test {
         this.teacher = teacher;
     }
 
-    public List<Question> getQuestions() {
+    public Set<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(Set<Question> questions) {
         this.questions = questions;
     }
 
-    public List<Group> getGroups() {
+    public Set<Group> getGroups() {
         return groups;
     }
 
-    public void setGroups(List<Group> groups) {
+    public void setGroups(Set<Group> groups) {
         this.groups = groups;
     }
 

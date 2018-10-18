@@ -3,8 +3,8 @@ package ru.innopolis.stc13.student_test.pojo;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "groups")
 public class Group {
@@ -18,7 +18,7 @@ public class Group {
     @NotNull
     private Integer number;
     @ManyToMany(mappedBy = "groups")
-    private List<Test> tests;
+    private Set<Test> tests;
 
     public Group() {
     }
@@ -62,11 +62,11 @@ public class Group {
         this.number = number;
     }
 
-    public List<Test> getTests() {
+    public Set<Test> getTests() {
         return tests;
     }
 
-    public void setTests(List<Test> tests) {
+    public void setTests(Set<Test> tests) {
         this.tests = tests;
     }
 

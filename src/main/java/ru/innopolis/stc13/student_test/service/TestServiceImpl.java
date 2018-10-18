@@ -24,7 +24,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public Test get(Integer id) {
         if (id != null && testDao.existsById(id)) {
-            return testDao.getOne(id);
+            return testDao.findById(id).orElse(null);
         }
         return null;
     }
