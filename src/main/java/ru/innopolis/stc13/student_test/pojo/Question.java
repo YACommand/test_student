@@ -13,9 +13,7 @@ public class Question {
 
     private String text;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "question_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.LAZY)
     private Set<Answer> answers;
 
     @ManyToOne(fetch = FetchType.LAZY)
