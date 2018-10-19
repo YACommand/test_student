@@ -71,6 +71,22 @@
                     <form:input path="name" class="form-control" placeholder="Введите имя" required="required"/>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <form:label path="groups" class="col-sm-2">
+                    <spring:message text="Группы"/>
+                </form:label>
+                <div class="form-check">
+                    <c:forEach items="${groups}" var="group">
+                        <tr>
+                            <td><input type="checkbox"
+                                       name="groups"
+                                ${student.groups.contains(group) ? "checked" : ""}
+                                       value="${group.id}"/> ${group.name} - ${group.number}<br></td>
+                        </tr>
+                    </c:forEach>
+                </div>
+            </div>
             <div class="form-group row">
                 <form:label path="roles" class="col-sm-2">
                     <spring:message text="Роли"/>

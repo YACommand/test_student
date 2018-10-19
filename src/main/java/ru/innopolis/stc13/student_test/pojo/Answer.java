@@ -2,6 +2,7 @@ package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity(name = "answers")
 public class Answer implements Serializable {
@@ -14,7 +15,7 @@ public class Answer implements Serializable {
 
     private Boolean correct;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 
@@ -33,6 +34,17 @@ public class Answer implements Serializable {
         this.question = question;
     }
 
+    public Answer(Integer id, String text, Boolean isCorrect) {
+        this.id = id;
+        this.text = text;
+        this.isCorrect = isCorrect;
+    }
+
+    public Answer(String text, Boolean isCorrect) {
+        this.text = text;
+        this.isCorrect = isCorrect;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -49,7 +61,7 @@ public class Answer implements Serializable {
         this.content = content;
     }
 
-    public Boolean getCorrect() {
+    public Boolean isCorrect() {
         return correct;
     }
 
@@ -58,10 +70,39 @@ public class Answer implements Serializable {
     }
 
     public Question getQuestion() {
-        return question;
+        return this.question;
     }
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return Objects.equals(id, answer.id) &&
+                Objects.equals(text, answer.text) &&
+                Objects.equals(isCorrect, answer.isCorrect)
+//                && Objects.equals(question, answer.question)
+                ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, text, isCorrect
+//                , question
+        );
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", isCorrect=" + isCorrect +
+//                ", question=" + question +
+                '}';
     }
 }

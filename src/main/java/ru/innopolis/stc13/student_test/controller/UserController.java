@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.Specialization;
 import ru.innopolis.stc13.student_test.pojo.User;
+import ru.innopolis.stc13.student_test.service.GroupService;
 import ru.innopolis.stc13.student_test.service.SpecializationService;
 import ru.innopolis.stc13.student_test.service.UserService;
 
@@ -18,6 +20,12 @@ public class UserController {
 
     private UserService userService;
     private SpecializationService specializationService;
+    private GroupService groupService;
+
+    @Autowired
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -42,6 +50,9 @@ public class UserController {
         model.addAttribute("specialization", new Specialization());
         model.addAttribute("specializations", specializations);
         model.addAttribute("teacher", teacher);
+
+        model.addAttribute("groups", groupService.getAll());
+
         model.addAttribute("roles", Role.values());
         return "editTeacher";
     }
@@ -50,6 +61,9 @@ public class UserController {
     public String saveTeacher(@ModelAttribute("teacher") User teacher, Model model) {
         if (!userService.validate(teacher)) {
             model.addAttribute("error", "validation_error");
+
+            model.addAttribute("groups", groupService.getAll());
+
             model.addAttribute("roles", Role.values());
             List<Specialization> specializations = specializationService.getAll();
             model.addAttribute("specializations", specializations);
@@ -83,6 +97,9 @@ public class UserController {
         model.addAttribute("teacher", new User());
         List<Specialization> specializations = specializationService.getAll();
         model.addAttribute("specializations", specializations);
+
+        model.addAttribute("groups", groupService.getAll());
+
         model.addAttribute("roles", Role.values());
         return "editTeacher";
     }
@@ -103,6 +120,7 @@ public class UserController {
     @GetMapping("/students/edit/{student}")
     public String editStudent(@PathVariable User student, Model model) {
         model.addAttribute("student", student);
+        model.addAttribute("groups", groupService.getAll());
         model.addAttribute("roles", Role.values());
         return "editStudent";
     }
@@ -120,6 +138,7 @@ public class UserController {
             boolean isUpdated = userService.update(student);
             if (!isUpdated) {
                 model.addAttribute("error", "updated_error");
+                model.addAttribute("groups", groupService.getAll());
                 model.addAttribute("roles", Role.values());
                 model.addAttribute("student", student);
                 return "editStudent";
@@ -138,6 +157,7 @@ public class UserController {
     @GetMapping("/students/add")
     public String addStudent(Model model) {
         model.addAttribute("student", new User());
+        model.addAttribute("groups", groupService.getAll());
         model.addAttribute("roles", Role.values());
         return "editStudent";
     }
