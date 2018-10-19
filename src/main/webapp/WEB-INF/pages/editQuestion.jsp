@@ -16,11 +16,10 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         <div class="form-group row">
-                            <form:label path="text" class="col-sm-2 col-form-label">
-                                <spring:message text="Text"/>
-                            </form:label>
                             <div class="col-sm-10">
-                                <form:textarea class="form-control" path="text" required="required"/>
+                                <input id="questionId" name="questionId" value="${question.id}" hidden/>
+                                <label>Text<textarea class="form-control" id="text"
+                                                     name="text">${question.text}</textarea></label>
                             </div>
                         </div>
                     </h5>
@@ -28,13 +27,10 @@
                 <ul class="list-group list-group-flush">
                     <c:forEach var="answer" items="${question.answers}">
                         <li class="list-group-item">
-
                             <input type="text" id="id" name="id" value="${answer.id}" hidden/>
-                                    <input type="text" id="question" name="question" value="${answer.question.id}"
-                                           hidden/>
-                                    <input type="text" id="content" name="content" class="form-control"
-                                           value="${answer.content}" required="required"/>
-
+                            <input type="text" id="content" name="content" class="form-control"
+                                   value="${answer.content}" required="required"/>
+                            <input type="text" id="correct" name="correct" value="${answer.isCorrect()}" hidden/>
                         </li>
                     </c:forEach>
                 </ul>

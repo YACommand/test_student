@@ -6,9 +6,12 @@ import ru.innopolis.stc13.student_test.dao.AnswerDao;
 import ru.innopolis.stc13.student_test.dao.QuestionDao;
 import ru.innopolis.stc13.student_test.dao.TestDao;
 import ru.innopolis.stc13.student_test.pojo.Answer;
+import ru.innopolis.stc13.student_test.pojo.Question;
 import ru.innopolis.stc13.student_test.pojo.Test;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -42,6 +45,25 @@ public class TestServiceImpl implements TestService {
     public boolean update(Test test) {
         if (test != null && testDao.existsById(test.getId())) {
             return testDao.save(test) != null;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateQuestion(Integer questionId, String text, Integer[] id, String[] content, Boolean[] correct) {
+        if (questionId != null && text != null && id != null
+                && content != null && correct != null) {
+            Question question = questionDao.findById(questionId).orElse(null);
+            if (question == null) {
+                return false;
+            }
+            Set<Answer> answers = new HashSet<>();
+            for (int i = 0; i < id.length; i++) {
+                answers.add(new Answer(id[i], content[i], correct[i], question));
+            }
+            question.setAnswers(answers);
+            question.setText(text);
+            return questionDao.save(question) != null;
         }
         return false;
     }

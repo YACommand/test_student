@@ -1,7 +1,6 @@
 package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,11 +17,7 @@ public class Test {
     @JoinColumn(name = "user_id")
     private User teacher;
 
-    @OneToMany(
-            mappedBy = "test",
-            fetch = FetchType.LAZY)
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "test_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "test", fetch = FetchType.EAGER)
     private Set<Question> questions;
 
     @ManyToMany(fetch = FetchType.LAZY)

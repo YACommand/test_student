@@ -31,7 +31,12 @@ public class QuestionController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Question question) {
+    public String save(@RequestParam Integer questionId,
+                       @RequestParam String text,
+                       Integer[] id,
+                       String[] content,
+                       Boolean[] correct) {
+        testService.updateQuestion(questionId, text, id, content, correct);
         return "";
     }
 }

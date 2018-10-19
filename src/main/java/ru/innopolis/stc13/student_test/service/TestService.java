@@ -10,6 +10,12 @@ public interface TestService {
 
     Test get(Integer id);
 
+    boolean updateQuestion(Integer questionId,
+                           String text,
+                           Integer[] id,
+                           String[] content,
+                           Boolean[] correct);
+
     boolean update(Test test);
 
     boolean delete(Integer id);
