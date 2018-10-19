@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.innopolis.stc13.student_test.dao.QuestionDao;
 import ru.innopolis.stc13.student_test.pojo.Answer;
 import ru.innopolis.stc13.student_test.pojo.Question;
+import ru.innopolis.stc13.student_test.service.TestService;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class QuestionController {
 
     @Autowired
-    QuestionDao questionDao;
+    private TestService testService;
 
     @GetMapping("/add")
     public String add(Model model) {
@@ -32,6 +32,6 @@ public class QuestionController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Question question) {
-        return "editQuestion";
+        return "";
     }
 }

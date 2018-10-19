@@ -45,4 +45,15 @@ public class TestController {
     public String get(@PathVariable Test test) {
         return "test";
     }
+
+    @GetMapping("/change_status/{test}/{answerId}")
+    public String changeStatus(@PathVariable Test test, @PathVariable Integer answerId, Model model) {
+        boolean isStatusChanged = testService.changeAnswerStatus(answerId);
+        if (!isStatusChanged) {
+            model.addAttribute("error", "status_change_error");
+        }
+        model.addAttribute("questions", test.getQuestions());
+        model.addAttribute("test", test);
+        return "editTest";
+    }
 }

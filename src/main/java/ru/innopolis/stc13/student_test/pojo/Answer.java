@@ -34,15 +34,10 @@ public class Answer implements Serializable {
         this.question = question;
     }
 
-    public Answer(Integer id, String text, Boolean isCorrect) {
+    public Answer(Integer id, String content, Boolean correct) {
         this.id = id;
-        this.text = text;
-        this.isCorrect = isCorrect;
-    }
-
-    public Answer(String text, Boolean isCorrect) {
-        this.text = text;
-        this.isCorrect = isCorrect;
+        this.content = content;
+        this.correct = correct;
     }
 
     public Integer getId() {
@@ -83,15 +78,15 @@ public class Answer implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Answer answer = (Answer) o;
         return Objects.equals(id, answer.id) &&
-                Objects.equals(text, answer.text) &&
-                Objects.equals(isCorrect, answer.isCorrect)
+                Objects.equals(content, answer.content) &&
+                Objects.equals(correct, answer.correct)
 //                && Objects.equals(question, answer.question)
                 ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, text, isCorrect
+        return Objects.hash(id, content, correct
 //                , question
         );
     }
@@ -100,8 +95,8 @@ public class Answer implements Serializable {
     public String toString() {
         return "Answer{" +
                 "id=" + id +
-                ", text='" + text + '\'' +
-                ", isCorrect=" + isCorrect +
+                ", text='" + content + '\'' +
+                ", isCorrect=" + correct +
 //                ", question=" + question +
                 '}';
     }

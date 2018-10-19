@@ -8,7 +8,6 @@
     <li><a href="/users/teachers">Teachers</a></li>
     <li><a href="/users/admins">Admins</a></li>
         <li><a href="/tests/all">Tests</a></li>
-      <li><a href="/users/admins">Admins</a></li>
     <li><a href="/groups">Groups</a></li>
 </ul>
 </text>

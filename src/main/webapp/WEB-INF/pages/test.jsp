@@ -13,7 +13,7 @@
                     text: ${question.text} <br>
                     answers:
                     <c:forEach items="${question.answers}" var="answer">
-                        <br>${answer.text} ${answer.isCorrect}
+                        <br>${answer.content} ${answer.isCorrect()}
                     </c:forEach>
                     <br>
                 </div>

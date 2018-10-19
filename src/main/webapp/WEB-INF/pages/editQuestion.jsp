@@ -19,7 +19,7 @@
                             <form:label path="text" class="col-sm-2 col-form-label">
                                 <spring:message text="Text"/>
                             </form:label>
-                            <div class="col-sm-5">
+                            <div class="col-sm-10">
                                 <form:textarea class="form-control" path="text" required="required"/>
                             </div>
                         </div>
@@ -27,18 +27,14 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <c:forEach var="answer" items="${question.answers}">
-                        <li class="list-group-item" id="a" name="a">
-                            <div class="form-group row">
-                                <div class="col-sm-5">
-                                    <input type="text" id="id" name="id" value="${answer.id}" hidden/>
+                        <li class="list-group-item">
+
+                            <input type="text" id="id" name="id" value="${answer.id}" hidden/>
                                     <input type="text" id="question" name="question" value="${answer.question.id}"
                                            hidden/>
                                     <input type="text" id="content" name="content" class="form-control"
                                            value="${answer.content}" required="required"/>
-                                    <input type="checkbox"
-                                           value="${answer.correct}"  ${answer.correct ? "checked" : ""}/>
-                                </div>
-                            </div>
+
                         </li>
                     </c:forEach>
                 </ul>

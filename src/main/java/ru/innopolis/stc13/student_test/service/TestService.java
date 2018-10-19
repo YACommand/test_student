@@ -15,4 +15,6 @@ public interface TestService {
     boolean delete(Integer id);
 
     List<Test> getAll();
+
+    boolean changeAnswerStatus(Integer answerId);
 }
