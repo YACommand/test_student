@@ -109,13 +109,13 @@ public class TestTestData {
     public static final Test TEST1_UPDATED = new Test(1, "updated description 1",
             TEACHER1,
             Arrays.asList(new Question(1, " updated question text 1-1",
-                    Collections.emptySet()
-//                    Arrays.asList(
-//                    new Answer(1, "updated answer text 1-1-1", true),
-//                    new Answer(2, "updated answer text 1-1-2", false),
-//                    new Answer(3, "updated answer text 1-1-3", false),
-//                    new Answer(4, "updated answer text 1-1-4", false))
-//                    .stream().collect(Collectors.toSet())
+//                    Collections.emptySet()
+                    Arrays.asList(
+                    new Answer(1, "updated answer text 1-1-1", true),
+                    new Answer(2, "updated answer text 1-1-2", false),
+                    new Answer(3, "updated answer text 1-1-3", false),
+                    new Answer(4, "updated answer text 1-1-4", false))
+                    .stream().collect(Collectors.toSet())
             ))
                     .stream().collect(Collectors.toSet())
             , Collections.emptySet());
