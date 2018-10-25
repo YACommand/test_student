@@ -2,7 +2,10 @@ package ru.innopolis.stc13.student_test.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.innopolis.stc13.student_test.dao.AnswerDao;
+import ru.innopolis.stc13.student_test.dao.QuestionDao;
 import ru.innopolis.stc13.student_test.dao.TestDao;
+import ru.innopolis.stc13.student_test.pojo.Answer;
 import ru.innopolis.stc13.student_test.pojo.Test;
 
 import java.util.List;
@@ -12,6 +15,12 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private TestDao testDao;
+
+    @Autowired
+    private QuestionDao questionDao;
+
+    @Autowired
+    private AnswerDao answerDao;
 
     @Override
     public boolean add(Test test) {
@@ -24,7 +33,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public Test get(Integer id) {
         if (id != null && testDao.existsById(id)) {
-            return testDao.findById(id).orElse(null);
+            return testDao.getOne(id);
         }
         return null;
     }
@@ -39,7 +48,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public boolean delete(Integer id) {
-        if (testDao.existsById(id)) {
+        if (id != null && testDao.existsById(id)) {
             testDao.deleteById(id);
             return true;
         }
@@ -49,5 +58,17 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<Test> getAll() {
         return testDao.findAll();
+    }
+
+    @Override
+    public boolean changeAnswerStatus(Integer answerId) {
+        if (answerId != null) {
+            Answer answer = answerDao.findById(answerId).orElse(null);
+            if (answer != null) {
+                answer.setCorrect(!answer.isCorrect());
+                return answerDao.save(answer) != null;
+            }
+        }
+        return false;
     }
 }

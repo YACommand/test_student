@@ -1,6 +1,7 @@
 package ru.innopolis.stc13.student_test.pojo;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -42,7 +43,6 @@ public class Test {
         this.description = description;
         this.teacher = teacher;
         this.questions = questions;
-        this.groups = groups;
     }
 
     public Test(String description, User teacher, Set<Question> questions) {
