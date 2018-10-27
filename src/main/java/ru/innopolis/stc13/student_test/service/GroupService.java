@@ -8,11 +8,11 @@ public interface GroupService {
 
     boolean add(Group group);
 
-    Group getById(Integer id);
+    Group get(Integer id);
 
     boolean update(Group group);
 
-    boolean deleteById(Integer id);
+    boolean delete(Integer id);
 
     List<Group> getAll();
 

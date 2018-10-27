@@ -13,7 +13,7 @@
             <th scope="col">Преподаватель</th>
             <th scope="col">Количество вопросов</th>
             <th scope="col">Группы</th>
-            <th scope="col" colspan="2" class="text-center">Действие</th>
+            <th scope="col" colspan="3" class="text-center">Действие</th>
         </tr>
         </thead>
         <c:forEach items="${tests}" var="test">
@@ -30,6 +30,7 @@
             </td>
             <td><a href="<c:url value="/tests/edit/${test.id}"/>">Редактировать</a></td>
             <td><a href="<c:url value="/tests/delete/${test.id}"/>">Удалить</a></td>
+            <td><a href="<c:url value="/tests/pass/${test.id}"/>">Пройти тест</a></td>
         </tr>
         </c:forEach>
         </tbody>
