@@ -26,7 +26,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group getById(Integer id) {
+    public Group get(Integer id) {
         return id == null ? null : groupDao.getOne(id);
     }
 
@@ -39,7 +39,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean delete(Integer id) {
         if (groupDao.existsById(id)) {
             groupDao.deleteById(id);
             return true;
