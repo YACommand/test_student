@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.Specialization;
 import ru.innopolis.stc13.student_test.pojo.User;
@@ -39,6 +38,7 @@ public class UserController {
 
     @GetMapping("/teachers")
     public String getTeachers(Model model) {
+//        LOOGGER.info("the link /teachers");
         List<User> teachers = userService.getAllByRole(Role.TEACHER);
         model.addAttribute("teachers", teachers);
         return "teachers";
@@ -50,10 +50,9 @@ public class UserController {
         model.addAttribute("specialization", new Specialization());
         model.addAttribute("specializations", specializations);
         model.addAttribute("teacher", teacher);
-
         model.addAttribute("groups", groupService.getAll());
-
         model.addAttribute("roles", Role.values());
+//        LOOGGER.info(" was changed: " + teacher.toString());
         return "editTeacher";
     }
 
@@ -167,7 +166,6 @@ public class UserController {
         userService.delete(id);
         return "redirect:/users/students";
     }
-
 
     @GetMapping("/admins")
     public String getAdmins(Model model) {
