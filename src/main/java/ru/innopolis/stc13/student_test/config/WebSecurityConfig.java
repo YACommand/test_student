@@ -1,84 +1,70 @@
 package ru.innopolis.stc13.student_test.config;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.sql.DataSource;
+import ru.innopolis.stc13.student_test.service.UserService;
+import ru.innopolis.stc13.student_test.service.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
-    private DataSource dataSource;
+    private UserServiceImpl userService;
+
+    final static Logger LOOGGER = Logger.getLogger(UserService.class);
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
-
-        // включаем защиту от CSRF атак
-        http.csrf()
-                .disable()
-                // указываем правила запросов
-                // по которым будет определятся доступ к ресурсам и остальным данным
+        http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/**").permitAll()
-                .anyRequest().permitAll()
-                .and();
-
-        http.formLogin()
-                // указываем страницу с формой логина
+                .antMatchers("/", "/resources/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
                 .loginPage("/login")
-                // указываем action с формы логина
-                .loginProcessingUrl("/j_spring_security_check")
-                // указываем URL при неудачном логине
-                .failureUrl("/login?error")
-                // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("j_username")
-                .passwordParameter("j_password")
-                // даем доступ к форме логина всем
-                .permitAll();
-
-        http.logout()
-                // разрешаем делать логаут всем
+                .passwordParameter("j_password").successHandler((req, res, auth) -> {    //Success handler invoked after successful authentication
+            for (GrantedAuthority authority : auth.getAuthorities()) {
+                LOOGGER.info(authority.getAuthority());
+            }
+            LOOGGER.info(auth.getName());
+            res.sendRedirect("/"); // Redirect user to index/home page
+        })
+                .failureHandler((req, res, exp) -> {  // Failure handler invoked after authentication failure
+                    String errMsg = "";
+                    if (exp.getClass().isAssignableFrom(BadCredentialsException.class)) {
+                        errMsg = "Invalid username or password.";
+                    } else {
+                        errMsg = "Unknown error - " + exp.getMessage();
+                    }
+                    req.getSession().setAttribute("message", errMsg);
+                    res.sendRedirect("/login"); // Redirect user to login page with error message.
+                })
                 .permitAll()
-                // указываем URL логаута
-                .logoutUrl("/logout")
-                // указываем URL при удачном логауте
-                .logoutSuccessUrl("/login?logout")
-                // делаем не валидной текущую сессию
-                .invalidateHttpSession(true);
-
+                .and()
+                .logout()
+                .permitAll();
     }
 
-    @Autowired
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("select login, password from users where login=?")
-                .authoritiesByUsernameQuery("select ul.login, ur.roles from users ul inner join roles ur on ul.id=ur.user_id where ul.login=?");
+        auth.userDetailsService(userService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
