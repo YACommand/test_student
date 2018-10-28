@@ -11,6 +11,7 @@ import ru.innopolis.stc13.student_test.pojo.Test;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -50,22 +51,71 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public boolean updateQuestion(Integer questionId, String text, Integer[] id, String[] content, Boolean[] correct) {
-        if (questionId != null && text != null && id != null
-                && content != null && correct != null) {
-            Question question = questionDao.findById(questionId).orElse(null);
-            if (question == null) {
-                return false;
+    public boolean updateDescription(String id, String description) {
+        if (id == null || description == null) {
+            return false;
+        }
+        Integer testId = Integer.parseInt(id);
+        if (testDao.existsById(testId)) {
+            Test test = testDao.findById(testId).orElse(null);
+            if (test != null) {
+                test.setDescription(description);
+                return testDao.save(test) != null;
             }
-            Set<Answer> answers = new HashSet<>();
-            for (int i = 0; i < id.length; i++) {
-                answers.add(new Answer(id[i], content[i], correct[i], question));
-            }
-            question.setAnswers(answers);
-            question.setText(text);
-            return questionDao.save(question) != null;
         }
         return false;
+    }
+
+    public Question addQuestion(Question question) {
+        if (question != null) {
+            return questionDao.save(question);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteQuestion(Integer id) {
+        if (id != null) {
+            questionDao.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateQuestion(Map<String, String> params, String[] answerId) {
+        if (params == null || answerId == null) {
+            return false;
+        }
+        Question question;
+        String strQuestionId = params.get("questionId");
+        String questionText = params.get("text");
+        Integer questionId = Integer.parseInt(strQuestionId);
+        if (questionText == null) {
+            return false;
+        }
+        question = questionDao.findById(questionId).orElse(null);
+        if (question == null) {
+            return false;
+        }
+        question.setText(questionText);
+        Set<Answer> answers = new HashSet<>();
+        for (String id : answerId) {
+            answers.add(new Answer(Integer.parseInt(id),
+                    params.get("content" + id),
+                    Boolean.parseBoolean(params.get("correct" + id)),
+                    question));
+        }
+        String newAnswerContent = params.get("contentNew");
+        if (!"".equals(newAnswerContent)) {
+            Answer newAnswer = answerDao.save(new Answer(null,
+                    newAnswerContent,
+                    Boolean.parseBoolean(params.get("correctNew")),
+                    question));
+            answers.add(newAnswer);
+        }
+        question.setAnswers(answers);
+        return questionDao.save(question) != null;
     }
 
     @Override
@@ -80,17 +130,5 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<Test> getAll() {
         return testDao.findAll();
-    }
-
-    @Override
-    public boolean changeAnswerStatus(Integer answerId) {
-        if (answerId != null) {
-            Answer answer = answerDao.findById(answerId).orElse(null);
-            if (answer != null) {
-                answer.setCorrect(!answer.isCorrect());
-                return answerDao.save(answer) != null;
-            }
-        }
-        return false;
     }
 }

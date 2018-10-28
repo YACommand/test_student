@@ -11,29 +11,51 @@
         <h3>Добавление нового вопроса</h3>
     </c:if>
     <form:form action="/question/save" modelAttribute="question" method="post">
-        <div class="col-md-6 m-4">
-            <div class="card">
-                <div class="card-body">
+        <div class="col-md m-4">
+            <div class="card bg-light shadow-sm">
+                <div class="card-header">
                     <h5 class="card-title">
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <input id="questionId" name="questionId" value="${question.id}" hidden/>
-                                <label>Text<textarea class="form-control" id="text"
-                                                     name="text">${question.text}</textarea></label>
+                        <div class="form-group">
+                            <input name="questionId" value="${question.id}" hidden/>
+                            <input name="testId" value="${question.test.id}" hidden/>
+                            <label for="text">Текст</label>
+                            <div class="col-12">
+                                <textarea class="form-control" id="text" required
+                                          name="text">${question.text}</textarea>
                             </div>
                         </div>
                     </h5>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <c:forEach var="answer" items="${question.answers}">
-                        <li class="list-group-item">
-                            <input type="text" id="id" name="id" value="${answer.id}" hidden/>
-                            <input type="text" id="content" name="content" class="form-control"
-                                   value="${answer.content}" required="required"/>
-                            <input type="text" id="correct" name="correct" value="${answer.isCorrect()}" hidden/>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <c:forEach var="answer" items="${question.answers}">
+                            <li class="list-group-item bg-light">
+                                <input type="text" name="answerId" value="${answer.id}" hidden/>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <input type="text" name="content${answer.id}" class="form-control"
+                                               value="${answer.content}" required="required"/>
+                                    </div>
+                                    <div class="col-sm">
+                                        <a class="btn btn-outline-danger"
+                                           href="/question/delete_answer/${answer.id}" role="button">Удалить</a>
+                                    </div>
+                                </div>
+                                <label>Правильный <input type="radio" name="correct${answer.id}"
+                                    ${answer.isCorrect() ? "checked" : ""} value="${"true"}"/></label>
+                                <label>Не правильный <input type="radio" name="correct${answer.id}"
+                                    ${!answer.isCorrect() ? "checked" : ""} value="${"false"}"/></label>
+                            </li>
+                        </c:forEach>
+                        <li class="list-group-item bg-light">
+                            <input type="text" name="contentNew" class="form-control"
+                                   value="${null}" placeholder="Новый ответ"/>
+                            <label>Правильный <input type="radio" name="correctNew" value="${"true"}"/></label>
+                            <label>Не правильный <input type="radio" name="correctNew" value="${"false"}"
+                                                        checked/></label>
                         </li>
-                    </c:forEach>
-                </ul>
+                    </ul>
+                </div>
                 <button type="submit" class="btn btn-dark">Сохранить</button>
             </div>
         </div>

@@ -3,9 +3,7 @@ package ru.innopolis.stc13.student_test.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc13.student_test.pojo.Test;
 import ru.innopolis.stc13.student_test.service.TestService;
 
@@ -41,19 +39,20 @@ public class TestController {
         return "editTest";
     }
 
+    @PostMapping("/edit")
+    public String editTest(@RequestParam String id, @RequestParam String description) {
+        testService.updateDescription(id, description);
+        return "redirect:/tests/edit/" + id;
+    }
+
     @GetMapping("/get/{test}")
     public String get(@PathVariable Test test) {
         return "test";
     }
 
-    @GetMapping("/change_status/{test}/{answerId}")
-    public String changeStatus(@PathVariable Test test, @PathVariable Integer answerId, Model model) {
-        boolean isStatusChanged = testService.changeAnswerStatus(answerId);
-        if (!isStatusChanged) {
-            model.addAttribute("error", "status_change_error");
-        }
-        model.addAttribute("questions", test.getQuestions());
-        model.addAttribute("test", test);
-        return "editTest";
+    @GetMapping("/delete/{testId}")
+    public String delete(@PathVariable Integer testId) {
+        testService.delete(testId);
+        return "redirect:/tests/all";
     }
 }

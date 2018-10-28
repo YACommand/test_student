@@ -1,8 +1,10 @@
 package ru.innopolis.stc13.student_test.service;
 
+import ru.innopolis.stc13.student_test.pojo.Question;
 import ru.innopolis.stc13.student_test.pojo.Test;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TestService {
 
@@ -10,17 +12,17 @@ public interface TestService {
 
     Test get(Integer id);
 
-    boolean updateQuestion(Integer questionId,
-                           String text,
-                           Integer[] id,
-                           String[] content,
-                           Boolean[] correct);
+    boolean updateQuestion(Map<String, String> params, String[] answerId);
 
-    boolean update(Test test);
+    boolean updateDescription(String id, String description);
+
+    public boolean update(Test test);
 
     boolean delete(Integer id);
 
     List<Test> getAll();
 
-    boolean changeAnswerStatus(Integer answerId);
+    Question addQuestion(Question question);
+
+    boolean deleteQuestion(Integer id);
 }
