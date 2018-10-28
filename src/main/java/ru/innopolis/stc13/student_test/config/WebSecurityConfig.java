@@ -26,15 +26,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
                 .authorizeRequests()
-                .antMatchers("/", "webapp/resources/**").permitAll()
+                .antMatchers("/", "/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .usernameParameter("username")
-                .passwordParameter("password").successHandler((req, res, auth) -> {    //Success handler invoked after successful authentication
+                .usernameParameter("j_username")
+                .passwordParameter("j_password").successHandler((req, res, auth) -> {    //Success handler invoked after successful authentication
             for (GrantedAuthority authority : auth.getAuthorities()) {
                 System.out.println(authority.getAuthority());
             }
