@@ -2,8 +2,10 @@ package ru.innopolis.stc13.student_test.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.innopolis.stc13.student_test.controller.UserController;
 import ru.innopolis.stc13.student_test.dao.UserDao;
 import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.User;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserDao userDao;
 
@@ -100,5 +102,10 @@ public class UserServiceImpl implements UserService {
                 login != null && !login.equals("") &&
                 password != null && !password.equals("") &&
                 roles != null && !roles.isEmpty();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return userDao.getByLogin(s);
     }
 }
