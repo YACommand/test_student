@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.config;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,18 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.innopolis.stc13.student_test.service.UserService;
 import ru.innopolis.stc13.student_test.service.UserServiceImpl;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private DataSource dataSource;
 
     @Autowired
     private UserServiceImpl userService;
+
+    final static Logger LOOGGER = Logger.getLogger(UserService.class);
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,9 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("j_username")
                 .passwordParameter("j_password").successHandler((req, res, auth) -> {    //Success handler invoked after successful authentication
             for (GrantedAuthority authority : auth.getAuthorities()) {
-                System.out.println(authority.getAuthority());
+                LOOGGER.info(authority.getAuthority());
             }
-            System.out.println(auth.getName());
+            LOOGGER.info(auth.getName());
             res.sendRedirect("/"); // Redirect user to index/home page
         })
                 .failureHandler((req, res, exp) -> {  // Failure handler invoked after authentication failure
@@ -66,11 +66,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    public static void main(String[] args) {
-        String pass = "5";
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println(passwordEncoder.encode(pass));
     }
 }
