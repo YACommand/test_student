@@ -18,6 +18,7 @@ public class Group {
     @NotNull
     private Integer number;
     @ManyToMany(mappedBy = "groups")
+
     private Set<Test> tests;
 
     public Group() {

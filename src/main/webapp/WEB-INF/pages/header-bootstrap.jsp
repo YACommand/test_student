@@ -28,7 +28,7 @@
             <ul class="navbar-nav mr-auto">
 
             </ul>
-            <a class="btn btn-outline-primary" href="#">Войти</a>
+            <a class="btn btn-outline-primary" href="login">Войти</a>
         </div>
     </nav>
 </header>
