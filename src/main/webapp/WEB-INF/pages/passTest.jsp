@@ -8,6 +8,7 @@
     <h3>Тест: ${test.description}</h3>
 
     <form method="post" action="/tests/done">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <input type="hidden" name="id" value="${test.id}">
 
         <c:forEach items="${questions}" var="question">

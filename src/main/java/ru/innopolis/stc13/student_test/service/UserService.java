@@ -22,4 +22,6 @@ public interface UserService {
     List<User> getAllByRole(Role role);
 
     boolean validate(User user);
+
+    User getByLogin(String login);
 }

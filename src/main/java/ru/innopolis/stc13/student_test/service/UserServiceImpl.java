@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.UserDao;
 import ru.innopolis.stc13.student_test.pojo.Role;
@@ -19,8 +20,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserDao userDao;
 
-    final static Logger LOOGGER = Logger.getLogger(UserService.class);
-
+    final static Logger LOGGER = Logger.getLogger(UserService.class);
 
     @Autowired
     public void setUserDao(UserDao userDao) {
@@ -29,31 +29,35 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public boolean add(User user) {
+
         if (user != null && !userDao.existsByLogin(user.getLogin())) {
-            LOOGGER.info("has been added " + user.toString());
+
+            String password = user.getPassword();
+            user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+            LOGGER.info("has been added " + user.toString());
             return userDao.save(user) != null;
         }
-        LOOGGER.info("failed to add");
+        LOGGER.info("failed to add" );
         return false;
     }
 
     @Override
     public User get(Integer id) {
         if (id != null && userDao.existsById(id)) {
-            LOOGGER.info("received " + userDao.findById(id));
+            LOGGER.info("received " + userDao.findById(id));
             return userDao.findById(id).orElse(null);
         }
-        LOOGGER.info("user extraction error");
+        LOGGER.info("user extraction error" );
         return null;
     }
 
     @Override
     public boolean update(User user) {
         if (user != null && userDao.existsById(user.getId())) {
-            LOOGGER.info("update " + user.toString());
+            LOGGER.info("update " + user.toString());
             return userDao.save(user) != null;
         }
-        LOOGGER.info("update error");
+        LOGGER.info("update error" );
         return false;
     }
 
@@ -61,16 +65,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public boolean delete(Integer id) {
         if (userDao.existsById(id)) {
             userDao.deleteById(id);
-            LOOGGER.info("user(id " + id + ") has been deleted");
+            LOGGER.info("user(id " + id + ") has been deleted" );
             return true;
         }
-        LOOGGER.info("error deleting user");
+        LOGGER.info("error deleting user" );
         return false;
     }
 
     @Override
     public List<User> getAll() {
-        LOOGGER.info("user list received");
+        LOGGER.info("user list received" );
         return userDao.findAll();
     }
 
@@ -85,7 +89,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getAllByRole(Role role) {
         List<User> list = userDao.getByRoles(role);
-        LOOGGER.info("the requested list " + role.toString().toLowerCase() + "s");
+        LOGGER.info("the requested list " + role.toString().toLowerCase() + "s" );
         return list == null ? Collections.emptyList() : list;
     }
 
@@ -105,7 +109,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userDao.getByLogin(s);
+    public User getByLogin(String login) {
+        if (login != null) {
+            return userDao.getByLogin(login);
+        }
+        return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        return userDao.getByLogin(login);
+
     }
 }

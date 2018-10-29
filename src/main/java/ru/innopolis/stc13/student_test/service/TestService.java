@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface TestService {
 
-    boolean add(Test test);
+    Test add(Test test);
 
     Test get(Integer id);
 

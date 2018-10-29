@@ -27,11 +27,11 @@ public class TestServiceImpl implements TestService {
     private AnswerDao answerDao;
 
     @Override
-    public boolean add(Test test) {
+    public Test add(Test test) {
         if (test != null && test.getId() == null) {
-            return testDao.save(test) != null;
+            return testDao.save(test);
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -88,8 +88,8 @@ public class TestServiceImpl implements TestService {
             return false;
         }
         Question question;
-        String strQuestionId = params.get("questionId");
-        String questionText = params.get("text");
+        String strQuestionId = params.get("questionId" );
+        String questionText = params.get("text" );
         Integer questionId = Integer.parseInt(strQuestionId);
         if (questionText == null) {
             return false;
@@ -106,11 +106,11 @@ public class TestServiceImpl implements TestService {
                     Boolean.parseBoolean(params.get("correct" + id)),
                     question));
         }
-        String newAnswerContent = params.get("contentNew");
+        String newAnswerContent = params.get("contentNew" );
         if (!"".equals(newAnswerContent)) {
             Answer newAnswer = answerDao.save(new Answer(null,
                     newAnswerContent,
-                    Boolean.parseBoolean(params.get("correctNew")),
+                    Boolean.parseBoolean(params.get("correctNew" )),
                     question));
             answers.add(newAnswer);
         }

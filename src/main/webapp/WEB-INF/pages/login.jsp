@@ -1,7 +1,5 @@
 <%@include file="header-bootstrap.jsp" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <body>
 <div class="container" style="width: 300px;">
@@ -13,6 +11,11 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
+
+    <c:if test="${not empty sessionScope.message}">
+        <span style="color:green"><c:out value="${sessionScope.message}"/></span>
+        <c:remove var="message" scope="session"/>
+    </c:if>
 
 </div>
 </body>
