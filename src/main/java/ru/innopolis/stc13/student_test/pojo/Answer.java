@@ -8,12 +8,13 @@ import java.util.Objects;
 public class Answer implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String text;
+    @Column(name = "text")
+    private String content;
 
-    @Column(name = "correct")
-    private Boolean isCorrect;
+    private Boolean correct;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
@@ -22,46 +23,46 @@ public class Answer implements Serializable {
     public Answer() {
     }
 
-    public Answer(Integer id, String text, Boolean isCorrect, Question question) {
+    public Answer(String content, Boolean correct) {
+        this.content = content;
+        this.correct = correct;
+    }
+
+    public Answer(Integer id, String content, Boolean correct, Question question) {
         this.id = id;
-        this.text = text;
-        this.isCorrect = isCorrect;
+        this.content = content;
+        this.correct = correct;
         this.question = question;
     }
 
-    public Answer(Integer id, String text, Boolean isCorrect) {
+    public Answer(Integer id, String content, Boolean correct) {
         this.id = id;
-        this.text = text;
-        this.isCorrect = isCorrect;
-    }
-
-    public Answer(String text, Boolean isCorrect) {
-        this.text = text;
-        this.isCorrect = isCorrect;
+        this.content = content;
+        this.correct = correct;
     }
 
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getText() {
-        return this.text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Boolean getIsCorrect() {
-        return this.isCorrect;
+    public Boolean isCorrect() {
+        return correct;
     }
 
-    public void setIsCorrect(Boolean isCorrect) {
-        this.isCorrect = isCorrect;
+    public void setCorrect(Boolean correct) {
+        this.correct = correct;
     }
 
     public Question getQuestion() {
@@ -78,15 +79,15 @@ public class Answer implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Answer answer = (Answer) o;
         return Objects.equals(id, answer.id) &&
-                Objects.equals(text, answer.text) &&
-                Objects.equals(isCorrect, answer.isCorrect)
+                Objects.equals(content, answer.content) &&
+                Objects.equals(correct, answer.correct)
 //                && Objects.equals(question, answer.question)
                 ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, text, isCorrect
+        return Objects.hash(id, content, correct
 //                , question
         );
     }
@@ -95,8 +96,8 @@ public class Answer implements Serializable {
     public String toString() {
         return "Answer{" +
                 "id=" + id +
-                ", text='" + text + '\'' +
-                ", isCorrect=" + isCorrect +
+                ", text='" + content + '\'' +
+                ", isCorrect=" + correct +
 //                ", question=" + question +
                 '}';
     }

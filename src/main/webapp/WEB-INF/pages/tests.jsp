@@ -13,14 +13,14 @@
             <th scope="col">Преподаватель</th>
             <th scope="col">Количество вопросов</th>
             <th scope="col">Группы</th>
-            <th scope="col" colspan="2" class="text-center">Действие</th>
+            <th scope="col" colspan="3" class="text-center">Действие</th>
         </tr>
         </thead>
         <c:forEach items="${tests}" var="test">
         <tbody>
         <tr>
             <th scope="row">${test.id}</th>
-            <td>${test.description}</td>
+            <td><a href="/tests/get/${test.id}"> ${test.description}</a></td>
             <td>${test.teacher.name}</td>
             <td>${test.questions.size()}</td>
             <td>
@@ -28,8 +28,9 @@
                     ${group.number}
                 </c:forEach>
             </td>
-            <td><a href="<c:url value="/tests/edit${test.id}"/>">Редактировать</a></td>
+            <td><a href="<c:url value="/tests/edit/${test.id}"/>">Редактировать</a></td>
             <td><a href="<c:url value="/tests/delete/${test.id}"/>">Удалить</a></td>
+            <td><a href="<c:url value="/tests/pass/${test.id}"/>">Пройти тест</a></td>
         </tr>
         </c:forEach>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

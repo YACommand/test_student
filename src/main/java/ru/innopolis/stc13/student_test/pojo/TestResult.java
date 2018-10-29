@@ -1,20 +1,22 @@
 package ru.innopolis.stc13.student_test.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity(name = "results")
 public class TestResult {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @ManyToOne
     @JoinColumn(name = "test_id")
     private Test test;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User student;
+
     private Integer grade;
 
     public TestResult() {
@@ -22,6 +24,12 @@ public class TestResult {
 
     public TestResult(Integer id, Test test, User student, Integer grade) {
         this.id = id;
+        this.test = test;
+        this.student = student;
+        this.grade = grade;
+    }
+
+    public TestResult(Test test, User student, Integer grade) {
         this.test = test;
         this.student = student;
         this.grade = grade;

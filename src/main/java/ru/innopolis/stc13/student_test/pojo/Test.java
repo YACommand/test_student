@@ -17,11 +17,7 @@ public class Test {
     @JoinColumn(name = "user_id")
     private User teacher;
 
-    @OneToMany(
-            mappedBy = "test",
-            fetch = FetchType.LAZY)
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "test_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "test", fetch = FetchType.EAGER)
     private Set<Question> questions;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -46,7 +42,6 @@ public class Test {
         this.description = description;
         this.teacher = teacher;
         this.questions = questions;
-        this.groups = groups;
     }
 
     public Test(String description, User teacher, Set<Question> questions) {

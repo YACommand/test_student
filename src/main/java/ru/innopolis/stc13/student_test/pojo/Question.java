@@ -8,13 +8,12 @@ import java.util.Set;
 public class Question {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String text;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "question_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.LAZY)
     private Set<Answer> answers;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,6 +39,10 @@ public class Question {
     public Question(String text, Set<Answer> answers) {
         this.text = text;
         this.answers = answers;
+    }
+
+    public boolean isNew() {
+        return id == null;
     }
 
     public Integer getId() {
