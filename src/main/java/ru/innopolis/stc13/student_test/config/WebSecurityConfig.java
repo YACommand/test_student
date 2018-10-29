@@ -22,34 +22,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserServiceImpl userService;
 
-    final static Logger LOOGGER = Logger.getLogger(UserService.class);
+    private static final Logger LOGGER = Logger.getLogger(UserService.class);
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/resources/**").permitAll()
+                .antMatchers("/login", "/resources/**").permitAll()
+                .antMatchers("/tests/**", "/users/students/**", "/").hasAnyAuthority("TEACHER", "ADMIN")
+                .antMatchers("/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("j_username")
-                .passwordParameter("j_password").successHandler((req, res, auth) -> {    //Success handler invoked after successful authentication
+                .passwordParameter("j_password")
+                .successHandler((req, res, auth) -> {
             for (GrantedAuthority authority : auth.getAuthorities()) {
-                LOOGGER.info(authority.getAuthority());
+                LOGGER.info(authority.getAuthority());
             }
-            LOOGGER.info(auth.getName());
-            res.sendRedirect("/"); // Redirect user to index/home page
+                    LOGGER.info(auth.getName());
+                    res.sendRedirect("/");
         })
-                .failureHandler((req, res, exp) -> {  // Failure handler invoked after authentication failure
+                .failureHandler((req, res, exp) -> {
                     String errMsg = "";
                     if (exp.getClass().isAssignableFrom(BadCredentialsException.class)) {
+                        errMsg = "Invalid username or password.";
+                    } else if (userService.loadUserByUsername("j_username") == null) {
                         errMsg = "Invalid username or password.";
                     } else {
                         errMsg = "Unknown error - " + exp.getMessage();
                     }
                     req.getSession().setAttribute("message", errMsg);
-                    res.sendRedirect("/login"); // Redirect user to login page with error message.
+                    res.sendRedirect("/login");
                 })
                 .permitAll()
                 .and()

@@ -8,6 +8,7 @@
     <title>Hello jsp</title>
 </head>
 <text>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
  ${admin}
 </text>
 </html>

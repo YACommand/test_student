@@ -28,6 +28,7 @@
             <td><a href="<c:url value="/users/admins/delete/${admin.id}"/>">Удалить</a></td>
         </tr>
         </c:forEach>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </tbody>
     </table>
     <a class="btn btn-dark m-2" href="<c:url value="/users/admins/add"/>" role="button">Добавить</a>

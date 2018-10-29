@@ -109,6 +109,7 @@
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>
         </form:form>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </div>
 </main>
 <%@include file="footer-bootstrap.jsp" %>

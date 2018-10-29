@@ -38,6 +38,7 @@
         </tr>
         </c:forEach>
         </tbody>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </table>
     <a class="btn btn-dark m-2" href="<c:url value="/users/students/add"/>" role="button">Добавить</a>
 </main>
