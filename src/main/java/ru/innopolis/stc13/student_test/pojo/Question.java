@@ -41,6 +41,10 @@ public class Question {
         this.answers = answers;
     }
 
+    public boolean isNew() {
+        return id == null;
+    }
+
     public Integer getId() {
         return id;
     }
