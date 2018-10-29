@@ -14,6 +14,11 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
 
+    <c:if test="${not empty sessionScope.message}">
+        <span style="color:green"><c:out value="${sessionScope.message}"/></span>
+        <c:remove var="message" scope="session"/>
+    </c:if>
+
 </div>
 </body>
 <%@include file="footer-bootstrap.jsp" %>

@@ -33,6 +33,7 @@
             <td><a href="<c:url value="/tests/pass/${test.id}"/>">Пройти тест</a></td>
         </tr>
         </c:forEach>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </tbody>
     </table>
     <a class="btn btn-dark m-2" href="<c:url value="/tests/add"/>" role="button">Добавить</a>

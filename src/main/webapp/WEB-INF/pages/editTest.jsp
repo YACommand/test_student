@@ -4,6 +4,7 @@
 <%@include file="header-bootstrap.jsp" %>
 <!-- Begin page content -->
 <main role="main" class="container">
+
     <c:if test="${test.id != null}">
         <h3>Редактирование теста ${test.description}</h3>
     </c:if>
@@ -55,5 +56,6 @@
         </div>
         </div>
     </c:forEach>
+
 </main>
 <%@include file="footer-bootstrap.jsp" %>
