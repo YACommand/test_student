@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.UserDao;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public boolean add(User user) {
 
         if (user != null && !userDao.existsByLogin(user.getLogin())) {
+
             String password = user.getPassword();
             user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
             LOOGGER.info("has been added " + user.toString());
@@ -110,5 +112,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         return userDao.getByLogin(login);
+
     }
 }
