@@ -23,4 +23,5 @@ public interface UserService {
 
     boolean validate(User user);
 
+    User getByLogin(String login);
 }
