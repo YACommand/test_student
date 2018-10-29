@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.User;
 import ru.innopolis.stc13.student_test.service.UserService;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class PersonalPageController {
@@ -20,10 +23,19 @@ public class PersonalPageController {
     }
 
     @GetMapping("/user_page")
-    public String viewUser(Principal principal, Model model) {
+    public String viewGroups(Principal principal, Model model) {
         String userLogin = principal.getName();
         User user = userService.getByLogin(userLogin);
         model.addAttribute("user", user);
+        model.addAttribute("groups", user.getGroups());
         return "teacherPage";
+    }
+
+    @GetMapping("/user_page/groups/{group}")
+    public String getStudents(@PathVariable Group group,
+                              Model model) {
+        List<User> userList = userService.getByGroup(group);
+        model.addAttribute("users", userList);
+        return "studentsByGroup";
     }
 }

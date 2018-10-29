@@ -52,7 +52,6 @@ public class UserController {
         model.addAttribute("teacher", teacher);
         model.addAttribute("groups", groupService.getAll());
         model.addAttribute("roles", Role.values());
-//        LOOGGER.info(" was changed: " + teacher.toString());
         return "editTeacher";
     }
 
