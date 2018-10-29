@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.service;
 
+import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.User;
 
@@ -24,4 +25,6 @@ public interface UserService {
     boolean validate(User user);
 
     User getByLogin(String login);
+
+    List<User> getByGroup(Group group);
 }

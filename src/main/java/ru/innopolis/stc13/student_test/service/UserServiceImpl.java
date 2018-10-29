@@ -8,7 +8,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import ru.innopolis.stc13.student_test.dao.GroupDao;
 import ru.innopolis.stc13.student_test.dao.UserDao;
+import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.User;
 
@@ -115,6 +117,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return userDao.getByLogin(login);
         }
         return null;
+    }
+
+    @Override
+    public List<User> getByGroup(Group group) {
+        List<User> list = userDao.getByGroups(group);
+        return list == null ? Collections.emptyList() : list;
     }
 
     @Override

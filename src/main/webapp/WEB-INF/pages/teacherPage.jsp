@@ -11,19 +11,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header-bootstrap.jsp" %>
 
-<main role="main" class="container">
-    <h3>Список ваших групп</h3>
+<%--<main role="main" class="container">--%>
+<%--<h3>Список ваших групп</h3>--%>
 
-        <%
-            User user = (User) request.getAttribute("user");
-            List<Group> list = new ArrayList<Group>();
-            list.addAll(user.getGroups());
-            for (Group group : list) {%>
-        <%=group.getName()%> - <%=group.getNumber()%>
-        </a><BR>
-        <%
-            }
-        %>
+<%--<%--%>
+<%--User user = (User) request.getAttribute("user");--%>
+<%--List<Group> list = new ArrayList<Group>(user.getGroups());--%>
+<%--for (Group group : list) {%>--%>
+<%--<%=group.getName()%> - <%=group.getNumber()%>--%>
+<%--</a><BR>--%>
+<%--<%--%>
+<%--}--%>
+<%--%>--%>
+<%--</main>--%>
+
+<main role="main" class="container">
+    <br>
+    Здравствуйте, ${user.name}!<br><br>
+    Ваша специализация: ${user.specialization}<br><br>
+
+    Список ваших групп
+    <table class="table table-hover text-left">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Название</th>
+            <th scope="col">Номер</th>
+            <th scope="col">Форма обучения</th>
+            <th scope="col">Список студентов</th>
+            <th scope="col">Назначить тест</th>
+        </tr>
+        </thead>
+        <c:forEach items="${groups}" var="group">
+        <tbody>
+        <tr>
+            <th scope="row">${group.id}</th>
+            <td>${group.name}</td>
+            <td>${group.number}</td>
+            <td>${group.internal ? "Заочная" : "Очная"}</td>
+            <td><a href="<c:url value="/user_page/groups/${group.id}"/>">Список студентов</a></td>
+            <td>Типа ссылка на назначение теста</td>
+        </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </main>
 
 
