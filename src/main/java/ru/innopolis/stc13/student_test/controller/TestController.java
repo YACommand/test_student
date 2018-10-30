@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.innopolis.stc13.student_test.dao.UserDao;
 import ru.innopolis.stc13.student_test.pojo.Test;
 import ru.innopolis.stc13.student_test.pojo.TestResult;
 import ru.innopolis.stc13.student_test.pojo.User;
@@ -21,6 +22,7 @@ public class TestController {
 
     private TestService testService;
     private TestResultService testResultService;
+    private UserDao userDao;
 
     @Autowired
     public void setTestService(TestService testService) {
@@ -30,6 +32,11 @@ public class TestController {
     @Autowired
     public void setTestResultService(TestResultService testResultService) {
         this.testResultService = testResultService;
+    }
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @GetMapping("/all" )
@@ -52,8 +59,9 @@ public class TestController {
     public String add(@AuthenticationPrincipal User user,
                       @RequestParam String description,
                       Model model) {
+        User teacher = userDao.findById(user.getId()).orElse(null);
         Test test = testService.add(new Test(description,
-                user,
+                teacher,
                 new HashSet<>(),
                 new HashSet<>()));
         if (test != null) {

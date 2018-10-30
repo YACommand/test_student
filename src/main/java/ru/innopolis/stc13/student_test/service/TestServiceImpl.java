@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.AnswerDao;
@@ -26,11 +27,15 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private AnswerDao answerDao;
 
+    final static Logger LOGGER = Logger.getLogger(UserService.class);
+
     @Override
     public Test add(Test test) {
         if (test != null && test.getId() == null) {
+            LOGGER.info("has been added test" + test.toString());
             return testDao.save(test);
         }
+        LOGGER.info("has been added test" + test.toString());
         return null;
     }
 
@@ -88,8 +93,8 @@ public class TestServiceImpl implements TestService {
             return false;
         }
         Question question;
-        String strQuestionId = params.get("questionId" );
-        String questionText = params.get("text" );
+        String strQuestionId = params.get("questionId");
+        String questionText = params.get("text");
         Integer questionId = Integer.parseInt(strQuestionId);
         if (questionText == null) {
             return false;
@@ -106,11 +111,11 @@ public class TestServiceImpl implements TestService {
                     Boolean.parseBoolean(params.get("correct" + id)),
                     question));
         }
-        String newAnswerContent = params.get("contentNew" );
+        String newAnswerContent = params.get("contentNew");
         if (!"".equals(newAnswerContent)) {
             Answer newAnswer = answerDao.save(new Answer(null,
                     newAnswerContent,
-                    Boolean.parseBoolean(params.get("correctNew" )),
+                    Boolean.parseBoolean(params.get("correctNew")),
                     question));
             answers.add(newAnswer);
         }
