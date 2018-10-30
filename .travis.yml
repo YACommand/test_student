@@ -4,7 +4,6 @@ sudo: true
 dist: trusty
 
 before_script:
-- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 - psql -c 'create database student_test' -U postgres
 - sudo -u postgres psql -c "ALTER ROLE postgres WITH password '123'"
 
