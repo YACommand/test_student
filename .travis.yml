@@ -1,9 +1,6 @@
 language: java
 sudo: true
 
-install: true
-- mvn -N io.takari:maven:wrapper -Dmaven=4.0.0
-- ./mvnw --show-version --errors --batch-mode test-compile dependency:go-offline
 dist: trusty
 
 before_script:
@@ -36,5 +33,5 @@ addons:
       secure: a9df1a57e3b50afd2ebe362fa4196979d905471d # encrypted value of your token
 script:
 ## other script steps might be done before running the actual analysis
-- mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
