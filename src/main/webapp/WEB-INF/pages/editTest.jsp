@@ -54,8 +54,7 @@
             <div class="card bg-light shadow-sm">
                 <div class="card-header">
                     <h5 class="card-title">
-                        id ${question.id}
-                        text ${question.text}
+                            ${question.text}
                     </h5>
                 </div>
                 <div class="card-body">
