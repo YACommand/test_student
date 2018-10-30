@@ -16,7 +16,7 @@
         <tbody>
         <tr>
             <td>${result.test.description}</td>
-            <td>${result.grade}</td>
+            <td>${result.grade} %</td>
         </tr>
         </c:forEach>
         </tbody>

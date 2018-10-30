@@ -94,6 +94,7 @@ public class TestServiceImpl implements TestService {
             return testDao.getByUser(id);
         }
         return Collections.emptyList();
+    }
 
     public List<Test> getTestByUserId(Integer userId) {
         return testDao.getTestByTeacherId(userId);
