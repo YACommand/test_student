@@ -9,7 +9,6 @@ before_script:
 
 jdk:
 - oraclejdk8
-os: windows
 
 branches:
   only:
