@@ -14,9 +14,6 @@ branches:
   only:
   - feature-00-02-traviswithsonar
 
-env:
-- MAVEN_VERSION=4.0.0
-
 services:
 - postgresql
 
@@ -31,7 +28,7 @@ addons:
     organization: "yacommand" # the key of the org you chose at step #3
     token:
       secure: a9df1a57e3b50afd2ebe362fa4196979d905471d # encrypted value of your token
-#script:
+script:
 ### other script steps might be done before running the actual analysis
-#- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
