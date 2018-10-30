@@ -55,7 +55,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean update(User user) {
         if (user != null && userDao.existsById(user.getId())) {
-            LOGGER.info("update " + user.toString());
+            String password = user.getPassword();
+            user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+            LOOGGER.info("update " + user.toString());
             return userDao.save(user) != null;
         }
         LOGGER.info("update error" );
