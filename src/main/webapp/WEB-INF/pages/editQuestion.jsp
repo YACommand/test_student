@@ -10,6 +10,7 @@
     <c:if test="${question.id == null}">
         <h3>Добавление нового вопроса</h3>
     </c:if>
+    <a class="btn btn-outline-dark" href="/tests/edit/${question.test.id}">Назад</a>
     <form:form action="/question/save" modelAttribute="question" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="col-md m-4">

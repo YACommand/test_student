@@ -5,6 +5,7 @@
 <!-- Begin page content -->
 <main role="main" class="container">
     <h3>Тест: ${test.description}</h3>
+    <a class="btn btn-outline-dark" href="/tests/all">Назад</a>
     <div class="card border-primary m-4">
         <div class="card-header">
             <h5 class="card-title">Название: ${test.description}</h5>

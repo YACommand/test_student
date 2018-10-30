@@ -28,6 +28,7 @@
             </button>
         </div>
     </c:if>
+    <a class="btn btn-outline-dark" href="/tests/all">Назад</a>
 
     <div class="card border-primary m-4">
         <form action="/tests/edit/" method="post">
