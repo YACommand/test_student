@@ -27,6 +27,11 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private AnswerDao answerDao;
 
+    @Autowired
+    public void setTestDao(TestDao testDao) {
+        this.testDao = testDao;
+    }
+
     final static Logger LOGGER = Logger.getLogger(UserService.class);
 
     @Override
@@ -85,6 +90,11 @@ public class TestServiceImpl implements TestService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Test> getTestByUserId(Integer userId) {
+        return testDao.getTestByTeacherId(userId);
     }
 
     @Override

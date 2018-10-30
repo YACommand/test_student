@@ -25,4 +25,6 @@ public interface TestService {
     Question addQuestion(Question question);
 
     boolean deleteQuestion(Integer id);
+
+    List<Test> getTestByUserId(Integer userId);
 }
