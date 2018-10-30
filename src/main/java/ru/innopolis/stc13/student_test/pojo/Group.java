@@ -8,17 +8,26 @@ import java.util.Set;
 
 @Entity(name = "groups")
 public class Group {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @NotBlank
     private String name;
+
     @Column(name = "internal")
     private boolean isInternal;
+
     @NotNull
     private Integer number;
-    @ManyToMany(mappedBy = "groups")
 
+//    @ManyToMany(mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "groups_tests",
+            joinColumns = {@JoinColumn(name = "group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "test_id")})
     private Set<Test> tests;
 
     public Group() {

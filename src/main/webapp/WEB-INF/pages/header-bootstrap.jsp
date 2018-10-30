@@ -26,9 +26,12 @@
         <a class="navbar-brand" href="/">STUDENT TESTING</a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-
             </ul>
-            <a class="btn btn-outline-primary" href="login">Войти</a>
+            <%--<a class="btn btn-outline-primary" href="login">Войти</a>--%>
+            <form class="p-0 m-0" id="logout" action="/logout" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input class="btn btn-outline-primary" type="submit" value="Sign Out"/>
+            </form>
         </div>
     </nav>
 </header>
