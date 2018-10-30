@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import ru.innopolis.stc13.student_test.dao.GroupDao;
 import ru.innopolis.stc13.student_test.dao.UserDao;
 import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Role;
@@ -57,6 +55,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean update(User user) {
         if (user != null && userDao.existsById(user.getId())) {
+            String password = user.getPassword();
+            user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
             LOOGGER.info("update " + user.toString());
             return userDao.save(user) != null;
         }
