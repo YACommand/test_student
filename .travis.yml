@@ -4,6 +4,7 @@ sudo: true
 dist: trusty
 
 before_script:
+- chmod +x mvnw
 - psql -c 'create database student_test' -U postgres
 - sudo -u postgres psql -c "ALTER ROLE postgres WITH password '123'"
 
