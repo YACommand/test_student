@@ -4,6 +4,7 @@ sudo: true
 dist: trusty
 
 before_script:
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 - psql -c 'create database student_test' -U postgres
 - sudo -u postgres psql -c "ALTER ROLE postgres WITH password '123'"
 
@@ -28,7 +29,7 @@ addons:
     organization: "yacommand" # the key of the org you chose at step #3
     token:
       secure: a9df1a57e3b50afd2ebe362fa4196979d905471d # encrypted value of your token
-script:
-### other script steps might be done before running the actual analysis
-- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+#script:
+#### other script steps might be done before running the actual analysis
+#- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
