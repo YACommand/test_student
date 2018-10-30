@@ -3,8 +3,10 @@ package ru.innopolis.stc13.student_test.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.TestResultDao;
+import ru.innopolis.stc13.student_test.dao.UserDao;
 import ru.innopolis.stc13.student_test.pojo.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,9 @@ public class TestResultServiceImpl implements TestResultService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public boolean add(TestResult testResult) {
@@ -77,5 +82,13 @@ public class TestResultServiceImpl implements TestResultService {
         int score = (int) (rightAnswerCount / (double) totalCount * 100);
         add(new TestResult(test, userService.get(3), score));
         return score;
+    }
+
+    @Override
+    public List<TestResult> getByUser(Integer id) {
+        if (id != null && userDao.existsById(id)) {
+            return testResultDao.getByUser(id);
+        }
+        return Collections.emptyList();
     }
 }

@@ -21,6 +21,7 @@ import java.util.Map;
 public class TestController {
 
     private TestService testService;
+
     private TestResultService testResultService;
     private UserDao userDao;
 
@@ -97,21 +98,8 @@ public class TestController {
         return "redirect:/tests/all";
     }
 
-    @GetMapping("/pass/{test}" )
-    public String pass(@PathVariable Test test, Model model) {
-        model.addAttribute("test", test);
-        model.addAttribute("questions", test.getQuestions());
-        return "passTest";
-    }
 
-    @PostMapping("/done" )
-    public String process(@RequestParam Map<String, String> allRequestParams, Model model) {
-        int score = testResultService.process(allRequestParams);
-        model.addAttribute("score", score);
-        return "score";
-    }
-
-    @GetMapping("/results" )
+    @GetMapping("/results")
     public String getAllResults(Model model) {
         List<TestResult> results = testResultService.getAll();
         model.addAttribute("results", results);

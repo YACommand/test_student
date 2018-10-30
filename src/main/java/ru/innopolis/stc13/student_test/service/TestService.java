@@ -2,6 +2,7 @@ package ru.innopolis.stc13.student_test.service;
 
 import ru.innopolis.stc13.student_test.pojo.Question;
 import ru.innopolis.stc13.student_test.pojo.Test;
+import ru.innopolis.stc13.student_test.pojo.User;
 
 import java.util.List;
 import java.util.Map;
@@ -26,5 +27,8 @@ public interface TestService {
 
     boolean deleteQuestion(Integer id);
 
+    List<Test> getByUser(Integer id);
+
     List<Test> getTestByUserId(Integer userId);
+
 }

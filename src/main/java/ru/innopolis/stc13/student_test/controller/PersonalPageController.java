@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Test;
+
 import ru.innopolis.stc13.student_test.pojo.User;
 import ru.innopolis.stc13.student_test.service.TestService;
 import ru.innopolis.stc13.student_test.service.UserService;
@@ -21,9 +23,7 @@ public class PersonalPageController {
     private TestService testService;
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private UserDao userDao;
 
     @Autowired
     public void setTestService(TestService testService) {
@@ -33,8 +33,10 @@ public class PersonalPageController {
     @GetMapping("/user_page")
     public String viewGroups(Principal principal, Model model) {
         String userLogin = principal.getName();
+
         User user = userService.getByLogin(userLogin);
         List<Test> test = testService.getTestByUserId(user.getId());
+
         model.addAttribute("user", user);
         model.addAttribute("tests", test);
         model.addAttribute("groups", user.getGroups());
