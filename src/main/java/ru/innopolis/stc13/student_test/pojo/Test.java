@@ -11,6 +11,7 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(length = 500)
     private String description;
 
     @ManyToOne
@@ -29,6 +30,7 @@ public class Test {
 
     public Test() {
     }
+
 
     public Test(String description, User teacher, Set<Question> questions, Set<Group> groups) {
         this.description = description;

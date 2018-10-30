@@ -5,25 +5,32 @@
 <!-- Begin page content -->
 <main role="main" class="container">
 
-    <h3>Тест: ${test.description}</h3>
+    <div class="card border-primary m-4">
+        <div class="card-header">
+            <h5 class="card-title">Название: ${test.description}</h5>
+        </div>
+    </div>
 
     <form method="post" action="/student/done">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <input type="hidden" name="id" value="${test.id}">
 
         <c:forEach items="${questions}" var="question">
-            <div class="col-md-6 m-4">
-                <div class="card">
-                    <div class="card-body">
+            <div class="col-md m-4">
+                <div class="card bg-light shadow-sm">
+                    <div class="card-header">
                         <h5 class="card-title">${question.text}</h5>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <c:forEach items="${question.answers}" var="answer">
-                            <li class="list-group-item">
-                                <input type="radio" name="answer${question.id}" value="${answer.id}"/> ${answer.content}<br>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <c:forEach items="${question.answers}" var="answer">
+                                <li class="list-group-item bg-light">
+                                    <label><input type="radio" name="answer${question.id}"
+                                                  value="${answer.id}"/> ${answer.content}</label>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </c:forEach>

@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user != null && userDao.existsById(user.getId())) {
             String password = user.getPassword();
             user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
-            LOOGGER.info("update " + user.toString());
+            LOGGER.info("update " + user.toString());
             return userDao.save(user) != null;
         }
         LOGGER.info("update error" );

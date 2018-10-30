@@ -34,6 +34,18 @@ VALUES ('Основы Java', 1),
        ('Основы Java 2', 1),
        ('Основы Java 3', 2);
 
+INSERT INTO groups (id, internal, name, number)
+VALUES (default, true, 'stc13', 1);
+
+INSERT INTO groups_tests (group_id, test_id)
+VALUES (1, 1),
+       (1, 2),
+       (1, 3);
+
+
+INSERT INTO user_group (user_id, group_id)
+VALUES (3, 1);
+
 INSERT INTO questions (text, test_id)
 VALUES ('Каким будет результат выполнения кода:
 <pre><code>import java.util.Arrays;
