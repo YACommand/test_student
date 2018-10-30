@@ -2,13 +2,15 @@ language: java
 sudo: false
 
 dist: trusty
-
+before_install:
+- chmod +x /home/$USER/apache-maven-4.0.0/bin/mvn
 before_script:
 - psql -c 'create database student_test' -U postgres
 - sudo -u postgres psql -c "ALTER ROLE postgres WITH password '123'"
 
 jdk:
 - oraclejdk8
+
 
 branches:
   only:
