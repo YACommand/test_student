@@ -13,12 +13,12 @@
             <th scope="col">Оценка</th>
         </tr>
         </thead>
-        <c:forEach items="${users}" var="user">
+        <c:forEach items="${users}" var="authuser">
         <tbody>
         <tr>
-            <th scope="row">${user.id}</th>
-            <td>${user.name}</td>
-            <td>${user.login}</td>
+            <th scope="row">${authuser.id}</th>
+            <td>${authuser.name}</td>
+            <td>${authuser.login}</td>
             <td>неуд</td>
         </tr>
         </c:forEach>
