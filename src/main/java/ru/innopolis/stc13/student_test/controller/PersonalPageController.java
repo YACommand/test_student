@@ -1,20 +1,17 @@
 package ru.innopolis.stc13.student_test.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import ru.innopolis.stc13.student_test.dao.UserDao;
+import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Test;
-
 import ru.innopolis.stc13.student_test.pojo.User;
+import ru.innopolis.stc13.student_test.service.GroupService;
 import ru.innopolis.stc13.student_test.service.TestService;
 import ru.innopolis.stc13.student_test.service.UserService;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,6 +19,12 @@ public class PersonalPageController {
 
     private UserService userService;
     private TestService testService;
+    private GroupService groupService;
+
+    @Autowired
+    public void setGroupService(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -34,12 +37,11 @@ public class PersonalPageController {
     }
 
     @GetMapping("/user_page")
-    public String viewGroups(Principal principal, Model model) {
-        String userLogin = principal.getName();
+    public String viewGroups(@AuthenticationPrincipal User userPrincipal, Model model) {
 
-        User user = userService.getByLogin(userLogin);
+        Integer id = userPrincipal.getId();
+        User user = userService.get(id);
         List<Test> test = testService.getTestByUserId(user.getId());
-
         model.addAttribute("user", user);
         model.addAttribute("tests", test);
         model.addAttribute("groups", user.getGroups());
@@ -52,5 +54,30 @@ public class PersonalPageController {
         List<User> userList = userService.getByGroup(group);
         model.addAttribute("users", userList);
         return "studentsByGroup";
+    }
+
+    @GetMapping("/user_page/assignmentTestsForGroup/{groupId}")
+    public String assignmentTestsForGroup(@PathVariable  Integer groupId,
+                                          Model model) {
+        List<Group> groupList = groupService.getAll();
+        model.addAttribute("groups", groupList);
+        return "assignmentTestsForGroup";
+    }
+
+    @PostMapping("/user_page/assignmentGroupsForTests")
+    public String assignmentGroupsForTests(@RequestParam  Integer testId,
+                                           Model model, @RequestParam String[] groups) {
+        List<Group> groupList = groupService.getAll();
+        model.addAttribute("groups", groupList);
+        testService.assignmentGroupForTest(testId, groups);
+        return "assignmentGroupsForTests";
+    }
+
+    @GetMapping("/user_page/assignmentGroupsForTests/{testId}")
+    public String assignmentGroupsForTests(@PathVariable  Integer testId,
+                                           Model model) {
+        model.addAttribute("testId", testId);
+        model.addAttribute("groups", groupService.getAll());
+        return "assignmentGroupsForTests";
     }
 }

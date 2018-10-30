@@ -19,4 +19,5 @@ public interface TestDao extends JpaRepository<Test, Integer>{
 
     List<Test> getTestByTeacherId(Integer id);
 
+    Test getById(Integer id);
 }

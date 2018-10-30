@@ -3,11 +3,10 @@ package ru.innopolis.stc13.student_test.service;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.innopolis.stc13.student_test.dao.AnswerDao;
-import ru.innopolis.stc13.student_test.dao.QuestionDao;
-import ru.innopolis.stc13.student_test.dao.TestDao;
-import ru.innopolis.stc13.student_test.dao.UserDao;
+import org.springframework.transaction.annotation.Transactional;
+import ru.innopolis.stc13.student_test.dao.*;
 import ru.innopolis.stc13.student_test.pojo.Answer;
+import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Question;
 import ru.innopolis.stc13.student_test.pojo.Test;
 
@@ -27,6 +26,9 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private GroupDao groupDao;
 
     final static Logger LOGGER = Logger.getLogger(UserService.class);
 
@@ -95,8 +97,38 @@ public class TestServiceImpl implements TestService {
         }
         return Collections.emptyList();
     }
+
     public List<Test> getTestByUserId(Integer userId) {
         return testDao.getTestByTeacherId(userId);
+    }
+
+    @Transactional
+    @Override
+    public boolean assignmentTests(Integer groupId, Integer testId) {
+        if (groupId != null && testId != null) {
+            Group group = groupDao.getById(groupId);
+            Test test = testDao.getById(testId);
+            Set<Test> groupTests = group.getTests();
+            groupTests.add(test);
+            group.setTests(groupTests);
+            groupDao.save(group);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean assignmentGroupForTest(Integer testId, String[] groupsId)  {
+        if (groupsId != null && testId != null) {
+            for (String id: groupsId) {
+                if (id != null) {
+                    Integer groupIntId = Integer.parseInt(id);
+                    assignmentTests(groupIntId, testId);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

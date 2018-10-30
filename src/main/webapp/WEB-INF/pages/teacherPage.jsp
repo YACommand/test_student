@@ -25,7 +25,7 @@
             <th scope="col">Номер</th>
             <th scope="col">Форма обучения</th>
             <th scope="col">Список студентов</th>
-            <th scope="col">Назначить тест</th>
+            <th scope="col">Назначить тест группе</th>
         </tr>
         </thead>
         <c:forEach items="${groups}" var="group">
@@ -50,6 +50,7 @@
             <th scope="col">ID</th>
             <th scope="col">Описание</th>
             <th scope="col"></th>
+            <th scope="col">Назначить группу на тест</th>
         </tr>
         </thead>
         <c:forEach items="${tests}" var="test">
@@ -58,6 +59,7 @@
             <th scope="row">${test.id}</th>
             <td>${test.description}</td>
             <td><a href="<c:url value="/tests/edit/${test.id}"/>">Редактировать</a></td>
+            <td><a href="<c:url value="/user_page/assignmentGroupsForTests/${test.id}"/>">Назначить</a></td>
         </tr>
         </c:forEach>
         </tbody>

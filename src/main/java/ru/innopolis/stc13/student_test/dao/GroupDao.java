@@ -5,4 +5,6 @@ import ru.innopolis.stc13.student_test.pojo.Group;
 
 public interface GroupDao extends JpaRepository<Group, Integer> {
     Group getByNumber(Integer number);
+
+    Group getById(Integer id);
 }
