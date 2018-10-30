@@ -68,14 +68,12 @@
                     <form:input path="number" class="form-control" placeholder="Введите номер" required="required"/>
                 </div>
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <form:label path="internal" class="col-sm-2 col-form-label">
-                        <spring:message text="Очное/Заочное"/>
-                    </form:label>
-                    <div class="input-group-text">
-                        <form:checkbox path="internal"/>
-                    </div>
+            <div class="form-group row">
+                <form:label path="internal" class="col-sm-2 col-form-label">
+                    <spring:message text="Очное/Заочное"/>
+                </form:label>
+                <div class="input-group-text">
+                    <form:checkbox path="internal"/>
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>

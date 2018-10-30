@@ -13,6 +13,7 @@
     <title>Student testing</title>
 
     <!-- Bootstrap core CSS -->
+    <link href="<c:url value="/resources/signin.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/bootstrap.min.css"/>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -28,7 +29,36 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <security:authentication property="name" var="authuser"/>
             <ul class="navbar-nav mr-auto">
-                <a class="nav-link disabled">Hello, ${authuser}</a>
+                <%--<li><a class="nav-link disabled">Hello, ${authuser}</a></li>--%>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hello, ${authuser}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <security:authorize access="hasAnyAuthority('TEACHER','ADMIN')">
+                            <a class="dropdown-item" href="/tests/all">Тесты</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/tests/results">Результаты</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/users/students">Студенты</a>
+                            <div class="dropdown-divider"></div>
+                            <security:authorize access="hasAuthority('ADMIN')">
+                                <a class="dropdown-item" href="/users/admins">Администраторы</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/users/teachers">Учителя</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/groups">Группы</a>
+                            </security:authorize>
+                        </security:authorize>
+                        <security:authorize access="hasAuthority('STUDENT')">
+                            <a class="dropdown-item" href="/student/mytests">Мои тесты</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/student/myresults">Мои результаты</a>
+                        </security:authorize>
+                    </div>
+
+                </li>
             </ul>
             <c:if test="${'anonymousUser'.equals(authuser)}">
                 <a class="btn btn-outline-primary" href="/login">Войти</a>
