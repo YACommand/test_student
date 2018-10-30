@@ -2,8 +2,8 @@ language: java
 sudo: true
 
 install: true
-- "mvn -N io.takari:maven:wrapper -Dmaven=4.0.0"
-- "./mvnw --show-version --errors --batch-mode test-compile dependency:go-offline"
+- mvn -N io.takari:maven:wrapper -Dmaven=4.0.0
+- ./mvnw --show-version --errors --batch-mode test-compile dependency:go-offline
 dist: trusty
 
 before_script:
