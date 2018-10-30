@@ -19,4 +19,5 @@ public interface TestResultService {
 
     int process(Map<String,String> parameters);
 
+    List<TestResult> getByUser(Integer id);
 }

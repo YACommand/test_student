@@ -12,8 +12,26 @@
         <h3>Добавление нового теста</h3>
     </c:if>
 
+    <c:if test="${'success'.equals(add_test_status)}">
+        <div class="alert alert-success" role="alert">
+            Тест ${test.description} успешно создан!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+    <c:if test="${'error'.equals(add_test_status)}">
+        <div class="alert alert-danger" role="alert">
+            Не удалось создать тест!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <div class="card border-primary m-4">
         <form action="/tests/edit/" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="card-header">
                 <input hidden name="id" value="${test.id}"/>
                 <input required type="text" name="description" class="col-7" value="${test.description}">
@@ -36,8 +54,7 @@
             <div class="card bg-light shadow-sm">
                 <div class="card-header">
                     <h5 class="card-title">
-                        id ${question.id}
-                        text ${question.text}
+                            ${question.text}
                     </h5>
                 </div>
                 <div class="card-body">

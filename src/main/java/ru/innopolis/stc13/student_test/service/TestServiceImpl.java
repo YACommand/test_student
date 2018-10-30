@@ -6,14 +6,12 @@ import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.AnswerDao;
 import ru.innopolis.stc13.student_test.dao.QuestionDao;
 import ru.innopolis.stc13.student_test.dao.TestDao;
+import ru.innopolis.stc13.student_test.dao.UserDao;
 import ru.innopolis.stc13.student_test.pojo.Answer;
 import ru.innopolis.stc13.student_test.pojo.Question;
 import ru.innopolis.stc13.student_test.pojo.Test;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -27,16 +25,19 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private AnswerDao answerDao;
 
+    @Autowired
+    private UserDao userDao;
+
     final static Logger LOGGER = Logger.getLogger(UserService.class);
 
     @Override
-    public boolean add(Test test) {
+    public Test add(Test test) {
         if (test != null && test.getId() == null) {
             LOGGER.info("has been added test" + test.toString());
-            return testDao.save(test) != null;
+            return testDao.save(test);
         }
         LOGGER.info("has been added test" + test.toString());
-        return false;
+        return null;
     }
 
     @Override
@@ -85,6 +86,17 @@ public class TestServiceImpl implements TestService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Test> getByUser(Integer id) {
+        if (id != null && userDao.existsById(id)) {
+            return testDao.getByUser(id);
+        }
+        return Collections.emptyList();
+    }
+    public List<Test> getTestByUserId(Integer userId) {
+        return testDao.getTestByTeacherId(userId);
     }
 
     @Override

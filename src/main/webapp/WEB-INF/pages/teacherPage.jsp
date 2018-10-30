@@ -11,26 +11,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header-bootstrap.jsp" %>
 
-<%--<main role="main" class="container">--%>
-<%--<h3>Список ваших групп</h3>--%>
-
-<%--<%--%>
-<%--User user = (User) request.getAttribute("user");--%>
-<%--List<Group> list = new ArrayList<Group>(user.getGroups());--%>
-<%--for (Group group : list) {%>--%>
-<%--<%=group.getName()%> - <%=group.getNumber()%>--%>
-<%--</a><BR>--%>
-<%--<%--%>
-<%--}--%>
-<%--%>--%>
-<%--</main>--%>
-
 <main role="main" class="container">
     <br>
     Здравствуйте, ${user.name}!<br><br>
     Ваша специализация: ${user.specialization}<br><br>
+    Список ваших групп:<br><br>
 
-    Список ваших групп
     <table class="table table-hover text-left">
         <thead>
         <tr>
@@ -55,6 +41,30 @@
         </c:forEach>
         </tbody>
     </table>
+
+    <br><br>Список ваших тестов:<br><br>
+
+    <table class="table table-hover text-left">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Описание</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <c:forEach items="${tests}" var="test">
+        <tbody>
+        <tr>
+            <th scope="row">${test.id}</th>
+            <td>${test.description}</td>
+            <td><a href="<c:url value="/tests/edit/${test.id}"/>">Редактировать</a></td>
+        </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+    <br><a href="<c:url value="/tests/add"/>">Создать тест</a>
+
 </main>
 
 
