@@ -12,9 +12,8 @@ jdk:
 
 branches:
   only:
-  - master
-  - develop
   - feature-00-02-traviswithsonar
+
 
 
 services:
