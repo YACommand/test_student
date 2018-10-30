@@ -28,17 +28,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-
                 .antMatchers("/login", "/resources/**").permitAll()
                 .antMatchers("/tests/**", "/users/students/**", "/").hasAnyAuthority("TEACHER", "ADMIN")
+                .antMatchers("/question/**" ).hasAuthority("TEACHER" )
                 .antMatchers("/**").hasAuthority("ADMIN")
-
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("j_username")
-
                 .passwordParameter("j_password")
                 .successHandler((req, res, auth) -> {
             for (GrantedAuthority authority : auth.getAuthorities()) {

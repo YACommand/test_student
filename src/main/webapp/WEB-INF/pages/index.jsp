@@ -9,9 +9,8 @@
         </form>
     </div>
     <ul class="list-group-item-dark m-2">
-
         <security:authorize access="hasAnyAuthority('TEACHER','ADMIN')">
-            <li><a href="/tests">Tests</a></li>
+            <li><a href="/tests/all">Tests</a></li>
             <li><a href="/users/students">Students</a></li>
             <security:authorize access="hasAuthority('ADMIN')">
                 <li><a href="/users/admins">Admins</a></li>

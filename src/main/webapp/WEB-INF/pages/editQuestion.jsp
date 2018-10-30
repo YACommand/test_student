@@ -11,6 +11,7 @@
         <h3>Добавление нового вопроса</h3>
     </c:if>
     <form:form action="/question/save" modelAttribute="question" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="col-md m-4">
             <div class="card bg-light shadow-sm">
                 <div class="card-header">

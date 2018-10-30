@@ -30,13 +30,13 @@ public class TestServiceImpl implements TestService {
     final static Logger LOGGER = Logger.getLogger(UserService.class);
 
     @Override
-    public boolean add(Test test) {
+    public Test add(Test test) {
         if (test != null && test.getId() == null) {
             LOGGER.info("has been added test" + test.toString());
-            return testDao.save(test) != null;
+            return testDao.save(test);
         }
         LOGGER.info("has been added test" + test.toString());
-        return false;
+        return null;
     }
 
     @Override
