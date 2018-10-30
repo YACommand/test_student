@@ -37,5 +37,4 @@ addons:
 #script:
 ## other script steps might be done before running the actual analysis
 #- mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
-script: ./mvnw clean install
 
