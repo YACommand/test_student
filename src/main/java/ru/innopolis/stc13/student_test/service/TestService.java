@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface TestService {
 
-    boolean add(Test test);
+    Test add(Test test);
 
     Test get(Integer id);
 
@@ -28,4 +28,7 @@ public interface TestService {
     boolean deleteQuestion(Integer id);
 
     List<Test> getByUser(Integer id);
+
+    List<Test> getTestByUserId(Integer userId);
+
 }

@@ -5,7 +5,6 @@
 <main role="main" class="container">
 
     <ul class="list-group-item-dark m-2">
-
         <security:authorize access="hasAnyAuthority('TEACHER','ADMIN')">
             <li><a href="/tests/all">Tests</a></li>
             <li><a href="/tests/results">Results</a></li>

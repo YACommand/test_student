@@ -16,4 +16,7 @@ public interface TestDao extends JpaRepository<Test, Integer>{
                     "where group_id = (select group_id from user_group where user_id = :id)",
             nativeQuery = true)
     List<Test> getByUser(@Param("id") int id);
+
+    List<Test> getTestByTeacherId(Integer id);
+
 }

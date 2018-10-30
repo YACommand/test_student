@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc13.student_test.dao.AnswerDao;
@@ -27,12 +28,16 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private UserDao userDao;
 
+    final static Logger LOGGER = Logger.getLogger(UserService.class);
+
     @Override
-    public boolean add(Test test) {
+    public Test add(Test test) {
         if (test != null && test.getId() == null) {
-            return testDao.save(test) != null;
+            LOGGER.info("has been added test" + test.toString());
+            return testDao.save(test);
         }
-        return false;
+        LOGGER.info("has been added test" + test.toString());
+        return null;
     }
 
     @Override
@@ -89,6 +94,9 @@ public class TestServiceImpl implements TestService {
             return testDao.getByUser(id);
         }
         return Collections.emptyList();
+
+    public List<Test> getTestByUserId(Integer userId) {
+        return testDao.getTestByTeacherId(userId);
     }
 
     @Override
