@@ -55,14 +55,20 @@
                     <form:input class="form-control" placeholder="Введите логин" path="login" required="required"/>
                 </div>
             </div>
-            <div class="form-group row">
-                <form:label path="password" class="col-sm-2 col-form-label">
-                    <spring:message text="Пароль"/>
-                </form:label>
-                <div class="col-sm-5">
-                    <form:input path="password" class="form-control" placeholder="Введите пароль" required="required"/>
+            <c:if test="${student.id != null}">
+                <form:hidden path="password" class="form-control" placeholder="Введите пароль" required="required"/>
+            </c:if>
+            <c:if test="${student.id == null}">
+                <div class="form-group row">
+                    <form:label path="password" class="col-sm-2 col-form-label">
+                        <spring:message text="Пароль"/>
+                    </form:label>
+                    <div class="col-sm-5">
+                        <form:input path="password" class="form-control" placeholder="Введите пароль"
+                                    required="required"/>
+                    </div>
                 </div>
-            </div>
+            </c:if>
             <div class="form-group row">
                 <form:label path="name" class="col-sm-2 col-form-label">
                     <spring:message text="Имя"/>
@@ -97,6 +103,8 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>
+            <a class="btn btn-block btn-dark" href="<c:url value="/users/students/${student.password}"/>" role="button">Изменить
+                пароль</a>
         </form:form>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </div>

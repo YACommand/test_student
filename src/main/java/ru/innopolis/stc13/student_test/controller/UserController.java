@@ -166,6 +166,18 @@ public class UserController {
         return "redirect:/users/students";
     }
 
+    @GetMapping("/students/editPassword/{user}")
+    public String updatePassword(@PathVariable User user, Model model) {
+        model.addAttribute("user", user);
+        return "updatePassword";
+    }
+
+    @PostMapping("/students/editPassword")
+    public String savePassword(@RequestParam String password, @RequestParam Integer id, Model model) {
+        userService.updatePassword(id, password);
+        return "redirect:/users/students";
+    }
+
     @GetMapping("/admins")
     public String getAdmins(Model model) {
         List<User> admins = userService.getAllByRole(Role.ADMIN);
