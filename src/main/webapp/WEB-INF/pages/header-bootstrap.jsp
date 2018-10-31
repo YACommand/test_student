@@ -36,7 +36,7 @@
                         Hello, ${authuser}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <security:authorize access="hasAnyAuthority('TEACHER','ADMIN')">
+                        <security:authorize access="hasAnyAuthority('TEACHER')">
                             <a class="dropdown-item" href="/tests/all">Тесты</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/tests/results">Результаты</a>
@@ -44,6 +44,8 @@
                             <a class="dropdown-item" href="/users/students">Студенты</a>
                             <div class="dropdown-divider"></div>
                             <security:authorize access="hasAuthority('ADMIN')">
+                                <a class="dropdown-item" href="/users/students">Студенты</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/users/admins">Администраторы</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/users/teachers">Учителя</a>
