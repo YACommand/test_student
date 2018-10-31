@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             User user = get(id);
             if (user != null) {
                 user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
-                return true;
+                return update(user);
             }
         }
         return false;

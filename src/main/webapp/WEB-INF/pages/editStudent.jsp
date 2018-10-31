@@ -103,8 +103,10 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>
-            <a class="btn btn-block btn-dark" href="<c:url value="/users/students/${student.password}"/>" role="button">Изменить
-                пароль</a>
+            <c:if test="${student.id!=null}">
+                <a class="btn btn-dark m-2" href="<c:url value="/users/students/editPassword/${student.id}"/>"
+                   role="button">Изменить пароль</a>
+            </c:if>
         </form:form>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </div>

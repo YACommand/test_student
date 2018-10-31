@@ -5,19 +5,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <main role="main" class="container">
     <div class="m-2">
-        <form:form method="post" action="/students/editPassword">
+        <form method="post" action="/users/admins/editPassword">
             <div class="form-group row">
                 <input name="id" hidden value="${user.id}"/>
-                <form:label path="password" class="col-sm-2 col-form-label">
-                    <spring:message text="Пароль"/>
-                </form:label>
-                <div class="col-sm-5">
-                    <form:input class="form-control" placeholder="Введите пароль" path="password" required="required"/>
+                <label class="col-sm-2">
+                    Пароль
+                </label>
+                <div class="col-sm-4">
+                    <input class="form-control" placeholder="Введите пароль" name="password" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form:form>
+        </form>
     </div>
 </main>
 <%@include file="footer-bootstrap.jsp" %>

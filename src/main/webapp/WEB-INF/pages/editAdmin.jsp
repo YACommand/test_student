@@ -55,14 +55,20 @@
                     <form:input class="form-control" placeholder="Введите логин" path="login" required="required"/>
                 </div>
             </div>
-            <div class="form-group row">
-                <form:label path="password" class="col-sm-2 col-form-label">
-                    <spring:message text="Пароль"/>
-                </form:label>
-                <div class="col-sm-5">
-                    <form:input path="password" class="form-control" placeholder="Введите пароль" required="required"/>
+            <c:if test="${admin.id != null}">
+                <form:hidden path="password" class="form-control" placeholder="Введите пароль" required="required"/>
+            </c:if>
+            <c:if test="${admin.id == null}">
+                <div class="form-group row">
+                    <form:label path="password" class="col-sm-2 col-form-label">
+                        <spring:message text="Пароль"/>
+                    </form:label>
+                    <div class="col-sm-5">
+                        <form:input path="password" class="form-control" placeholder="Введите пароль"
+                                    required="required"/>
+                    </div>
                 </div>
-            </div>
+            </c:if>
             <div class="form-group row">
                 <form:label path="name" class="col-sm-2 col-form-label">
                     <spring:message text="Имя"/>
@@ -81,6 +87,10 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Сохранить</button>
+            <c:if test="${admin.id!=null}">
+                <a class="btn btn-dark m-2" href="<c:url value="/users/admins/editPassword/${admin.id}"/>"
+                   role="button">Изменить пароль</a>
+            </c:if>
         </form:form>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </div>
