@@ -3,9 +3,7 @@ package ru.innopolis.stc13.student_test.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Test;
-import ru.innopolis.stc13.student_test.pojo.User;
 
 import java.util.List;
 
