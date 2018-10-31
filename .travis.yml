@@ -1,16 +1,22 @@
 language: java
 sudo: true
 
-install: true
 dist: trusty
+install: true
+before_script:
+- psql -c 'create database student_test' -U postgres
+- sudo -u postgres psql -c "ALTER ROLE postgres WITH password '123'"
 
 jdk:
-  - oraclejdk8
+- oraclejdk8
 
 branches:
   only:
-    - master
-    - develop
+  - master
+  - develop
+
+services:
+- postgresql
 
 cache:
   directories:
@@ -18,11 +24,11 @@ cache:
   - '$HOME/.sonar/cache'
 
 addons:
+  postgresql: "9.5"
   sonarcloud:
     organization: "yacommand" # the key of the org you chose at step #3
     token:
       secure: a9df1a57e3b50afd2ebe362fa4196979d905471d # encrypted value of your token
 script:
-# other script steps might be done before running the actual analysis
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
