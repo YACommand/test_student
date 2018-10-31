@@ -2,20 +2,22 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header-bootstrap.jsp" %>
+<!-- Begin page content -->
 <main role="main" class="container">
+
     <div class="m-2">
-        <form:form modelAttribute="groups" method="post" action="/teacher/assignmentGroupsForTests">
+        <form:form modelAttribute="tests" method="post" action="/teacher/assignmentTestForGroups">
 
             <div class="form-group row">
                 <div class="form-check">
-                    <c:forEach items="${groups}" var="group">
-                        <input hidden name="testId" value="${testId}">
-                        <input hidden name="test" value="${test}">
+                    <c:forEach items="${tests}" var="test">
+                        <input hidden name="groupId" value="${groupId}">
+                        <input hidden name="group" value="${group}">
                         <tr>
                             <td><input type="checkbox"
-                                       name="groups"
-                                ${group.tests.contains(test) ? "checked" : ""}
-                                       value="${group.id}"/> ${group.name} - ${group.number}<br></td>
+                                       name="tests"
+                                ${test.groups.contains(group) ? "checked" : ""}
+                                       value="${test.id}"/> ${test.description}<br></td>
                         </tr>
                     </c:forEach>
                 </div>

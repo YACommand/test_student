@@ -102,31 +102,42 @@ public class TestServiceImpl implements TestService {
         return testDao.getTestByTeacherId(userId);
     }
 
-    @Transactional
     @Override
-    public boolean assignmentTests(Integer groupId, Integer testId) {
-        if (groupId != null && testId != null) {
-            Group group = groupDao.getById(groupId);
+    public boolean assignmentGroupForTest(Integer testId, String[] groupsId) {
+        if (groupsId != null && testId != null) {
+            Set<Group> groupSet = new HashSet<>();
+            for (String id : groupsId) {
+                if (id != null) {
+                    int groupIntId = Integer.parseInt(id);
+                    groupSet.add(groupDao.getById(groupIntId));
+                }
+            }
             Test test = testDao.getById(testId);
-            Set<Test> groupTests = group.getTests();
-            groupTests.add(test);
-            group.setTests(groupTests);
-            groupDao.save(group);
-            return true;
+            if (test != null) {
+                test.setGroups(groupSet);
+                testDao.save(test);
+                return true;
+            }
         }
         return false;
     }
 
     @Override
-    public boolean assignmentGroupForTest(Integer testId, String[] groupsId)  {
-        if (groupsId != null && testId != null) {
-            for (String id: groupsId) {
+    public boolean assignmentTestForGroup(Integer groupId, String[] testsId) {
+        if (groupId != null && testsId != null) {
+            Set<Test> testSet = new HashSet<>();
+            for (String id : testsId) {
                 if (id != null) {
-                    Integer groupIntId = Integer.parseInt(id);
-                    assignmentTests(groupIntId, testId);
+                    int testIntId = Integer.parseInt(id);
+                    testSet.add(testDao.getById(testIntId));
                 }
             }
-            return true;
+            Group group = groupDao.getById(groupId);
+            if (group != null) {
+                group.setTests(testSet);
+                groupDao.save(group);
+                return true;
+            }
         }
         return false;
     }

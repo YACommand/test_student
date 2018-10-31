@@ -32,8 +32,7 @@ public interface TestService {
 
     List<Test> getTestByUserId(Integer userId);
 
-    boolean assignmentTests(Integer groupId, Integer testId);
-
     boolean assignmentGroupForTest(Integer testId, String[] groupsId);
 
+    boolean assignmentTestForGroup(Integer groupId, String[] testsId);
     }

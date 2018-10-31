@@ -36,7 +36,7 @@ public class PersonalPageController {
         this.testService = testService;
     }
 
-    @GetMapping("/user_page")
+    @GetMapping("/teacher")
     public String viewGroups(@AuthenticationPrincipal User userPrincipal, Model model) {
 
         Integer id = userPrincipal.getId();
@@ -48,7 +48,7 @@ public class PersonalPageController {
         return "teacherPage";
     }
 
-    @GetMapping("/user_page/groups/{group}")
+    @GetMapping("/teacher/groups/{group}")
     public String getStudents(@PathVariable Group group,
                               Model model) {
         List<User> userList = userService.getByGroup(group);
@@ -56,28 +56,49 @@ public class PersonalPageController {
         return "studentsByGroup";
     }
 
-    @GetMapping("/user_page/assignmentTestsForGroup/{groupId}")
-    public String assignmentTestsForGroup(@PathVariable  Integer groupId,
-                                          Model model) {
-        List<Group> groupList = groupService.getAll();
-        model.addAttribute("groups", groupList);
-        return "assignmentTestsForGroup";
-    }
-
-    @PostMapping("/user_page/assignmentGroupsForTests")
+    @PostMapping("/teacher/assignmentGroupsForTests")
     public String assignmentGroupsForTests(@RequestParam  Integer testId,
-                                           Model model, @RequestParam String[] groups) {
-        List<Group> groupList = groupService.getAll();
-        model.addAttribute("groups", groupList);
+                                           Model model, @RequestParam(required = false) String[] groups) {
+        if (groups == null) {
+            groups = new String[0];
+        }
         testService.assignmentGroupForTest(testId, groups);
-        return "assignmentGroupsForTests";
+        List<Group> groupList = groupService.getAll();
+        model.addAttribute("testId", testId);
+        model.addAttribute("test", testService.get(testId));
+        model.addAttribute("groups", groupList);
+        return "redirect:/teacher";
     }
 
-    @GetMapping("/user_page/assignmentGroupsForTests/{testId}")
+    @GetMapping("/teacher/assignmentGroupsForTests/{testId}")
     public String assignmentGroupsForTests(@PathVariable  Integer testId,
                                            Model model) {
         model.addAttribute("testId", testId);
+        model.addAttribute("test", testService.get(testId));
         model.addAttribute("groups", groupService.getAll());
         return "assignmentGroupsForTests";
+    }
+
+    @PostMapping("/teacher/assignmentTestForGroups")
+    public String assignmentTestForGroups(@RequestParam  Integer groupId,
+                                           Model model, @RequestParam(required = false) String[] tests) {
+        if (tests == null) {
+            tests = new String[0];
+        }
+        testService.assignmentTestForGroup(groupId, tests);
+        List<Test> testList = testService.getAll();
+        model.addAttribute("groupId", groupId);
+        model.addAttribute("group", groupService.get(groupId));
+        model.addAttribute("tests", testList);
+        return "redirect:/teacher";
+    }
+
+    @GetMapping("/teacher/assignmentTestForGroups/{groupId}")
+    public String assignmentTestForGroups(@PathVariable  Integer groupId,
+                                           Model model) {
+        model.addAttribute("groupId", groupId);
+        model.addAttribute("group", groupService.get(groupId));
+        model.addAttribute("tests", testService.getAll());
+        return "assignmentTestForGroups";
     }
 }
