@@ -45,8 +45,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User get(Integer id) {
         if (id != null && userDao.existsById(id)) {
-            LOGGER.info("received " + userDao.findById(id));
-            return userDao.findById(id).orElse(null);
+            User user = userDao.findById(id).orElse(null);
+            LOGGER.info("received " + user);
+            return user;
         }
         LOGGER.info("user extraction error" );
         return null;

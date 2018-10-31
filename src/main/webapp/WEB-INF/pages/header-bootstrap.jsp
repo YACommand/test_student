@@ -43,15 +43,15 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/users/students">Студенты</a>
                             <div class="dropdown-divider"></div>
-                            <security:authorize access="hasAuthority('ADMIN')">
-                                <a class="dropdown-item" href="/users/students">Студенты</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/users/admins">Администраторы</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/users/teachers">Учителя</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/groups">Группы</a>
-                            </security:authorize>
+                        </security:authorize>
+                        <security:authorize access="hasAuthority('ADMIN')">
+                            <a class="dropdown-item" href="/users/students">Студенты</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/users/admins">Администраторы</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/users/teachers">Учителя</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/groups">Группы</a>
                         </security:authorize>
                         <security:authorize access="hasAuthority('STUDENT')">
                             <a class="dropdown-item" href="/student/mytests">Мои тесты</a>
