@@ -25,7 +25,7 @@
             <th scope="col">Номер</th>
             <th scope="col">Форма обучения</th>
             <th scope="col">Список студентов</th>
-            <th scope="col">Назначить тест</th>
+            <th scope="col">Назначить тест группе</th>
         </tr>
         </thead>
         <c:forEach items="${groups}" var="group">
@@ -35,8 +35,8 @@
             <td>${group.name}</td>
             <td>${group.number}</td>
             <td>${group.internal ? "Заочная" : "Очная"}</td>
-            <td><a href="<c:url value="/user_page/groups/${group.id}"/>">Список студентов</a></td>
-            <td>Типа ссылка на назначение теста</td>
+            <td><a href="<c:url value="/teacher/groups/${group.id}"/>">Список студентов</a></td>
+            <td><a href="<c:url value="/teacher/assignmentTestForGroups/${group.id}"/>">Назначить</a></td>
         </tr>
         </c:forEach>
         </tbody>
@@ -50,6 +50,9 @@
             <th scope="col">ID</th>
             <th scope="col">Описание</th>
             <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Назначить группу на тест</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <c:forEach items="${tests}" var="test">
@@ -58,14 +61,13 @@
             <th scope="row">${test.id}</th>
             <td>${test.description}</td>
             <td><a href="<c:url value="/tests/edit/${test.id}"/>">Редактировать</a></td>
+            <td></td>
+            <td><a href="<c:url value="/teacher/assignmentGroupsForTests/${test.id}"/>">Назначить</a></td>
+            <td></td>
         </tr>
         </c:forEach>
         </tbody>
     </table>
-
     <br><a href="<c:url value="/tests/add"/>">Создать тест</a>
-
 </main>
-
-
 <%@include file="footer-bootstrap.jsp" %>

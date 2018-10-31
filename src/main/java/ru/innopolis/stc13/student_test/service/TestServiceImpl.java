@@ -3,11 +3,10 @@ package ru.innopolis.stc13.student_test.service;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.innopolis.stc13.student_test.dao.AnswerDao;
-import ru.innopolis.stc13.student_test.dao.QuestionDao;
-import ru.innopolis.stc13.student_test.dao.TestDao;
-import ru.innopolis.stc13.student_test.dao.UserDao;
+import org.springframework.transaction.annotation.Transactional;
+import ru.innopolis.stc13.student_test.dao.*;
 import ru.innopolis.stc13.student_test.pojo.Answer;
+import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Question;
 import ru.innopolis.stc13.student_test.pojo.Test;
 
@@ -27,6 +26,9 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private GroupDao groupDao;
 
     final static Logger LOGGER = Logger.getLogger(UserService.class);
 
@@ -95,8 +97,49 @@ public class TestServiceImpl implements TestService {
         }
         return Collections.emptyList();
     }
+
     public List<Test> getTestByUserId(Integer userId) {
         return testDao.getTestByTeacherId(userId);
+    }
+
+    @Override
+    public boolean assignmentGroupForTest(Integer testId, String[] groupsId) {
+        if (groupsId != null && testId != null) {
+            Set<Group> groupSet = new HashSet<>();
+            for (String id : groupsId) {
+                if (id != null) {
+                    int groupIntId = Integer.parseInt(id);
+                    groupSet.add(groupDao.getById(groupIntId));
+                }
+            }
+            Test test = testDao.getById(testId);
+            if (test != null) {
+                test.setGroups(groupSet);
+                testDao.save(test);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean assignmentTestForGroup(Integer groupId, String[] testsId) {
+        if (groupId != null && testsId != null) {
+            Set<Test> testSet = new HashSet<>();
+            for (String id : testsId) {
+                if (id != null) {
+                    int testIntId = Integer.parseInt(id);
+                    testSet.add(testDao.getById(testIntId));
+                }
+            }
+            Group group = groupDao.getById(groupId);
+            if (group != null) {
+                group.setTests(testSet);
+                groupDao.save(group);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

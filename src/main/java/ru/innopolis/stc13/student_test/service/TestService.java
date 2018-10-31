@@ -1,5 +1,6 @@
 package ru.innopolis.stc13.student_test.service;
 
+import ru.innopolis.stc13.student_test.pojo.Group;
 import ru.innopolis.stc13.student_test.pojo.Question;
 import ru.innopolis.stc13.student_test.pojo.Test;
 import ru.innopolis.stc13.student_test.pojo.User;
@@ -31,4 +32,7 @@ public interface TestService {
 
     List<Test> getTestByUserId(Integer userId);
 
-}
+    boolean assignmentGroupForTest(Integer testId, String[] groupsId);
+
+    boolean assignmentTestForGroup(Integer groupId, String[] testsId);
+    }
