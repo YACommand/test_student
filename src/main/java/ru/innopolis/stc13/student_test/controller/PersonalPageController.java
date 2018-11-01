@@ -78,7 +78,6 @@ public class PersonalPageController {
         model.addAttribute("testId", testId);
         model.addAttribute("test", testService.get(testId));
         model.addAttribute("groups", user.getGroups());
-//        model.addAttribute("groups", groupService.getAll());
         return "assignmentGroupsForTests";
     }
 
