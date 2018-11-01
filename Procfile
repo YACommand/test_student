@@ -1,1 +1,1 @@
-web: sh target/bin/webapp
+java -Dserver.port=$PORT $JAVA_OPTS -jar target/student_test-0.0.1-SNAPSHOT.jar
