@@ -10,7 +10,6 @@
                 <div class="form-check">
                     <c:forEach items="${groups}" var="group">
                         <input hidden name="testId" value="${testId}">
-                        <input hidden name="test" value="${test}">
                         <tr>
                             <td><input type="checkbox"
                                        name="groups"
