@@ -13,6 +13,7 @@ import ru.innopolis.stc13.student_test.service.GroupService;
 import ru.innopolis.stc13.student_test.service.TestService;
 import ru.innopolis.stc13.student_test.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,22 +54,15 @@ public class PersonalPageController {
     public String getStudents(@PathVariable Group group,
                               Model model) {
         List<User> userList = userService.getByGroup(group);
+        List<User> studentList = new ArrayList<>();
         for (User user : userList) {
-            if (!user.getRoles().contains(Role.STUDENT)) {
-                userList.remove(user);
+            if (user.getRoles().contains(Role.STUDENT)) {
+                studentList.add(user);
             }
         }
-        model.addAttribute("users", userList);
+        model.addAttribute("users", studentList);
         return "studentsByGroup";
     }
-
-//    @GetMapping("/teacher/groups/{group}")
-//    public String getStudents(@PathVariable Group group,
-//                              Model model) {
-//        List<User> userList = userService.getByGroup(group);
-//        model.addAttribute("users", userList);
-//        return "studentsByGroup";
-//    }
 
     @PostMapping("/teacher/assignmentGroupsForTests")
     public String assignmentGroupsForTests(@RequestParam  Integer testId,
