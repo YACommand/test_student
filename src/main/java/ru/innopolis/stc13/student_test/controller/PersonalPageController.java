@@ -71,10 +71,14 @@ public class PersonalPageController {
     }
 
     @GetMapping("/teacher/assignmentGroupsForTests/{testId}")
-    public String assignmentGroupsForTests(@PathVariable  Integer testId,
+    public String assignmentGroupsForTests(@AuthenticationPrincipal User userPrincipal, @PathVariable  Integer testId,
                                            Model model) {
+        Integer id = userPrincipal.getId();
+        User user = userService.get(id);
         model.addAttribute("testId", testId);
-        model.addAttribute("groups", groupService.getAll());
+        model.addAttribute("test", testService.get(testId));
+        model.addAttribute("groups", user.getGroups());
+//        model.addAttribute("groups", groupService.getAll());
         return "assignmentGroupsForTests";
     }
 
