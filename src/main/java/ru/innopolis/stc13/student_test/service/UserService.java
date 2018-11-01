@@ -27,4 +27,6 @@ public interface UserService {
     User getByLogin(String login);
 
     List<User> getByGroup(Group group);
+
+    boolean updatePassword(Integer id, String password);
 }

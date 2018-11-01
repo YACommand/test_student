@@ -108,6 +108,18 @@ public class UserController {
         return "redirect:/users/teachers";
     }
 
+    @GetMapping("/teachers/editPassword/{user}")
+    public String updateTeacherPassword(@PathVariable User user, Model model) {
+        model.addAttribute("user", user);
+        return "updateTeacherPassword";
+    }
+
+    @PostMapping("/teachers/editPassword")
+    public String saveTeacherPassword(@RequestParam String password, @RequestParam Integer id, Model model) {
+        userService.updatePassword(id, password);
+        return "redirect:/users/teachers";
+    }
+
     @GetMapping("/students")
     public String getStudents(Model model) {
         List<User> students = userService.getAllByRole(Role.STUDENT);
@@ -166,6 +178,18 @@ public class UserController {
         return "redirect:/users/students";
     }
 
+    @GetMapping("/students/editPassword/{user}")
+    public String updateStudentPassword(@PathVariable User user, Model model) {
+        model.addAttribute("user", user);
+        return "updateStudentPassword";
+    }
+
+    @PostMapping("/students/editPassword")
+    public String saveStudentPassword(@RequestParam String password, @RequestParam Integer id, Model model) {
+        userService.updatePassword(id, password);
+        return "redirect:/users/students";
+    }
+
     @GetMapping("/admins")
     public String getAdmins(Model model) {
         List<User> admins = userService.getAllByRole(Role.ADMIN);
@@ -219,6 +243,18 @@ public class UserController {
     @GetMapping("/admins/delete/{id}")
     public String deleteAdmin(@PathVariable Integer id) {
         userService.delete(id);
+        return "redirect:/users/admins";
+    }
+
+    @GetMapping("/admins/editPassword/{user}")
+    public String updateAdminPassword(@PathVariable User user, Model model) {
+        model.addAttribute("user", user);
+        return "updateAdminPassword";
+    }
+
+    @PostMapping("/admins/editPassword")
+    public String saveAdminPassword(@RequestParam String password, @RequestParam Integer id, Model model) {
+        userService.updatePassword(id, password);
         return "redirect:/users/admins";
     }
 

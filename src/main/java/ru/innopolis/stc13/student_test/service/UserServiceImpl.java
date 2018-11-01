@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             LOGGER.info("has been added " + user.toString());
             return userDao.save(user) != null;
         }
-        LOGGER.info("failed to add" );
+        LOGGER.info("failed to add");
         return false;
     }
 
@@ -49,19 +49,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             LOGGER.info("received " + user);
             return user;
         }
-        LOGGER.info("user extraction error" );
+        LOGGER.info("user extraction error");
         return null;
     }
 
     @Override
     public boolean update(User user) {
         if (user != null && userDao.existsById(user.getId())) {
-            String password = user.getPassword();
-            user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
-            LOGGER.info("update " + user.toString());
-            return userDao.save(user) != null;
+            User userFromDB = userDao.findById(user.getId()).orElse(null);
+            if (userFromDB != null) {
+                userFromDB.setRoles(user.getRoles());
+                userFromDB.setGroups(user.getGroups());
+                userFromDB.setId(user.getId());
+                userFromDB.setLogin(user.getLogin());
+                userFromDB.setName(user.getName());
+                userFromDB.setSpecialization(user.getSpecialization());
+                LOGGER.info("update " + user.toString());
+                return userDao.save(userFromDB) != null;
+            }
         }
-        LOGGER.info("update error" );
+        LOGGER.info("update error");
         return false;
     }
 
@@ -69,16 +76,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public boolean delete(Integer id) {
         if (userDao.existsById(id)) {
             userDao.deleteById(id);
-            LOGGER.info("user(id " + id + ") has been deleted" );
+            LOGGER.info("user(id " + id + ") has been deleted");
             return true;
         }
-        LOGGER.info("error deleting user" );
+        LOGGER.info("error deleting user");
         return false;
     }
 
     @Override
     public List<User> getAll() {
-        LOGGER.info("user list received" );
+        LOGGER.info("user list received");
         return userDao.findAll();
     }
 
@@ -93,7 +100,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getAllByRole(Role role) {
         List<User> list = userDao.getByRoles(role);
-        LOGGER.info("the requested list " + role.toString().toLowerCase() + "s" );
+        LOGGER.info("the requested list " + role.toString().toLowerCase() + "s");
         return list == null ? Collections.emptyList() : list;
     }
 
@@ -124,6 +131,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public List<User> getByGroup(Group group) {
         List<User> list = userDao.getByGroups(group);
         return list == null ? Collections.emptyList() : list;
+    }
+
+    @Override
+    public boolean updatePassword(Integer id, String password) {
+        if (id != null && password != null) {
+            User user = get(id);
+            if (user != null) {
+                user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+                return update(user);
+            }
+        }
+        return false;
     }
 
     @Override
