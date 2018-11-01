@@ -20,9 +20,6 @@ public class TestResultServiceImpl implements TestResultService {
     private TestResultDao testResultDao;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private UserDao userDao;
 
     @Override
@@ -64,7 +61,7 @@ public class TestResultServiceImpl implements TestResultService {
     }
 
     @Override
-    public int process(Map<String, String> parameters) {
+    public int process(Map<String, String> parameters, User user) {
         Test test = testService.get(Integer.parseInt(parameters.get("id")));
         int totalCount = test.getQuestions().size();
         int checkedAnswerId;
@@ -80,7 +77,7 @@ public class TestResultServiceImpl implements TestResultService {
             }
         }
         int score = (int) (rightAnswerCount / (double) totalCount * 100);
-        add(new TestResult(test, userService.get(3), score));
+        add(new TestResult(test, user, score));
         return score;
     }
 
