@@ -47,8 +47,8 @@ public class StudentController {
     }
 
     @PostMapping("/done")
-    public String process(@RequestParam Map<String, String> allRequestParams, Model model) {
-        int score = testResultService.process(allRequestParams);
+    public String process(@AuthenticationPrincipal User user, @RequestParam Map<String, String> allRequestParams, Model model) {
+        int score = testResultService.process(allRequestParams, user);
         model.addAttribute("score", score);
         return "score";
     }
