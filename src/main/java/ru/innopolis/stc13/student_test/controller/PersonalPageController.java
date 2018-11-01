@@ -6,12 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc13.student_test.pojo.Group;
+import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.Test;
 import ru.innopolis.stc13.student_test.pojo.User;
 import ru.innopolis.stc13.student_test.service.GroupService;
 import ru.innopolis.stc13.student_test.service.TestService;
 import ru.innopolis.stc13.student_test.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -52,7 +54,13 @@ public class PersonalPageController {
     public String getStudents(@PathVariable Group group,
                               Model model) {
         List<User> userList = userService.getByGroup(group);
-        model.addAttribute("users", userList);
+        List<User> studentList = new ArrayList<>();
+        for (User user : userList) {
+            if (user.getRoles().contains(Role.STUDENT)) {
+                studentList.add(user);
+            }
+        }
+        model.addAttribute("users", studentList);
         return "studentsByGroup";
     }
 

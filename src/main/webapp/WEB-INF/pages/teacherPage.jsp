@@ -14,7 +14,7 @@
 <main role="main" class="container">
     <br>
     Здравствуйте, ${user.name}!<br><br>
-    Ваша специализация: ${user.specialization}<br><br>
+    Ваша специализация: ${user.specialization.name}<br><br>
     Список ваших групп:<br><br>
 
     <table class="table table-hover text-left">
