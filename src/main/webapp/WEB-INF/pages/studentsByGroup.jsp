@@ -10,7 +10,6 @@
             <th scope="col">ID</th>
             <th scope="col">Имя</th>
             <th scope="col">Логин</th>
-            <th scope="col">Оценка</th>
         </tr>
         </thead>
         <c:forEach items="${users}" var="user">
@@ -19,7 +18,6 @@
             <th scope="row">${user.id}</th>
             <td>${user.name}</td>
             <td>${user.login}</td>
-            <td>неуд</td>
         </tr>
         </c:forEach>
         </tbody>

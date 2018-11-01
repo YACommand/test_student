@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc13.student_test.pojo.Group;
+import ru.innopolis.stc13.student_test.pojo.Role;
 import ru.innopolis.stc13.student_test.pojo.Test;
 import ru.innopolis.stc13.student_test.pojo.User;
 import ru.innopolis.stc13.student_test.service.GroupService;
@@ -52,9 +53,22 @@ public class PersonalPageController {
     public String getStudents(@PathVariable Group group,
                               Model model) {
         List<User> userList = userService.getByGroup(group);
+        for (User user : userList) {
+            if (!user.getRoles().contains(Role.STUDENT)) {
+                userList.remove(user);
+            }
+        }
         model.addAttribute("users", userList);
         return "studentsByGroup";
     }
+
+//    @GetMapping("/teacher/groups/{group}")
+//    public String getStudents(@PathVariable Group group,
+//                              Model model) {
+//        List<User> userList = userService.getByGroup(group);
+//        model.addAttribute("users", userList);
+//        return "studentsByGroup";
+//    }
 
     @PostMapping("/teacher/assignmentGroupsForTests")
     public String assignmentGroupsForTests(@RequestParam  Integer testId,
