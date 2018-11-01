@@ -9,6 +9,7 @@
             <li><a href="/tests/all">Tests</a></li>
             <li><a href="/tests/results">Results</a></li>
             <li><a href="/users/students">Students</a></li>
+            <li><a href="/teacher">Teacher's office</a></li>
         </security:authorize>
         <security:authorize access="hasAuthority('ADMIN')">
             <li><a href="/users/students">Students</a></li>

@@ -43,6 +43,8 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/users/students">Студенты</a>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/teacher">Личный кабинет учителя</a>
+                            <div class="dropdown-divider"></div>
                         </security:authorize>
                         <security:authorize access="hasAuthority('ADMIN')">
                             <a class="dropdown-item" href="/users/students">Студенты</a>
